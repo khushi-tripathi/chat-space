@@ -1,9 +1,15 @@
+// require("./database-connection/database-connectivity.js");
+// import {BodyParser} from "body-parser";
+const body = require("body-parser");
 const express = require("express");
 const app = express();
 const PORT = 4000;
 
+app.use(body.json());
+
 const http = require("http").Server(app);
 const cors = require("cors");
+const databaseFunctions = require("./database-connection/database-connectivity.js");
 
 app.use(cors());
 
@@ -33,6 +39,15 @@ app.get("/api", (req, res) => {
   });
 });
 
+app.post("/api/sign-up", async (req, res) => {
+  console.log(req.body);
+  databaseFunctions.addUserDetails(req.body);
+  const data = { message: "Data Saved Successfully!!" };
+  res.json(data);
+});
+
 http.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+console.log(databaseFunctions.add());
