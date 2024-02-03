@@ -1,35 +1,81 @@
-@import 'variable.scss' ;
+@import "variable.scss";
 
 .sign-up {
-    background-image: url("../../src/Media/blue-wall.jpg");
-    background-size: cover;
-    background-color: rgb(0, 0, 0, 0.8) !important;
-    width: 100vw;
-    height: 100vh;
+  background-image: url("../../src/Media/blue-wall.jpg");
+  background-size: cover;
+  background-color: rgb(0, 0, 0, 0.8) !important;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .sign-up-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    color: white;
     align-items: center;
-    .sign-up-content {
-      display: flex;
-      justify-content: space-evenly;
+    background-color: $primary-color;
+    border-radius: 0.5em;
+    flex-direction: column;
+    width: 40vw;
+    height: 60vh;
+
+    .sign-up-input {
+      width: 70%;
+    }
+    .sign-up-button {
+      background-color: $secondary-color;
       color: white;
-      align-items: center;
-      background-color: $primary-color;
-      border-radius: 0.5em;
-      flex-direction: column;
-      width: 40vw;
-      height: 60vh;
-  
-      .sign-up-input {
-        width: 70%;
-      }
-      .sign-up-button{
-        background-color: $secondary-color;
-        color: white;
-        border: 2px solid $border;
-        border-radius: 4px;
-        font-weight: 600;
-      }
+      border: 2px solid $border;
+      border-radius: 4px;
+      font-weight: 600;
     }
   }
-  
+  .next-page {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    background-color: rgba(167, 218, 249, 0.5);
+    width: 75vw;
+    height: 75vh;
+    border-radius: 4px;
+    .next-header {
+      padding: 2% 2%;
+
+      .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+        background-color: rgb(147, 212, 240);
+      }
+      .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+        background-color: rgb(73, 186, 218);
+      }
+      .ant-steps-item-wait .ant-steps-item-container .ant-steps-item-icon {
+        background-color: rgb(33, 152, 185);
+      }
+      .ant-steps-item-active {
+        .ant-steps-item-container .ant-steps-item-icon {
+          background-color: rgb(42, 189, 252);
+          border: rgb(0, 126, 168);
+        }
+      }
+      .ant-steps-item {
+        .ant-steps-item-container .ant-steps-item-icon .ant-steps-icon,
+        .ant-steps-item-content .ant-steps-item-title {
+          color: black;
+        }
+      }
+    }
+    .next-content {
+      max-width: 100%;
+      overflow-y: scroll;
+      padding: 2%;
+      flex-grow: 2;
+      div {
+        .sign-up-radio {
+        }
+      }
+    }
+    .next-footer {
+      padding: 2%;
+    }
+  }
+}
