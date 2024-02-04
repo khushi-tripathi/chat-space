@@ -1,0 +1,18 @@
+.profile {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    .name {
+    }
+    .photo {
+        background-image: url("../Media/blue-wall.jpg");
+        background-size: cover;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: aqua;
+        padding: 4%;
+        border-radius: 50%;
+    }
+}
