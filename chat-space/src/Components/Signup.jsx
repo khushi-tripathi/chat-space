@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/sign-up.scss";
 import { UserOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
@@ -6,9 +6,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import AfterSignUp from "./AfterSignUp";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const userDetails = useSelector((state) => state.registeredUserDetails);
+  // const { count, user } = useSelector(
+  //   (state) => ({
+  //     count: state.counter.count,
+  //     user: state.user,
+  //   })
+  // );
   const [nextPage, setNextPageData] = useState({ flag: false });
   const [userData, setUserData] = useState({
     firstName: "",
@@ -16,6 +24,11 @@ const Signup = () => {
     email: "",
     mobile: "",
   });
+
+  useEffect(() => {
+    console.log(userDetails);
+  }, []);
+
   const onChangeData = (type, value) => {
     setUserData({
       ...userData,
@@ -24,22 +37,44 @@ const Signup = () => {
     console.log("userData", userData);
   };
   const submitDetails = () => {
-    setNextPageData({
-      flag: true,
-    });
-    navigate("/register-in-space");
     // axios
     //   .post("http://localhost:4000/api/sign-up", userData)
     //   .then((response) => {
     //     console.log("Khushi", response);
-    //     // navigate("/chat");
-    //     setNextPageData({
-    //       flag: true,
-    //     });
+    //     // setNextPageData({
+    //     //   flag: true,
+    //     // });
+    //     navigate("/register-in-space");
     //   })
     //   .catch((error) => {
     //     console.error(error);
     //   });
+  };
+  const registeredUserDetails = () => {
+    axios
+      .get("http://localhost:4000/api/fetch-user-details")
+      .then((response) => {
+        console.log("Khushi", response);
+        // setNextPageData({
+        //   flag: true,
+        // });
+
+        // navigate("/register-in-space");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const validationCheck = () => {
+    registeredUserDetails();
+    // if (
+    //   userData?.firstName?.length &&
+    //   userData?.lastName?.length &&
+    //   userData?.mobile?.length &&
+    //   userData?.email?.length &&
+    //   userData?.email.includes("@")
+    // )
+    // submitDetails();
   };
   return (
     <>
@@ -83,7 +118,7 @@ const Signup = () => {
           <Button
             className="basic-properties sign-up-button"
             type="submit"
-            onClick={submitDetails}
+            onClick={validationCheck}
           >
             GOOD TO GO!!
           </Button>

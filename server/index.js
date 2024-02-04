@@ -39,8 +39,12 @@ app.get("/api", (req, res) => {
   });
 });
 
+app.get("/api/fetch-user-details", async (req, res) => {
+  databaseFunctions.fetchUserDetails(res);
+});
+
 app.post("/api/sign-up", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   databaseFunctions.addUserDetails(req.body);
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);
@@ -50,4 +54,4 @@ http.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 
-console.log(databaseFunctions.add());
+// console.log(databaseFunctions.add());
