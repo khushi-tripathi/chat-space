@@ -1,8 +1,6 @@
 @import "./variable.scss";
 
 .chat-screen {
-    // background-color: bisque;
-
     .ant-tabs {
         .ant-tabs-content-holder {
             height: 100vh;
@@ -10,16 +8,12 @@
         }
         .ant-tabs-nav {
             width: 20%;
-
             .ant-tabs-nav-wrap {
                 height: 100vh;
                 .ant-tabs-nav-list .ant-tabs-tab {
                     padding: 5% 5%;
                     .ant-tabs-tab-btn {
                         width: 100%;
-                        // .profile{
-
-                        // }
                     }
                 }
             }

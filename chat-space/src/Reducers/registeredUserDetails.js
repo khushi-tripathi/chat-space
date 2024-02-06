@@ -5,8 +5,6 @@ import {
 
 const initialState = {
   userDetails: [],
-  loading: true,
-  error: false,
 };
 function registeredUserDetails(state = initialState, action) {
   switch (action.type) {
@@ -16,8 +14,6 @@ function registeredUserDetails(state = initialState, action) {
       return {
         ...state,
         userDetails: action?.payload?.userDetails,
-        error: false,
-        loading: false,
       };
     default:
       return state;

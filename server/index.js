@@ -44,7 +44,6 @@ app.get("/api/fetch-user-details", async (req, res) => {
 });
 
 app.post("/api/sign-up", async (req, res) => {
-  // console.log(req.body);
   databaseFunctions.addUserDetails(req.body);
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);

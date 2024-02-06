@@ -1,6 +1,3 @@
-// import React from "react";
-// import "../styles/after-sign-up-pop-up.scss";
-
 import React, { useState } from "react";
 import { Button, message, Steps } from "antd";
 import About from "./About";

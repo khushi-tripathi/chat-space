@@ -3,7 +3,7 @@ import "../styles/chat.scss";
 import { socketEmit } from "./socket";
 import { Tabs } from "antd";
 
-import { AndroidOutlined, AppleOutlined } from "@ant-design/icons";
+import { AndroidOutlined } from "@ant-design/icons";
 import Profile from "./Profile";
 
 const Chat = () => {
@@ -31,12 +31,12 @@ const Chat = () => {
         })}
       />
 
-      {/* <input ref={inputRef} />
+      <input ref={inputRef} />
       <button
         onClick={() => socketEmit("chat", { message: inputRef.current.value })}
       >
         Chat
-      </button> */}
+      </button>
     </div>
   );
 };

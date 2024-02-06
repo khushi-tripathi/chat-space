@@ -6,8 +6,6 @@ export const registeredUserDetails = () => {
     axios
       .get("http://localhost:4000/api/fetch-user-details")
       .then((response) => {
-        console.log("Khushi", response);
-        debugger;
         dispatch({
           type: FETCH_USER_DETAILS,
           payload: {

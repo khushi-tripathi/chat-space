@@ -30,8 +30,6 @@ const addUserDetails = (data) => {
 
   // SQL ::  INSERT INTO user_details(first_name, last_name, email, mobile) VALUES('Khushi', 'Tripathi', 'kkkk12345678' , '123456789' )
 
-  console.log("SQL :: ", sql);
-
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");

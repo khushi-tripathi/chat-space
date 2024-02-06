@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Radio, Space } from "antd";
+import { Radio, Space } from "antd";
 
 export default function CompleteSignUp() {
   const [value, setValue] = useState(1);
