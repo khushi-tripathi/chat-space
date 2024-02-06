@@ -1,10 +1,10 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 
 var con = mysql.createConnection({
-  host: "sql6.freesqldatabase.com",
-  user: "sql6680418",
-  password: "yF98QDqxH5",
-  database: "sql6680418",
+  host: "127.0.0.1",
+  user: "root",
+  password: "root",
+  database: "chat",
 });
 
 con.connect(function (err) {

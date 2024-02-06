@@ -4,18 +4,18 @@ import {
 } from "../Actions/actionConstant";
 
 const initialState = {
-  usersList: [],
+  userDetails: [],
   loading: true,
   error: false,
 };
 function registeredUserDetails(state = initialState, action) {
   switch (action.type) {
     case SET_BY_DEFAULT_USER_DETAILS:
-      return { ...state, usersList: [], error: false, loading: true };
+      return { ...state, userDetails: [] };
     case FETCH_USER_DETAILS:
       return {
         ...state,
-        usersList: action.payload,
+        userDetails: action?.payload?.userDetails,
         error: false,
         loading: false,
       };
