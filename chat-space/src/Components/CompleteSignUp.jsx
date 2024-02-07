@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import { Radio, Space } from "antd";
+import { useDispatch } from "react-redux";
+import { SET_RADIO_BUTTON_DATA } from "../Actions/actionConstant";
 
 export default function CompleteSignUp() {
   const [value, setValue] = useState(1);
+  const dispatch = useDispatch();
   const onChange = (e) => {
+    debugger;
+    if (e.target.value === 1) {
+      dispatch({
+        type: SET_RADIO_BUTTON_DATA,
+        payload: { isDisplaySelected: true },
+      });
+    } else {
+      dispatch({
+        type: SET_RADIO_BUTTON_DATA,
+        payload: { isDisplaySelected: false },
+      });
+    }
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
