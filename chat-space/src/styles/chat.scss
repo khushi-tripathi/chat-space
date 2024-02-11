@@ -1,10 +1,21 @@
 @import "./variable.scss";
 
 .chat-screen {
+    height: 96vh;
     .ant-tabs {
         .ant-tabs-content-holder {
             height: 100vh;
-            overflow-y: scroll;
+            // overflow-y: scroll;
+            .ant-tabs-content {
+                height: 100%;
+                .ant-tabs-tabpane {
+                    div {
+                        height: 100%;
+                        .ChatCard {
+                        }
+                    }
+                }
+            }
         }
         .ant-tabs-nav {
             width: 20%;
@@ -22,4 +33,161 @@
             }
         }
     }
+}
+
+.chatHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .chatTxt1 {
+        color: #00ce22;
+    }
+
+    .chatTxt2 {
+        color: #ff0000;
+    }
+}
+
+.ChatCard {
+    height: 100%;
+    // background-color: #707070;
+    .ant-card-body {
+        overflow-y: hidden;
+        padding: 0px !important;
+        height: inherit;
+        border-radius: 4px;
+
+        .chatBox {
+            height: 100%;
+
+            .chatContainer {
+                min-height: 74vh;
+                margin-top: 1px;
+                overflow-y: scroll;
+                max-height: 75vh;
+
+                .sentMsg {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                }
+
+                .rcdMsg {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                }
+
+                .rcdMsg .newMessage {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .messageBox {
+                    padding: 0.5vmax;
+                    margin-left: 0.5vmax;
+                    margin-right: 0.5vmax;
+                    margin-top: 0.5vmax;
+                    margin-bottom: 0.2vmax;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
+                    border-radius: 0.5vmax;
+                    max-width: 60%;
+                    display: block;
+                    clear: both;
+                }
+
+                .right {
+                    background-color: #e4f0ff;
+                    color: #707070;
+                }
+
+                .left {
+                    float: left;
+                    text-align: left;
+                    color: #707070;
+                    background-color: #eeeeee;
+                }
+
+                .time {
+                    padding-left: 0.5vmax;
+                    padding-right: 0.5vmax;
+                    margin-left: 0.5vmax;
+                    margin-right: 0.5vmax;
+                    margin-bottom: 0.5vmax;
+                    margin-top: 0%;
+                    font-size: 10px;
+                    display: block;
+                    clear: both;
+                    background-color: transparent;
+                }
+            }
+
+            .ant-row {
+                border-top: solid 1px grey;
+                background-color: #fff;
+
+                .onChangeInputBox {
+                    // background-color: $chatInputBox;
+                }
+
+                .inputBox {
+                    // @include flexbox(initial, initial);
+
+                    input {
+                        border: none;
+
+                        &:focus,
+                        &:active {
+                            border: none;
+                            box-shadow: none;
+                        }
+                    }
+
+                    .sendBtn {
+                        background-color: transparent;
+                        border: none;
+                        width: 30px;
+                        height: 30px;
+                        padding: 0;
+
+                        span.anticon {
+                            width: 24px;
+                            height: 24px;
+                            // background-color: $regularGrey;
+                            border-radius: 50%;
+                            // @include flexbox(initial, center);
+                            // margin-bottom: $smallGutter;
+                        }
+
+                        &:hover {
+                            transform: none;
+                        }
+                    }
+
+                    &.onChangeInputBox {
+                        .sendBtn {
+                            span.anticon {
+                                background-color: red;
+                            }
+                        }
+                    }
+                }
+            }
+
+            button.react-scroll-to-bottom--css-zsilb-1tj0vk3 {
+                // display: none;
+            }
+        }
+    }
+}
+
+.checking {
+    min-height: 74vh;
+    margin-top: 1px;
+    // overflow-y: scroll;
+    max-height: 75vh;
 }

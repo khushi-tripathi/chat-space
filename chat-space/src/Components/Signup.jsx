@@ -89,50 +89,52 @@ const Signup = () => {
 
           <Form
             name="basic"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="on"
           >
-            {pageType?.page === "signUp" && (
-              <Form.Item
-                label="First Name"
-                name="firstname"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your first name!",
-                  },
-                ]}
-              >
-                <Input
-                  className="sign-up-input"
-                  placeholder="First Name"
-                  onChange={(event) => {
-                    onChangeData("firstName", event?.target?.value);
-                  }}
-                />
-              </Form.Item>
-            )}
-            {pageType?.page === "signUp" && (
-              <Form.Item
-                label="Last Name"
-                name="lastname"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your last name!",
-                  },
-                ]}
-              >
-                <Input
-                  className="sign-up-input"
-                  placeholder="Last Name"
-                  onChange={(event) => {
-                    onChangeData("lastName", event?.target?.value);
-                  }}
-                />
-              </Form.Item>
-            )}
+            <Form.Item
+              label="First Name"
+              name="firstname"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your first name!",
+                },
+              ]}
+            >
+              <Input
+                className="sign-up-input"
+                placeholder="First Name"
+                onChange={(event) => {
+                  onChangeData("firstName", event?.target?.value);
+                }}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Last Name"
+              name="lastname"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your last name!",
+                },
+              ]}
+            >
+              <Input
+                className="sign-up-input"
+                placeholder="Last Name"
+                onChange={(event) => {
+                  onChangeData("lastName", event?.target?.value);
+                }}
+              />
+            </Form.Item>
 
             <Form.Item
               label="Email"
@@ -178,20 +180,18 @@ const Signup = () => {
               </Form.Item>
             )}
 
-            {pageType?.page === "login" && (
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password className="sign-up-input" />
-              </Form.Item>
-            )}
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password className="sign-up-input" />
+            </Form.Item>
 
             <Form.Item
               wrapperCol={{

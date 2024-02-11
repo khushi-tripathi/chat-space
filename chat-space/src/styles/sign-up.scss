@@ -20,8 +20,15 @@
     width: 40vw;
     height: 60vh;
 
+    .ant-form {
+      width: 95%;
+      .ant-form-item .ant-form-item-row .ant-form-item-label .ant-form-item-required {
+        margin-right: 15%;
+      }
+    }
+
     .sign-up-input {
-      width: 70%;
+      width: 100%;
     }
     .sign-up-button {
       background-color: $secondary-color;

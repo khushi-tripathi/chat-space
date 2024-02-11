@@ -48,6 +48,11 @@ app.post("/api/sign-up", async (req, res) => {
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);
 });
+app.post("/api/login", async (req, res) => {
+  databaseFunctions.addUserDetails(req.body);
+  const data = { message: "Data Saved Successfully!!" };
+  res.json(data);
+});
 
 http.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
