@@ -1,67 +1,163 @@
-import React from "react";
-import { useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/chat.scss";
 import { socketEmit } from "./socket";
-import AgentNavigator from "./AgentNavigatorChat";
-import { Card } from "antd";
+import { Card, Input, Button, Row, Col } from "antd";
+import ChatMessages from "./ChatMessages";
+import ScrollToBottom from "react-scroll-to-bottom";
 
-export default function Chat({ data }) {
-  const inputRef = useRef();
-  return (
-    // style={{ backgroundColor: "black", color: "while" }}
-    <div style={{ height: "100%" }}>
-      {/* <h1>{data}</h1> */}
-      {/* <input ref={inputRef} />
+let createSession = false;
+{
+  /* <h1>{data}</h1> */
+}
+{
+  /* <input ref={inputRef} />
       <button
         onClick={() => socketEmit("chat", { message: inputRef.current.value })}
       >
         Chat
-      </button> */}
+      </button> */
+}
 
-      {/* <Card title={"Connected"} className="ChatCard">
-        <ScrollToBottom className="checking">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem atque
-          blanditiis hic, esse vero temporibus sequi doloribus incidunt nulla
-          sit perspiciatis eligendi in eveniet saepe repellat! Earum aut
-          deleniti officia. Lorem ipsum dolor sit, amet consectetur adipisicing
-          elit. Velit dignissimos perspiciatis quasi, provident expedita magni
-          facilis laudantium minima, porro eius aperiam totam at facere nihil
-          maiores blanditiis placeat quos dolorum. Laborum in sunt, ex nam error
-          quos porro quis commodi autem. Vero molestias, inventore, ea
-          voluptatem hic deleniti totam ratione voluptates earum quos labore
-          soluta odit praesentium necessitatibus accusamus repellat. Laudantium
-          aperiam, at asperiores odio commodi, provident sunt iste mollitia, eos
-          veritatis adipisci dolorem officiis rem itaque dicta assumenda eius
-          nihil perspiciatis laborum facere quia minima ducimus beatae saepe?
-          Eos? Distinctio, dicta enim! Animi pariatur tempora fugit quam
-          similique quibusdam voluptatem dolorum soluta quidem suscipit at,
-          veritatis provident porro quae et aut qui impedit vero sapiente
-          molestiae consequatur! Enim, culpa? Assumenda recusandae dolorum, odit
-          magni similique beatae atque aperiam suscipit necessitatibus dolore
-          eum, cum impedit deserunt tempora deleniti rem nisi ipsum dolores
-          error nesciunt libero animi veritatis enim! Unde, mollitia? Temporibus
-          alias doloremque adipisci fugiat minus quisquam impedit quis assumenda
-          iste quasi incidunt provident explicabo maiores rerum, repudiandae
-          consequatur nihil consectetur doloribus enim ipsum officiis?
-          Blanditiis hic perferendis itaque amet? Harum repellendus nostrum vel
-          asperiores perspiciatis fugit voluptas corporis esse dolor sed
-          consequatur, numquam delectus necessitatibus voluptate quos. Sequi
-          neque dolores autem totam consequuntur labore veniam laboriosam
-          officia et fugit. Ad, incidunt porro. Asperiores tempora atque
-          veritatis esse quia facilis exercitationem, sed amet ducimus provident
-          nulla suscipit, eos natus nemo eum dolores neque recusandae laboriosam
-          ipsam corrupti ratione quam? Assumenda! Cumque architecto eos fugiat
-          incidunt cum quas aliquam, eum, nihil cupiditate perspiciatis veniam
-          consequatur. Sed ipsum nihil perspiciatis, a facere obcaecati non!
-          Inventore vero, similique voluptatem voluptate reprehenderit incidunt
-          alias. Sint corporis doloribus excepturi assumenda iusto, hic pariatur
-          iste neque obcaecati voluptates voluptatum eos veniam perferendis
-          reiciendis nemo ullam culpa earum, quod aperiam necessitatibus minima
-          eum. Recusandae accusantium quos quaerat.
+export default function Chat({}) {
+  const [data, setData] = useState([
+    {
+      index: 0,
+      content: "Khushi",
+    },
+  ]);
+  const [chatData, setChatData] = useState({
+    agentID: "",
+    extensionNo: "",
+    name: "",
+    newMessage: "",
+    inputClasses: "input",
+    inputColClasses: "inputBox",
+    read: 0,
+  });
+  const [chatMessage, setChatMessage] = useState({});
+
+  //   let msg = {{} , {}}
+  //   const [messageList , setMessage] = useState({
+  //     {
+  //         key : 1 ,
+  //         Message : "Khushi TRipathi" ,
+  //         name : "KT" ,
+  //       } , {}}
+  //    )
+  const emitChat = () => {
+    // emitChatSocket("chat", {
+    //   data: {
+    //     // extensionNo: extensionNo,
+    //     // agentId: agentID,
+    //     // chatSessionId: props.eventInvites?.id,
+    //     message: chatData?.newMessage,
+    //     agentNameChat: false,
+    //     forPrimaryAgent: false,
+    //     correlationId:
+    //       store.getState()?.agentDetails?.agentDetails?.agentSessionId,
+    //     placeId: store.getState()?.session?.user?.params?.placeId || "",
+    //   },
+    // });
+    setChatData({
+      ...chatData,
+      newMessage: "",
+      inputColClasses: "inputBox",
+      inputClasses: "input",
+      read: Object.values({}).length,
+    });
+  };
+  const send = () => {
+    if (chatData?.newMessage.length > 0) {
+      const payload = {};
+      const id = new Date().toISOString();
+      payload[id] = {
+        id: id,
+        message: chatData?.newMessage,
+        time: new Date().toLocaleTimeString("en-US", { hour12: true }),
+        sender: "extensionNo",
+      };
+      setChatMessage({ ...chatMessage, ...payload });
+
+      if (!createSession) {
+        setTimeout(emitChat, 1000);
+        createSession = true;
+      } else {
+        emitChat();
+      }
+    }
+  };
+  const compareMessageText = (id) => {
+    if (id === "extensionNo") {
+      // setChatData({
+      //   ...chatData,
+      //   read: Object.values({
+      //     //jitne mesage ho uska cout aaega yha pr
+      //   }).length,
+      // });
+    }
+    return true;
+  };
+  return (
+    <Card title={"Connected"} className="ChatCard">
+      <div className="chatBox">
+        <ScrollToBottom
+          className="chatContainer"
+          initialScrollBehavior="smooth"
+          mode="bottom"
+        >
+          {Object.values(chatMessage).map((item, i) => (
+            <ChatMessages
+              key={i}
+              message={item?.message}
+              classs={item?.sender === "extensionNo" ? "right" : "left"}
+              time={item?.time}
+              lastMessage={
+                i === chatData?.read && compareMessageText(item?.sender)
+                  ? true
+                  : false
+              }
+            />
+          ))}
         </ScrollToBottom>
-      </Card> */}
+        <Row className="messageInputContainer">
+          <Col span={24} className={chatData?.inputColClasses}>
+            <Input
+              title="Type Message"
+              onKeyPress={(event) => (event.key === "Enter" ? send() : null)}
+              className={chatData.inputClasses}
+              onClick={() => {
+                setChatData({ ...chatData, read: Object.values({}).length });
+              }}
+              value={chatData?.newMessage}
+              onChange={(e) => {
+                setChatData({ ...chatData, newMessage: e.target.value }, () => {
+                  if (chatData?.newMessage.trim().length > 0) {
+                    setChatData({
+                      ...chatData,
+                      inputClasses: "input onChangeInputBox",
+                      inputColClasses: "inputBox onChangeInputBox",
+                    });
+                  } else {
+                    setChatData({
+                      ...chatData,
+                      inputColClasses: "inputBox",
+                      inputClasses: "input",
+                    });
+                  }
+                });
+              }}
+            />
 
-      <AgentNavigator />
-    </div>
+            <Button
+              title="Send Message Button"
+              onClick={send}
+              className="sendBtn"
+            >
+              Send
+            </Button>
+          </Col>
+        </Row>
+      </div>
+    </Card>
   );
 }
