@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Card, Input, Button, Row, Col } from "antd";
 import ChatMessages from "./ChatMessages";
-// import ReactScrollToBottom from "react-scroll-to-bottom";
-import ReactScrollToBottom from "react-scroll-to-bottom";
 import "../styles/chat.scss";
-import ScrollToBottom from "react-scroll-to-bottom";
-import { useScrollToEnd } from "react-scroll-to-bottom";
 
 // import { SentIcon } from "./ChatHelper";
 // import { store } from "../../../../store";
@@ -93,11 +89,7 @@ export const AgentNavigator = () => {
 
           {/* ScrollToEnd */}
 
-          <ScrollToBottom
-            className="chatContainer"
-            initialScrollBehavior="smooth"
-            // atEnd={true}
-          >
+          <>
             {Object.values(chatMessage).map((item, i) => (
               <ChatMessages
                 key={i}
@@ -112,7 +104,7 @@ export const AgentNavigator = () => {
               />
               // <div>"Khushi"</div>
             ))}
-          </ScrollToBottom>
+          </>
           <Row className="messageInputContainer">
             <Col span={24} className={chatData?.inputColClasses}>
               <Input

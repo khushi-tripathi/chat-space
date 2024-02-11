@@ -4,7 +4,6 @@ import "../styles/chat.scss";
 import { socketEmit } from "./socket";
 import AgentNavigator from "./AgentNavigatorChat";
 import { Card } from "antd";
-import ScrollToBottom from "react-scroll-to-bottom";
 
 export default function Chat({ data }) {
   const inputRef = useRef();
