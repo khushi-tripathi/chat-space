@@ -14,6 +14,10 @@ socket.on("chat", (data) => {
   console.log(data);
 });
 
+socket.on("hello", (data) => {
+  console.log(data);
+});
+
 // export const disconnectSocket = () => {
 //   socket.disconnect();
 // };

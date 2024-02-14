@@ -23,9 +23,11 @@ socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   console.log("Socket Connected");
 
+  // socket.emit("chat", { ...data, req: "global" });
   socket.on("chat", (data) => {
     console.log("chattt", data);
-    socket.emit("chat", { ...data, req: "For Everyone" });
+    // socketIO.emit("chat", { ...data, req: "For Everyone" });
+    socket.broadcast.emit("chat", { ...data, otherUser: true });
   });
 
   socket.on("disconnect", () => {

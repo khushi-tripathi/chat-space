@@ -9,7 +9,7 @@ const initialState = {
   isDisplaySelected: true,
 };
 function registeredUserDetails(state = initialState, action) {
-  switch (action.type) {
+  switch (action?.type) {
     case SET_BY_DEFAULT_USER_DETAILS:
       return { ...state, userDetails: [] };
     case SET_RADIO_BUTTON_DATA:

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FETCH_USER_DETAILS } from "./actionConstant";
 
-export const registeredUserDetails = () => {
+const registeredUserDetails = () => {
   return function (dispatch) {
     axios
       .get("http://localhost:4000/api/fetch-user-details")
@@ -18,3 +18,5 @@ export const registeredUserDetails = () => {
       });
   };
 };
+
+export default registeredUserDetails;

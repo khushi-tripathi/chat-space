@@ -5,42 +5,63 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registeredUserDetails } from "../Actions/registeredUserDetails";
 import "../styles/sign-up.scss";
+import { validationCheck } from "../hoc/generalFunctions";
+import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validationError, setValidationError] = useState({ status: false });
-  // const [pageType, setPageType] = useState({ page: "signUp" });
+  const userDetails = useSelector((state) => state.registeredUserDetails);
   const [loginData, setLoginData] = useState({
     email: "",
-    pswd: "",
+    password: "",
   });
-  useEffect(() => {
-    dispatch(registeredUserDetails());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const onChangeData = (type, value) => {
+    if (type === "email") {
+      setValidationError({
+        status: false,
+        isNotExistingEmail: false,
+      });
+    }
     setLoginData({
       ...loginData,
       [type]: value,
     });
   };
 
-  const submitDetails = () => {
-    axios
-      .post("http://localhost:4000/api/login", { ...loginData })
-      .then((response) => {
-        navigate("/chat");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const login = () => {
+    dispatch(
+      {
+        type: SET_LOGIN_CREDENTIALS,
+        payload: loginData,
+      },
+      navigate("/chat")
+    );
+  };
+
+  const isInValid = () => {
+    setValidationError({
+      status: true,
+    });
+  };
+  const isNotExistingEmail = () => {
+    setValidationError({
+      isNotExistingEmail: true,
+    });
   };
 
   const onFinish = (values) => {
-    submitDetails();
+    // login();
+    validationCheck(
+      userDetails,
+      loginData,
+      isNotExistingEmail,
+      login,
+      isInValid
+    );
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -82,8 +103,8 @@ export default function Login() {
               />
             </Form.Item>
 
-            {validationError?.isExistingEmail && (
-              <p>Already occupied email. Please enter another!</p>
+            {validationError?.isNotExistingEmail && (
+              <p>This email is not exist! Try again...</p>
             )}
             {validationError?.status && <p>Please provide valid email!</p>}
 

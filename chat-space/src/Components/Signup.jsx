@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registeredUserDetails } from "../Actions/registeredUserDetails";
+import { validationCheck } from "../hoc/generalFunctions";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -19,10 +19,7 @@ const Signup = () => {
     email: "",
     mobile: "",
   });
-  useEffect(() => {
-    dispatch(registeredUserDetails());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const onChangeData = (type, value) => {
     if (type === "email") {
       setValidationError({
@@ -47,24 +44,40 @@ const Signup = () => {
       });
   };
 
-  const validationCheck = () => {
-    const existingEmail = userDetails?.userDetails?.filter(
-      (e, i) => e.email === userData?.email
-    );
-    if (userData?.email.includes("@") && !existingEmail?.length) {
-      submitDetails();
-    } else if (existingEmail?.length) {
-      setValidationError({
-        isExistingEmail: true,
-      });
-    } else {
-      setValidationError({
-        status: true,
-      });
-    }
+  // const validationCheck = () => {
+  //   const existingEmail = userDetails?.userDetails?.filter(
+  //     (e, i) => e.email === userData?.email
+  //   );
+  //   if (userData?.email.includes("@") && !existingEmail?.length) {
+  //     submitDetails();
+  //   } else if (existingEmail?.length) {
+  //     setValidationError({
+  //       isExistingEmail: true,
+  //     });
+  //   } else {
+  //     setValidationError({
+  //       status: true,
+  //     });
+  //   }
+  // };
+  const isInValid = () => {
+    setValidationError({
+      status: true,
+    });
+  };
+  const isExistingEmail = () => {
+    setValidationError({
+      isExistingEmail: true,
+    });
   };
   const onFinish = (values) => {
-    validationCheck();
+    validationCheck(
+      userDetails,
+      userData,
+      submitDetails,
+      isExistingEmail,
+      isInValid
+    );
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

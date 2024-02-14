@@ -4,27 +4,18 @@ import { socketEmit } from "./socket";
 import { Card, Input, Button, Row, Col } from "antd";
 import ChatMessages from "./ChatMessages";
 import ScrollToBottom from "react-scroll-to-bottom";
-
-let createSession = false;
-{
-  /* <h1>{data}</h1> */
-}
-{
-  /* <input ref={inputRef} />
-      <button
-        onClick={() => socketEmit("chat", { message: inputRef.current.value })}
-      >
-        Chat
-      </button> */
-}
-
+import { useSelector } from "react-redux";
 export default function Chat({}) {
+  const inputRef = useRef();
+  const loginData = useSelector((state) => state.loginDetails);
+
   const [data, setData] = useState([
     {
       index: 0,
       content: "Khushi",
     },
   ]);
+
   const [chatData, setChatData] = useState({
     agentID: "",
     extensionNo: "",
@@ -36,37 +27,12 @@ export default function Chat({}) {
   });
   const [chatMessage, setChatMessage] = useState({});
 
-  //   let msg = {{} , {}}
-  //   const [messageList , setMessage] = useState({
-  //     {
-  //         key : 1 ,
-  //         Message : "Khushi TRipathi" ,
-  //         name : "KT" ,
-  //       } , {}}
-  //    )
-  const emitChat = () => {
-    // emitChatSocket("chat", {
-    //   data: {
-    //     // extensionNo: extensionNo,
-    //     // agentId: agentID,
-    //     // chatSessionId: props.eventInvites?.id,
-    //     message: chatData?.newMessage,
-    //     agentNameChat: false,
-    //     forPrimaryAgent: false,
-    //     correlationId:
-    //       store.getState()?.agentDetails?.agentDetails?.agentSessionId,
-    //     placeId: store.getState()?.session?.user?.params?.placeId || "",
-    //   },
-    // });
-    setChatData({
-      ...chatData,
-      newMessage: "",
-      inputColClasses: "inputBox",
-      inputClasses: "input",
-      read: Object.values({}).length,
-    });
-  };
   const send = () => {
+    debugger;
+    socketEmit("chat", {
+      message: inputRef?.current?.input?.value,
+      email: loginData?.credentials?.email,
+    });
     if (chatData?.newMessage.length > 0) {
       const payload = {};
       const id = new Date().toISOString();
@@ -74,20 +40,13 @@ export default function Chat({}) {
         id: id,
         message: chatData?.newMessage,
         time: new Date().toLocaleTimeString("en-US", { hour12: true }),
-        sender: "extensionNo",
+        sender: loginData?.credentials?.email,
       };
       setChatMessage({ ...chatMessage, ...payload });
-
-      if (!createSession) {
-        setTimeout(emitChat, 1000);
-        createSession = true;
-      } else {
-        emitChat();
-      }
     }
   };
   const compareMessageText = (id) => {
-    if (id === "extensionNo") {
+    if (id === loginData?.credentials?.email) {
       // setChatData({
       //   ...chatData,
       //   read: Object.values({
@@ -109,7 +68,11 @@ export default function Chat({}) {
             <ChatMessages
               key={i}
               message={item?.message}
-              classs={item?.sender === "extensionNo" ? "right" : "left"}
+              classs={
+                item?.sender === loginData?.credentials?.email
+                  ? "right"
+                  : "left"
+              }
               time={item?.time}
               lastMessage={
                 i === chatData?.read && compareMessageText(item?.sender)
@@ -122,6 +85,7 @@ export default function Chat({}) {
         <Row className="messageInputContainer">
           <Col span={24} className={chatData?.inputColClasses}>
             <Input
+              ref={inputRef}
               title="Type Message"
               onKeyPress={(event) => (event.key === "Enter" ? send() : null)}
               className={chatData.inputClasses}
