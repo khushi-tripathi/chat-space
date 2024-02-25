@@ -7,7 +7,6 @@ export default function CompleteSignUp() {
   const [value, setValue] = useState(1);
   const dispatch = useDispatch();
   const onChange = (e) => {
-    debugger;
     if (e.target.value === 1) {
       dispatch({
         type: SET_RADIO_BUTTON_DATA,

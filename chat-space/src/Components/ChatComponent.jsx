@@ -9,9 +9,7 @@ import { useSelector } from "react-redux";
 import Chat from "./Chat";
 
 const ChatComponent = () => {
-  const userDetails = useSelector(
-    (state) => state.registeredUserDetails?.userDetails
-  );
+  const userDetails = useSelector((state) => state.registeredUserDetails);
   return (
     <div className="chat-screen">
       <Tabs
@@ -19,10 +17,10 @@ const ChatComponent = () => {
         tabPosition="left"
         items={
           userDetails?.isDisplaySelected
-            ? userDetails.map((user, i) => {
+            ? userDetails?.userDetails?.map((user, i) => {
                 const id = String(i);
                 return {
-                  label: <Profile />,
+                  label: <Profile user={user} />,
                   key: id,
                   disabled: i === 28,
                   children: <Chat data={`Content of tab ${user?.email} \n `} />,

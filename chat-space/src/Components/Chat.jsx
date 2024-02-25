@@ -28,7 +28,6 @@ export default function Chat({}) {
   const [chatMessage, setChatMessage] = useState({});
 
   const send = () => {
-    debugger;
     socketEmit("chat", {
       message: inputRef?.current?.input?.value,
       email: loginData?.credentials?.email,

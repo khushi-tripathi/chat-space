@@ -6,10 +6,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validationCheck } from "../hoc/generalFunctions";
+import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const redux = useSelector((state) => state);
   const userDetails = useSelector((state) => state.registeredUserDetails);
   const [validationError, setValidationError] = useState({ status: false });
   const [pageType, setPageType] = useState({ page: "signUp" });
@@ -18,6 +20,7 @@ const Signup = () => {
     lastName: "",
     email: "",
     mobile: "",
+    password: "",
   });
 
   const onChangeData = (type, value) => {
@@ -37,7 +40,16 @@ const Signup = () => {
     axios
       .post("http://localhost:4000/api/sign-up", userData)
       .then((response) => {
-        navigate("/register-in-space");
+        dispatch(
+          {
+            type: SET_LOGIN_CREDENTIALS,
+            payload: {
+              email: userData?.email,
+              password: userData?.password,
+            },
+          },
+          navigate("/register-in-space")
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -71,6 +83,7 @@ const Signup = () => {
     });
   };
   const onFinish = (values) => {
+    console.log(redux);
     validationCheck(
       userDetails,
       userData,
@@ -203,7 +216,12 @@ const Signup = () => {
                 },
               ]}
             >
-              <Input.Password className="sign-up-input" />
+              <Input.Password
+                className="sign-up-input"
+                onChange={(event) => {
+                  onChangeData("password", event?.target?.value);
+                }}
+              />
             </Form.Item>
 
             <Form.Item
