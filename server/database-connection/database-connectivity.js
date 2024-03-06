@@ -13,7 +13,7 @@ con.connect(function (err) {
 });
 
 const addUserDetails = (data) => {
-  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}' )`;
+  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile , password) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}'  , '${data.password}')`;
 
   //BOTH ARE CORRECT. WE CAN USE ANY OF THEM.
 
@@ -47,9 +47,23 @@ const fetchUserDetails = (response) => {
   });
 };
 
+const getUuid = (response) => {
+  var sql = `SELECT * FROM uuid`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    let res = JSON.parse(JSON.stringify(result));
+    response.json({
+      data: res,
+    });
+  });
+};
+
+
 const add = () => {
   return "KKK";
 };
 module.exports.add = add;
 module.exports.addUserDetails = addUserDetails;
 module.exports.fetchUserDetails = fetchUserDetails;
+module.exports.getUuid = getUuid;
+

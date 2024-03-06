@@ -198,7 +198,7 @@ const Signup = () => {
               >
                 <Input
                   className="sign-up-input"
-                  placeholder="Monile Number"
+                  placeholder="Mobile Number"
                   onChange={(event) => {
                     onChangeData("mobile", event?.target?.value);
                   }}

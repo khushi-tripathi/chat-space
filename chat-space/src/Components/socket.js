@@ -1,4 +1,6 @@
 import { io } from "socket.io-client";
+import store from '../store';
+import { SET_CHAT_MESSAGES } from "../Actions/actionConstant";
 
 var socket = io("http://localhost:4000");
 
@@ -11,7 +13,15 @@ socket.on("disconnect", () => {
 });
 
 socket.on("chat", (data) => {
-  console.log(data);
+  if(data?.otherUser){
+    store?.dispatch({
+      type: SET_CHAT_MESSAGES,
+      payload: {
+        userDetails: data.data,
+      },
+    });
+    console.log(data);
+  }
 });
 
 socket.on("hello", (data) => {

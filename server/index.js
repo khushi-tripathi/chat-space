@@ -45,6 +45,10 @@ app.get("/api/fetch-user-details", async (req, res) => {
   databaseFunctions.fetchUserDetails(res);
 });
 
+app.get("/api/get-all-uuid" , async (req , res) => {
+  databaseFunctions.getUuid(res);
+})
+
 app.post("/api/sign-up", async (req, res) => {
   databaseFunctions.addUserDetails(req.body);
   const data = { message: "Data Saved Successfully!!" };
