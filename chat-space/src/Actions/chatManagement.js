@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  FETCH_UUID_DATA } from "./actionConstant";
+import {  ADD_EXISTING_CHAT, FETCH_UUID_DATA } from "./actionConstant";
 
 const getUuid = (loginData) => {
   return function (dispatch) {
@@ -11,6 +11,32 @@ const getUuid = (loginData) => {
           type: FETCH_UUID_DATA,
           payload: data ,
         });
+
+        dispatch(fetchExistingChat(data))
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+const fetchExistingChat = (data) => {
+  return function (dispatch) {
+    axios
+      .post("http://localhost:4000/api/existing-chat" , data)
+      .then((response) => {
+
+        
+
+        // response?.data?.data === data[]
+        // idx :  [ { id: 1, uuid: '12', primary_user: 'KT@', chat: '"hi"' } ]
+        debugger
+
+        // dispatch({
+        //   type: ADD_EXISTING_CHAT,
+        //   payload: response?.data?.data?.[0]?.chat ,
+        // });
       })
       .catch((error) => {
         console.error(error);

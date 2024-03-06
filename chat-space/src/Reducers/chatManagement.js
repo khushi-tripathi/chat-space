@@ -3,6 +3,7 @@ import {
   ADD_NEW_CHAT,
   REMOVE_CHAT,
   REMOVE_CHAT_MESSAGES,
+  ADD_EXISTING_CHAT,
 } from "../Actions/actionConstant";
 const initialState = {
   chatArray: {
@@ -16,6 +17,17 @@ const initialState = {
 };
 function chatManagement(state = initialState, action) {
   switch (action?.type) {
+
+    case ADD_EXISTING_CHAT:
+    //payload.newChat [] hoga
+    return {
+      ...state,
+      chatArray: {
+        ...state?.chatArray,
+        ...action?.payload,
+      },
+    };
+
     case ADD_NEW_CHAT:
       //payload.newChat [] hoga
       return {

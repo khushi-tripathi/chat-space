@@ -59,6 +59,33 @@ const getUuid = (response) => {
 };
 
 
+const getChatFromUuid = (request , response) => {
+
+  let data = [] ;
+  console.log("uuuuuu" , request?.length)
+
+  for(let i=0 ; i < request?.length ; i++){
+    console.log("request : " , request[i])
+    const uuid = request[i]?.uuid
+    var sql = `SELECT * FROM  manage_chat WHERE uuid='${uuid}'`;
+    con.query(sql, function (err, result, fields) {
+      if (err) throw err;
+      console.log("chattt ; " , result)
+      data[i]  = result[0];
+
+      if(i === request?.length-1){
+        response.json({
+          data,
+        });
+      }
+    })
+  }
+  console.log("Data"  , data)
+ 
+};
+
+
+
 const add = () => {
   return "KKK";
 };
@@ -66,4 +93,6 @@ module.exports.add = add;
 module.exports.addUserDetails = addUserDetails;
 module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
+module.exports.getChatFromUuid = getChatFromUuid;
+
 
