@@ -48,7 +48,7 @@ const fetchUserDetails = (response) => {
 };
 
 const getUuid = (response) => {
-  var sql = `SELECT * FROM uuid`;
+    var sql = `SELECT * FROM uuid`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     let res = JSON.parse(JSON.stringify(result));
