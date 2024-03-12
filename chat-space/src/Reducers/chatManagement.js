@@ -5,6 +5,7 @@ import {
   REMOVE_CHAT_MESSAGES,
   ADD_EXISTING_CHAT,
 } from "../Actions/actionConstant";
+import { updateDatabase } from '../Actions/chatManagement'
 const initialState = {
   chatArray: {
     own: [
@@ -19,24 +20,25 @@ function chatManagement(state = initialState, action) {
   switch (action?.type) {
 
     case ADD_EXISTING_CHAT:
-    //payload.newChat [] hoga
-    return {
-      ...state,
-      chatArray: {
-        ...state?.chatArray,
-        ...action?.payload,
-      },
-    };
-
-    case ADD_NEW_CHAT:
       //payload.newChat [] hoga
       return {
         ...state,
         chatArray: {
           ...state?.chatArray,
-          [action.payload.idx]: { ...action.payload.newChat },
+          ...action?.payload,
         },
       };
+
+    case ADD_NEW_CHAT:
+      const data = {
+        ...state,
+        chatArray: {
+          ...state?.chatArray,
+          [action?.payload?.uuid]: action.payload?.chat,
+        },
+      }
+      // action?.dispatch(updateDatabase(data, action?.payload?.uuid))
+      return data;
     case SET_CHAT_MESSAGES:
       return {
         ...state,

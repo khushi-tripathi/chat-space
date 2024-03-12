@@ -47,8 +47,9 @@ const fetchUserDetails = (response) => {
   });
 };
 
+
 const getUuid = (response) => {
-    var sql = `SELECT * FROM uuid`;
+  var sql = `SELECT * FROM uuid`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     let res = JSON.parse(JSON.stringify(result));
@@ -59,29 +60,43 @@ const getUuid = (response) => {
 };
 
 
-const getChatFromUuid = (request , response) => {
+const getChatFromUuid = (request, response) => {
 
-  let data = [] ;
-  console.log("uuuuuu" , request?.length)
+  let data = [];
+  console.log("uuuuuu", request?.length)
 
-  for(let i=0 ; i < request?.length ; i++){
-    console.log("request : " , request[i])
+  for (let i = 0; i < request?.length; i++) {
+    console.log("request : ", request[i])
     const uuid = request[i]?.uuid
     var sql = `SELECT * FROM  manage_chat WHERE uuid='${uuid}'`;
     con.query(sql, function (err, result, fields) {
       if (err) throw err;
-      console.log("chattt ; " , result)
-      data[i]  = result[0];
+      console.log("chattt ; ", result)
+      data[i] = result[0];
 
-      if(i === request?.length-1){
+      if (i === request?.length - 1) {
         response.json({
           data,
         });
       }
     })
   }
-  console.log("Data"  , data)
- 
+  console.log("Data", data)
+
+};
+
+
+const updateChat = (request, response) => {
+  console.log(request)
+  console.log(request.primary_user)
+  const chat = JSON?.stringify(request?.chat)
+  var sql = `INSERT INTO manage_chat(uuid, primary_user, chat) VALUES('${request.uuid}', '${request.primary_user}', '${chat}')`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    response.json({
+      data: "Record inserted",
+    });
+  });
 };
 
 
@@ -94,5 +109,7 @@ module.exports.addUserDetails = addUserDetails;
 module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
 module.exports.getChatFromUuid = getChatFromUuid;
+module.exports.updateChat = updateChat;
+
 
 

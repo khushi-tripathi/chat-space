@@ -4,17 +4,20 @@ import { socketEmit } from "./socket";
 import { Card, Input, Button, Row, Col } from "antd";
 import ChatMessages from "./ChatMessages";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { useSelector } from "react-redux";
-export default function Chat({}) {
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
+import { ADD_NEW_CHAT } from "../Actions/actionConstant";
+import { updateDatabase } from "../Actions/chatManagement";
+
+export default function Chat({ currentUuid }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
+  const uuidData = useSelector((state) => state.uuid?.uuidData);
+  const chatArray = useSelector((state) => state.chatManagement?.chatArray);
+  const dispatch = useDispatch()
 
-  const [data, setData] = useState([
-    {
-      index: 0,
-      content: "Khushi",
-    },
-  ]);
+
+
 
   const [chatData, setChatData] = useState({
     agentID: "",
@@ -42,6 +45,38 @@ export default function Chat({}) {
         sender: loginData?.credentials?.email,
       };
       setChatMessage({ ...chatMessage, ...payload });
+      if (!Object.keys(chatArray).filter((item) => item === currentUuid)?.length) {
+        //new message
+        const uuid = uuidv4();
+        const chat = [
+          {
+            name: loginData?.credentials?.email,
+            message: chatData?.newMessage,
+            time: new Date().toLocaleTimeString("en-US", { hour12: true }),
+            type: "oneToOne",
+          },
+        ]
+        const data = {
+          chatArray: {
+            // ...chatArray,
+            [uuid]: chat,
+          },
+        }
+        dispatch(updateDatabase(data, uuid, chat[0]?.name))
+        dispatch({
+          type: ADD_NEW_CHAT,
+          dispatch: dispatch,
+          payload: {
+            uuid,
+            chat,
+          }
+        });
+
+
+      }
+      // else{
+      // existing update 
+      // }
     }
   };
   const compareMessageText = (id) => {
@@ -93,21 +128,23 @@ export default function Chat({}) {
               }}
               value={chatData?.newMessage}
               onChange={(e) => {
-                setChatData({ ...chatData, newMessage: e.target.value }, () => {
-                  if (chatData?.newMessage.trim().length > 0) {
-                    setChatData({
-                      ...chatData,
-                      inputClasses: "input onChangeInputBox",
-                      inputColClasses: "inputBox onChangeInputBox",
-                    });
-                  } else {
-                    setChatData({
-                      ...chatData,
-                      inputColClasses: "inputBox",
-                      inputClasses: "input",
-                    });
-                  }
-                });
+                setChatData({ ...chatData, newMessage: e.target.value });
+                // () => {
+                //   if (chatData?.newMessage.trim().length > 0) {
+                //     setChatData({
+                //       ...chatData,
+                //       inputClasses: "input onChangeInputBox",
+                //       inputColClasses: "inputBox onChangeInputBox",
+                //     });
+                //   } else {
+                //     setChatData({
+                //       ...chatData,
+                //       inputColClasses: "inputBox",
+                //       inputClasses: "input",
+                //     });
+                //   }
+                // }
+
               }}
             />
 
