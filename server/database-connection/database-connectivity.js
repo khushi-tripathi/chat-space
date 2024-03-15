@@ -61,9 +61,8 @@ const getUuid = (response) => {
 
 
 const getChatFromUuid = (request, response) => {
-
   let data = [];
-  console.log("uuuuuu", request?.length)
+  // console.log("uuuuuu", request?.length)
 
   for (let i = 0; i < request?.length; i++) {
     console.log("request : ", request[i])
@@ -86,6 +85,7 @@ const getChatFromUuid = (request, response) => {
 };
 
 
+
 const updateChat = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
@@ -99,6 +99,18 @@ const updateChat = (request, response) => {
   });
 };
 
+const addUuid = (request, response) => {
+  console.log(request)
+  console.log(request.primary_user)
+  // const chat = JSON?.stringify(request?.chat)
+  var sql = `INSERT INTO uuid(uuid, primary_user, other_user , isGroup) VALUES('${request.uuid}', '${request.primary_user}', '${request.other_user}'  , '${request.isGroup}')`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    response.json({
+      data: "Record inserted",
+    });
+  });
+};
 
 
 const add = () => {
@@ -110,6 +122,7 @@ module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
+module.exports.addUuid = addUuid;
 
 
 

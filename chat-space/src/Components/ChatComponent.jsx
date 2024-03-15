@@ -14,18 +14,27 @@ const ChatComponent = () => {
   const userDetails = useSelector((state) => state.registeredUserDetails);
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
+  const chatArray = useSelector((state) => state.chatManagement?.chatArray);
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(registeredUserDetails());
+    debugger
     dispatch(getUuid(loginData));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [0]);
+
+  useEffect(() => {
+    debugger
+    dispatch(getUuid(loginData));
+  }, [Object.keys(chatArray)?.length]);
+
+
 
   const getCurrentUuid = (user) => {
     const currentUuid = uuidData?.filter((item) => ((item?.other_user === loginData?.credentials?.email || item?.other_user === user?.email) && (item?.primary_user === loginData?.credentials?.email || item?.primary_user === user?.email)))
     if (currentUuid?.length) {
-      return currentUuid?.uuid
+      return currentUuid[0]?.uuid
     } else {
       return undefined
     }
@@ -44,7 +53,7 @@ const ChatComponent = () => {
                 label: <Profile user={user} />,
                 key: id,
                 disabled: i === 28,
-                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} />,
+                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} />,
                 icon: (
                   <AndroidOutlined
                     onClick={() => {

@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 import { ADD_NEW_CHAT } from "../Actions/actionConstant";
 import { updateDatabase } from "../Actions/chatManagement";
+import { addUuid } from "../Actions/uuid";
 
-export default function Chat({ currentUuid }) {
+export default function Chat({ currentUuid, otherUser }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
   const uuidData = useSelector((state) => state.uuid?.uuidData);
@@ -45,6 +46,7 @@ export default function Chat({ currentUuid }) {
         sender: loginData?.credentials?.email,
       };
       setChatMessage({ ...chatMessage, ...payload });
+      debugger
       if (!Object.keys(chatArray).filter((item) => item === currentUuid)?.length) {
         //new message
         const uuid = uuidv4();
@@ -62,6 +64,8 @@ export default function Chat({ currentUuid }) {
             [uuid]: chat,
           },
         }
+
+        dispatch(addUuid(uuid, chat[0]?.name, otherUser?.email, false))
         dispatch(updateDatabase(data, uuid, chat[0]?.name))
         dispatch({
           type: ADD_NEW_CHAT,
@@ -74,9 +78,9 @@ export default function Chat({ currentUuid }) {
 
 
       }
-      // else{
-      // existing update 
-      // }
+      else {
+        // existing update 
+      }
     }
   };
   const compareMessageText = (id) => {

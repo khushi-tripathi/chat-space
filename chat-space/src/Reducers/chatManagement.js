@@ -8,12 +8,12 @@ import {
 import { updateDatabase } from '../Actions/chatManagement'
 const initialState = {
   chatArray: {
-    own: [
-      {
-        message: "Hi, This is your space you can do anything here!!",
-        type: "own",
-      },
-    ],
+    // own: [
+    //   {
+    //     message: "Hi, This is your space you can do anything here!!",
+    //     type: "own",
+    //   },
+    // ],
   },
 };
 function chatManagement(state = initialState, action) {
