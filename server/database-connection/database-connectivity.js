@@ -86,7 +86,7 @@ const getChatFromUuid = (request, response) => {
 
 
 
-const updateChat = (request, response) => {
+const addNewChat = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
   const chat = JSON?.stringify(request?.chat)
@@ -95,6 +95,19 @@ const updateChat = (request, response) => {
     if (err) throw err;
     response.json({
       data: "Record inserted",
+    });
+  });
+};
+
+const updateChat = (request, response) => {
+  console.log(request)
+  console.log(request.primary_user)
+  const chat = JSON?.stringify(request?.chat)
+  var sql = `UPDATE manage_chat SET chat='${chat}' WHERE uuid='${request?.uuid}'`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    response.json({
+      data: "Record Updated",
     });
   });
 };
@@ -122,6 +135,7 @@ module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
+module.exports.addNewChat = addNewChat;
 module.exports.addUuid = addUuid;
 
 

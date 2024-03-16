@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ADD_EXISTING_CHAT, FETCH_UUID_DATA } from "./actionConstant";
 
-const getUuid = (loginData) => {
+const getUuid = (loginData, checkExistingChat) => {
   return function (dispatch) {
     axios
       .get("http://localhost:4000/api/get-all-uuid")
@@ -11,8 +11,8 @@ const getUuid = (loginData) => {
           type: FETCH_UUID_DATA,
           payload: data,
         });
-
-        dispatch(fetchExistingChat(data))
+        if (data?.length && checkExistingChat)
+          dispatch(fetchExistingChat(data))
 
       })
       .catch((error) => {
@@ -55,7 +55,7 @@ const fetchExistingChat = (data) => {
 
         // dispatch({
         //   type: ADD_EXISTING_CHAT,
-        //   payload: response?.data?.data?.[0]?.chat ,
+        //   payload: response?.data?.data?.[0]?.chat,
         // });
       })
       .catch((error) => {
@@ -64,12 +64,10 @@ const fetchExistingChat = (data) => {
   };
 };
 
-const updateDatabase = (data, uuid, primary_user) => {
+const addNewChat = (data, uuid, primary_user) => {
   return function (dispatch) {
-
-    debugger
     axios
-      .post("http://localhost:4000/api/update-chat", {
+      .post("http://localhost:4000/api/add-new-chat", {
         uuid,
         chat: data,
         primary_user,
@@ -83,8 +81,26 @@ const updateDatabase = (data, uuid, primary_user) => {
   };
 }
 
+const updateChatData = (chat, uuid, primary_user) => {
+  return function (dispatch) {
+    axios
+      .post("http://localhost:4000/api/update-chat", {
+        uuid,
+        chat,
+        primary_user,
+      })
+      .then((response) => {
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+}
+
 export {
   getUuid,
-  updateDatabase
+  addNewChat,
+  updateChatData
 }
 

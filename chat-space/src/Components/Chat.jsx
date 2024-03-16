@@ -6,8 +6,8 @@ import ChatMessages from "./ChatMessages";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_NEW_CHAT } from "../Actions/actionConstant";
-import { updateDatabase } from "../Actions/chatManagement";
+import { ADD_NEW_CHAT, SET_CHAT_MESSAGES } from "../Actions/actionConstant";
+import { updateChatData, addNewChat } from "../Actions/chatManagement";
 import { addUuid } from "../Actions/uuid";
 
 export default function Chat({ currentUuid, otherUser }) {
@@ -46,27 +46,29 @@ export default function Chat({ currentUuid, otherUser }) {
         sender: loginData?.credentials?.email,
       };
       setChatMessage({ ...chatMessage, ...payload });
+      const chat = [
+        {
+          email: loginData?.credentials?.email,
+          name: loginData?.credentials?.first_name + " " + loginData?.credentials?.last_name,
+          message: chatData?.newMessage,
+          time: new Date().toLocaleTimeString("en-US", { hour12: true }),
+          type: "oneToOne",
+        },
+      ]
       debugger
       if (!Object.keys(chatArray).filter((item) => item === currentUuid)?.length) {
         //new message
         const uuid = uuidv4();
-        const chat = [
-          {
-            name: loginData?.credentials?.email,
-            message: chatData?.newMessage,
-            time: new Date().toLocaleTimeString("en-US", { hour12: true }),
-            type: "oneToOne",
-          },
-        ]
-        const data = {
-          chatArray: {
-            // ...chatArray,
-            [uuid]: chat,
-          },
+
+        const data =
+        {
+          // ...chatArray,
+          [uuid]: chat,
         }
 
-        dispatch(addUuid(uuid, chat[0]?.name, otherUser?.email, false))
-        dispatch(updateDatabase(data, uuid, chat[0]?.name))
+
+        dispatch(addUuid(uuid, chat[0]?.email, otherUser?.email, false))
+        dispatch(addNewChat(data, uuid, chat[0]?.email))
         dispatch({
           type: ADD_NEW_CHAT,
           dispatch: dispatch,
@@ -79,7 +81,22 @@ export default function Chat({ currentUuid, otherUser }) {
 
       }
       else {
-        // existing update 
+        const chatData = {
+          ...chatArray, [currentUuid]: [
+            ...chatArray?.[currentUuid],
+            chat[0],
+          ],
+        }
+        dispatch(updateChatData(chatData, currentUuid, chat[0]?.email))
+        dispatch({
+          type: SET_CHAT_MESSAGES,
+          dispatch: dispatch,
+          payload: {
+            idx: currentUuid,
+            message: chat[0]
+          }
+        });
+
       }
     }
   };

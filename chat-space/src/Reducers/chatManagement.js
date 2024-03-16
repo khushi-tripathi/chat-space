@@ -5,7 +5,6 @@ import {
   REMOVE_CHAT_MESSAGES,
   ADD_EXISTING_CHAT,
 } from "../Actions/actionConstant";
-import { updateDatabase } from '../Actions/chatManagement'
 const initialState = {
   chatArray: {
     // own: [
@@ -37,7 +36,6 @@ function chatManagement(state = initialState, action) {
           [action?.payload?.uuid]: action.payload?.chat,
         },
       }
-      // action?.dispatch(updateDatabase(data, action?.payload?.uuid))
       return data;
     case SET_CHAT_MESSAGES:
       return {

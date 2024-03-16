@@ -44,6 +44,7 @@ const Signup = () => {
           {
             type: SET_LOGIN_CREDENTIALS,
             payload: {
+              name: userData?.firstName + " " + userData?.lastName,
               email: userData?.email,
               password: userData?.password,
             },

@@ -60,9 +60,15 @@ app.post("/api/add-uuid", async (req, res) => {
   databaseFunctions.addUuid(req.body, res);
 });
 
+app.post("/api/add-new-chat", async (req, res) => {
+  databaseFunctions.addNewChat(req.body, res);
+});
+
 app.post("/api/update-chat", async (req, res) => {
   databaseFunctions.updateChat(req.body, res);
 });
+
+
 
 
 

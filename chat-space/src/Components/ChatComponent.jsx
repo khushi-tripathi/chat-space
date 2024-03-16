@@ -19,14 +19,13 @@ const ChatComponent = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(registeredUserDetails());
-    debugger
-    dispatch(getUuid(loginData));
+    // dispatch(getUuid(loginData));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [0]);
 
   useEffect(() => {
-    debugger
-    dispatch(getUuid(loginData));
+    console.log(chatArray)
+    dispatch(getUuid(loginData, Object.keys(chatArray)?.length ? false : true));
   }, [Object.keys(chatArray)?.length]);
 
 

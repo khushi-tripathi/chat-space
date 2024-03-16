@@ -32,11 +32,11 @@ export default function Login() {
     });
   };
 
-  const login = () => {
+  const login = (loginUser) => {
     dispatch(
       {
         type: SET_LOGIN_CREDENTIALS,
-        payload: loginData,
+        payload: loginUser[0],
       },
       navigate("/chat")
     );
@@ -111,6 +111,9 @@ export default function Login() {
             <Form.Item
               label="Password"
               name="password"
+              onChange={(event) => {
+                onChangeData("password", event?.target?.value);
+              }}
               rules={[
                 {
                   required: true,
