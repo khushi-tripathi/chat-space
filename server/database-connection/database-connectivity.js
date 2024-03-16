@@ -71,7 +71,9 @@ const getChatFromUuid = (request, response) => {
     con.query(sql, function (err, result, fields) {
       if (err) throw err;
       console.log("chattt ; ", result)
-      data[i] = result[0];
+      let finalData = result[0]
+      finalData['chat'] = JSON.parse(finalData?.chat)
+      data[i] = finalData;
 
       if (i === request?.length - 1) {
         response.json({

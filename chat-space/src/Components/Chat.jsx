@@ -32,10 +32,7 @@ export default function Chat({ currentUuid, otherUser }) {
   const [chatMessage, setChatMessage] = useState({});
 
   const send = () => {
-    socketEmit("chat", {
-      message: inputRef?.current?.input?.value,
-      email: loginData?.credentials?.email,
-    });
+
     if (chatData?.newMessage.length > 0) {
       const payload = {};
       const id = new Date().toISOString();
@@ -55,18 +52,15 @@ export default function Chat({ currentUuid, otherUser }) {
           type: "oneToOne",
         },
       ]
-      debugger
+      const uuid = uuidv4();
       if (!Object.keys(chatArray).filter((item) => item === currentUuid)?.length) {
         //new message
-        const uuid = uuidv4();
 
         const data =
         {
           // ...chatArray,
           [uuid]: chat,
         }
-
-
         dispatch(addUuid(uuid, chat[0]?.email, otherUser?.email, false))
         dispatch(addNewChat(data, uuid, chat[0]?.email))
         dispatch({
@@ -82,7 +76,7 @@ export default function Chat({ currentUuid, otherUser }) {
       }
       else {
         const chatData = {
-          ...chatArray, [currentUuid]: [
+          [currentUuid]: [
             ...chatArray?.[currentUuid],
             chat[0],
           ],
@@ -90,7 +84,6 @@ export default function Chat({ currentUuid, otherUser }) {
         dispatch(updateChatData(chatData, currentUuid, chat[0]?.email))
         dispatch({
           type: SET_CHAT_MESSAGES,
-          dispatch: dispatch,
           payload: {
             idx: currentUuid,
             message: chat[0]
@@ -98,6 +91,18 @@ export default function Chat({ currentUuid, otherUser }) {
         });
 
       }
+
+
+      socketEmit("chat", {
+        message: inputRef?.current?.input?.value,
+        email: loginData?.credentials?.email,
+        chat: { ...chat[0] },
+        uuid: currentUuid || uuid,
+        otherUser: otherUser?.email || ""
+      });
+
+
+
     }
   };
   const compareMessageText = (id) => {
@@ -119,12 +124,13 @@ export default function Chat({ currentUuid, otherUser }) {
           initialScrollBehavior="smooth"
           mode="bottom"
         >
-          {Object.values(chatMessage).map((item, i) => (
+          {/* {console.log("Khushi : ", chatArray[currentUuid])} */}
+          {currentUuid && chatArray[currentUuid]?.map((item, i) => (
             <ChatMessages
               key={i}
               message={item?.message}
               classs={
-                item?.sender === loginData?.credentials?.email
+                item?.email === loginData?.credentials?.email
                   ? "right"
                   : "left"
               }

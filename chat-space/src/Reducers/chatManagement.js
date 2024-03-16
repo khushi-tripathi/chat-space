@@ -42,10 +42,10 @@ function chatManagement(state = initialState, action) {
         ...state,
         chatArray: {
           ...state?.chatArray,
-          [action.payload.idx]: {
+          [action.payload.idx]: [
             ...state?.chatArray?.[action.payload.idx],
-            ...action?.payload?.message,
-          },
+            action?.payload?.message,
+          ],
         },
       };
     case REMOVE_CHAT:

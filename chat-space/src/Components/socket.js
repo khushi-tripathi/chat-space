@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import store from '../store';
-import { SET_CHAT_MESSAGES } from "../Actions/actionConstant";
+import { ADD_NEW_CHAT, SET_CHAT_MESSAGES } from "../Actions/actionConstant";
 
 var socket = io("http://localhost:4000");
 
@@ -13,15 +13,33 @@ socket.on("disconnect", () => {
 });
 
 socket.on("chat", (data) => {
-  if(data?.otherUser){
+
+  console.log(store?.getState()?.uuid?.uuidData)
+  console.log(store?.getState()?.loginDetails?.credentials?.email)
+  debugger
+  const isValidUuid = store?.getState()?.uuid?.uuidData?.filter((item) => item?.uuid === data?.uuid)
+
+  if (isValidUuid?.length) {
     store?.dispatch({
       type: SET_CHAT_MESSAGES,
       payload: {
-        userDetails: data.data,
-      },
+        idx: data?.uuid,
+        message: data?.chat
+      }
     });
-    console.log(data);
+  } else if (data?.otherUser === store?.getState()?.loginDetails?.credentials?.email) {
+    store?.dispatch({
+      type: ADD_NEW_CHAT,
+      payload: {
+        uuid: data?.uuid,
+        chat: [data?.chat],
+      }
+    });
   }
+
+
+  console.log(data);
+
 });
 
 socket.on("hello", (data) => {

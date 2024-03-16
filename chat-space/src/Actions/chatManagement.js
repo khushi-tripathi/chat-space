@@ -51,12 +51,16 @@ const fetchExistingChat = (data) => {
 
         // response?.data?.data === data[]
         // idx :  [ { id: 1, uuid: '12', primary_user: 'KT@', chat: '"hi"' } ]
-        debugger
 
-        // dispatch({
-        //   type: ADD_EXISTING_CHAT,
-        //   payload: response?.data?.data?.[0]?.chat,
-        // });
+        let chatArray = {}
+        for (let i = 0; i < response?.data?.data?.length; i++) {
+          chatArray = { ...chatArray, ...response?.data?.data?.[i]?.chat }
+        }
+
+        dispatch({
+          type: ADD_EXISTING_CHAT,
+          payload: chatArray,
+        });
       })
       .catch((error) => {
         console.error(error);

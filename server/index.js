@@ -27,7 +27,7 @@ socketIO.on("connection", (socket) => {
   socket.on("chat", (data) => {
     console.log("chattt", data);
     // socketIO.emit("chat", { ...data, req: "For Everyone" });
-    socket.broadcast.emit("chat", { ...data, otherUser: true });
+    socket.broadcast.emit("chat", { ...data });
   });
 
   socket.on("disconnect", () => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import { socketEmit } from "./socket";
 import { Tabs } from "antd";
@@ -15,6 +15,7 @@ const ChatComponent = () => {
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
+  const [flag, setFlag] = useState(true)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -25,7 +26,8 @@ const ChatComponent = () => {
 
   useEffect(() => {
     console.log(chatArray)
-    dispatch(getUuid(loginData, Object.keys(chatArray)?.length ? false : true));
+    dispatch(getUuid(loginData, flag));
+    setFlag(false)
   }, [Object.keys(chatArray)?.length]);
 
 
