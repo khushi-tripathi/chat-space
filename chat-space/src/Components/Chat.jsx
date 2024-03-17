@@ -9,13 +9,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { ADD_NEW_CHAT, SET_CHAT_MESSAGES } from "../Actions/actionConstant";
 import { updateChatData, addNewChat } from "../Actions/chatManagement";
 import { addUuid } from "../Actions/uuid";
+import { SendOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import Picker, { Emoji } from 'emoji-picker-react';
 
 export default function Chat({ currentUuid, otherUser }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
+
   const uuidData = useSelector((state) => state.uuid?.uuidData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const dispatch = useDispatch()
+
+  const [emojiHandler, setEmojiHandler] = useState({ open: false });
 
 
 
@@ -116,6 +121,15 @@ export default function Chat({ currentUuid, otherUser }) {
     }
     return true;
   };
+
+  const onClickEmoji = (data) => {
+    debugger
+    console.log(data)
+    console.log(chatData)
+    console.log(inputRef?.current?.input?.value)
+    debugger
+    setChatData({ ...chatData, newMessage: (inputRef?.current?.input?.value + data?.emoji) });
+  }
   return (
     <Card title={"Connected"} className="ChatCard">
       <div className="chatBox">
@@ -174,15 +188,25 @@ export default function Chat({ currentUuid, otherUser }) {
 
               }}
             />
+            <Button onClick={() => { setEmojiHandler({ open: !emojiHandler?.open }) }}>
+              <PlusCircleOutlined />
+
+            </Button>
+
 
             <Button
               title="Send Message Button"
               onClick={send}
               className="sendBtn"
             >
-              Send
+
+              <SendOutlined />
             </Button>
+
+
           </Col>
+          {emojiHandler?.open && <Picker onEmojiClick={onClickEmoji} />}
+
         </Row>
       </div>
     </Card>

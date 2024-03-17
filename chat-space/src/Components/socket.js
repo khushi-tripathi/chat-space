@@ -13,10 +13,6 @@ socket.on("disconnect", () => {
 });
 
 socket.on("chat", (data) => {
-
-  console.log(store?.getState()?.uuid?.uuidData)
-  console.log(store?.getState()?.loginDetails?.credentials?.email)
-  debugger
   const isValidUuid = store?.getState()?.uuid?.uuidData?.filter((item) => item?.uuid === data?.uuid)
 
   if (isValidUuid?.length) {
