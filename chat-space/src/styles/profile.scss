@@ -15,13 +15,36 @@
     }
 
     .photo {
-        background-image: url("../Media/blue-wall.jpg");
-        background-size: cover;
+        // background-image: url("../Media/blue-wall.jpg");
+        // background-size: cover;
         height: 30px;
         width: 30px;
+        color: transparent !important;
+        border-color: transparent !important;
         border-radius: 50%;
-        background-color: aqua;
+        // background-color: aqua;
         padding: 4%;
         border-radius: 50%;
+        div{
+            .ant-image-img{
+                background-size: cover;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                // background-color: aqua;
+                // padding: 4%;
+                border-radius: 50%; 
+            }
+            .ant-image-mask{
+                display: none;
+            }
+        }
+    }
+    .photo:hover {
+        // background-color:#002ead;
+        // transition: 0.7s;
+        // border: none;
+        color: transparent !important;
+     border-color: transparent !important
     }
 }
