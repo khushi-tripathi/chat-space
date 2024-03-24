@@ -188,7 +188,11 @@ export default function Chat({ currentUuid, otherUser }) {
 
               }}
             />
-            <Button onClick={() => { setEmojiHandler({ open: !emojiHandler?.open }) }}>
+            <Button onClick={() => {
+              debugger
+              setEmojiHandler({ open: !emojiHandler?.open })
+              setChatData({ ...chatData, inputColClasses: !emojiHandler?.open ? 'inputBox changedPositionInputBox' : 'inputBox' })
+            }}>
               <PlusCircleOutlined />
 
             </Button>
@@ -205,7 +209,11 @@ export default function Chat({ currentUuid, otherUser }) {
 
 
           </Col>
-          {emojiHandler?.open && <Picker onEmojiClick={onClickEmoji} />}
+          {emojiHandler?.open && <Picker onEmojiClick={onClickEmoji} className="emoji-picker" searchDisabled={true} suggestedEmojisMode={'frequent'} previewConfig={{
+            defaultEmoji: "1f60a", // defaults to: "1f60a"
+            defaultCaption: "Khushi", // defaults to: "What's your mood?"
+            showPreview: false // defaults to: true
+          }} />}
 
         </Row>
       </div>

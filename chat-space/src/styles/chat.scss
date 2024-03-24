@@ -1,27 +1,43 @@
 @import "./variable.scss";
 
 .chat-screen {
-    height: 96vh;
+    // height: 96vh;
+    height: auto;
+
     .ant-tabs {
         .ant-tabs-content-holder {
-            height: 100vh;
+            // height: 100vh;
+            height: auto;
+
             // overflow-y: scroll;
             .ant-tabs-content {
-                height: 100vh;
+                // height: 100vh;
+                // height: auto;
+                height: 100%;
+
                 .ant-tabs-tabpane {
-                    height: 100vh;
+                    // height: 100vh;
+                    // height: auto;
+                    height: 100%;
+
                     padding: 0;
+
                     .ChatCard {
-                        // height: 90vh;
+                        height: 100%;
+                        // height: auto;
+
                         .ant-card-body {
+                            height: 90.5 !important;
                             overflow-y: hidden;
                             padding: 0px !important;
                             // height: inherit;
                             border-radius: 4px;
+
                             .chatBox {
+
                                 // height: 100%;
                                 .chatContainer {
-                                    min-height: 80vh;
+                                    min-height: 84vh;
                                     margin-top: 1px;
                                     // overflow-y: scroll;
                                     // max-height: 85vh;
@@ -95,8 +111,10 @@
                                     }
 
                                     .inputBox {
-                                        // @include flexbox(initial, initial);
+                                        display: flex;
+                                        flex-direction: row;
 
+                                        // @include flexbox(initial, initial);
                                         input {
                                             border: none;
 
@@ -136,6 +154,20 @@
                                             }
                                         }
                                     }
+
+                                    .changedPositionInputBox {
+
+                                        display: flex;
+                                        flex-direction: row;
+                                        position: absolute !important;
+                                        bottom: 43.5%;
+                                        width: 100%;
+                                        height: auto;
+                                        /* border: 1px solid; */
+                                        border-bottom: 1px solid #bcbcbc;
+                                        border-top: 1px solid #bcbcbc;
+
+                                    }
                                 }
 
                                 // button.react-scroll-to-bottom--css-zsilb-1tj0vk3 {
@@ -147,17 +179,22 @@
                 }
             }
         }
+
         .ant-tabs-nav {
             width: 20%;
+
             .ant-tabs-nav-wrap {
                 height: 100vh;
+
                 .ant-tabs-nav-list .ant-tabs-tab {
                     padding: 5% 5%;
+
                     .ant-tabs-tab-btn {
                         width: 100%;
                     }
                 }
             }
+
             .ant-tabs-nav-operations .ant-tabs-nav-more {
                 display: none;
             }
@@ -177,6 +214,16 @@
     .chatTxt2 {
         color: #ff0000;
     }
+}
+
+
+.emoji-picker {
+    width: 99.9% !important;
+    height: 43% !important;
+    position: absolute !important;
+    bottom: 0px;
+    border-style: hidden !important;
+    border-radius: 0% !important;
 }
 
 // .card {
