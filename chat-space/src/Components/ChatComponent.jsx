@@ -55,13 +55,13 @@ const ChatComponent = () => {
                 key: id,
                 disabled: i === 28,
                 children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} />,
-                icon: (
-                  <AndroidOutlined
-                    onClick={() => {
-                      alert("KKK TT");
-                    }}
-                  />
-                ),
+                // icon: (
+                //   <AndroidOutlined
+                //     onClick={() => {
+                //       alert("KKK TT");
+                //     }}
+                //   />
+                // ),
               };
             })
             : [

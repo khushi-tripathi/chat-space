@@ -1,10 +1,19 @@
 .profile {
+
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     width: 100%;
+
     .name {
+        display: flex;
+        font-size: medium;
+        justify-content: flex-start;
+        padding-left: 1rem;
+        color: black;
     }
+
     .photo {
         background-image: url("../Media/blue-wall.jpg");
         background-size: cover;
