@@ -33,10 +33,20 @@ const ChatComponent = () => {
 
 
   const getCurrentUuid = (user) => {
-    const currentUuid = uuidData?.filter((item) => ((item?.other_user === loginData?.credentials?.email || item?.other_user === user?.email) && (item?.primary_user === loginData?.credentials?.email || item?.primary_user === user?.email)))
-    if (currentUuid?.length) {
+    const currentUuid = uuidData?.filter((item) => ((item?.other_user === loginData?.credentials?.email ||
+      item?.other_user === user?.email) &&
+      (item?.primary_user === loginData?.credentials?.email || item?.primary_user === user?.email) &&
+      (item?.other_user !== item?.primary_user)))
+
+    const ownUuid = uuidData?.filter((item) => (item?.other_user === user?.email) &&
+      (user?.email === item?.primary_user))
+
+    if (ownUuid?.length) {
+      return ownUuid[0]?.uuid
+    } else if (currentUuid?.length) {
       return currentUuid[0]?.uuid
-    } else {
+    }
+    else {
       return undefined
     }
   }

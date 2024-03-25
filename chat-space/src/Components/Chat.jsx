@@ -70,7 +70,6 @@ export default function Chat({ currentUuid, otherUser }) {
         dispatch(addNewChat(data, uuid, chat[0]?.email))
         dispatch({
           type: ADD_NEW_CHAT,
-          dispatch: dispatch,
           payload: {
             uuid,
             chat,
