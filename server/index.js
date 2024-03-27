@@ -2,6 +2,8 @@
 // import {BodyParser} from "body-parser";
 const body = require("body-parser");
 const express = require("express");
+const multer = require("multer")
+const path = require("path")
 const app = express();
 const PORT = 4000;
 
@@ -13,6 +15,18 @@ const databaseFunctions = require("./database-connection/database-connectivity.j
 
 app.use(cors());
 
+const storage = multer.diskStorage({
+  destination : (req , file ,cb) =>{
+    cb(null, 'public/images')
+  },
+  filename : (req , file , cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({
+  storage :storage,
+})
 const socketIO = require("socket.io")(http, {
   cors: {
     origin: "http://localhost:3000",
@@ -68,20 +82,23 @@ app.post("/api/update-chat", async (req, res) => {
   databaseFunctions.updateChat(req.body, res);
 });
 
-
-
-
-
-app.post("/api/sign-up", async (req, res) => {
-  databaseFunctions.addUserDetails(req.body);
+app.post("/api/sign-up", upload?.single('image'), async (req, res) => {
+  console.log("body" , req.body.userData) 
+  console.log("file" , req.file) 
+  let request = JSON.parse(req.body?.userData)
+  request = {
+    ...request , 
+    profile : req.file?.filename
+  }
+  databaseFunctions.addUserDetails(request);
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);
 });
-app.post("/api/login", async (req, res) => {
-  databaseFunctions.addUserDetails(req.body);
-  const data = { message: "Data Saved Successfully!!" };
-  res.json(data);
-});
+// app.post("/api/login", async (req, res) => {
+//   databaseFunctions.addUserDetails(req.body);
+//   const data = { message: "Data Saved Successfully!!" };
+//   res.json(data);
+// });
 
 http.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

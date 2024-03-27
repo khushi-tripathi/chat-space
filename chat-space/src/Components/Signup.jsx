@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import "../styles/sign-up.scss";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row, message, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
+import { UploadOutlined } from '@ant-design/icons';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,7 +22,33 @@ const Signup = () => {
     email: "",
     mobile: "",
     password: "",
+    profile : null
   });
+
+  // const props = {
+  //   name: 'file',
+  //   action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+  //   maxCount : 1,
+  //   beforeUpload: () => {
+  //     return false;
+  //   },
+  //   onChange(info) {
+  //     // if (info.file.status === 'uploading') {
+  //       console.log("Upload on CHange" ,info.file, info.fileList[0]);
+  //     // }
+
+  //     setUserData({
+  //       ...userData,
+  //       ["profile"]: info.fileList[0],
+  //     });
+  //     if (info.file.status === 'done') {
+  //       message.success(`${info.file.name} file uploaded successfully`);
+  //     } 
+  //     // else if (info.file.status === 'error') {
+  //     //   message.error(`${info.file.name} file upload failed.`);
+  //     // }
+  //   },
+  // };
 
   const onChangeData = (type, value) => {
     if (type === "email") {
@@ -37,8 +64,13 @@ const Signup = () => {
   };
 
   const submitDetails = () => {
+
+    let file  = userData.profile
+    const formdata = new FormData();
+    formdata.append('image' , file)
+    formdata.append('userData' , JSON.stringify(userData))
     axios
-      .post("http://localhost:4000/api/sign-up", userData)
+      .post("http://localhost:4000/api/sign-up", formdata)
       .then((response) => {
         dispatch(
           {
@@ -224,6 +256,31 @@ const Signup = () => {
                 }}
               />
             </Form.Item>
+
+            {/* <Form.Item
+              label="Profile Pickture"
+              name="profile"
+              
+            >
+              <Upload {...props}>
+                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+              </Upload>
+            </Form.Item> */}
+
+            
+            <Form.Item
+              label="Profile "
+              name="profile"
+            >
+              <input
+              type="file"
+                className="sign-up-input"
+                onChange={(event) => {
+                  onChangeData("profile", event?.target?.files[0]);
+                }}
+              />
+            </Form.Item>
+
 
             <Form.Item
               wrapperCol={{

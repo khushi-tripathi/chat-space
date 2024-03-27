@@ -122,11 +122,9 @@ export default function Chat({ currentUuid, otherUser }) {
   };
 
   const onClickEmoji = (data) => {
-    debugger
     console.log(data)
     console.log(chatData)
     console.log(inputRef?.current?.input?.value)
-    debugger
     setChatData({ ...chatData, newMessage: (inputRef?.current?.input?.value + data?.emoji) });
   }
   return (
@@ -188,7 +186,6 @@ export default function Chat({ currentUuid, otherUser }) {
               }}
             />
             <Button onClick={() => {
-              debugger
               setEmojiHandler({ open: !emojiHandler?.open })
               setChatData({ ...chatData, inputColClasses: !emojiHandler?.open ? 'inputBox changedPositionInputBox' : 'inputBox' })
             }}>

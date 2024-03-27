@@ -13,7 +13,7 @@ con.connect(function (err) {
 });
 
 const addUserDetails = (data) => {
-  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile , password) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}'  , '${data.password}')`;
+  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile , password , profile_image) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}'  , '${data.password}' , '${data.profile}')`;
 
   //BOTH ARE CORRECT. WE CAN USE ANY OF THEM.
 
