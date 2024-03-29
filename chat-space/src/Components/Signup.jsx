@@ -22,7 +22,7 @@ const Signup = () => {
     email: "",
     mobile: "",
     password: "",
-    profile : null
+    profile: ''
   });
 
   // const props = {
@@ -50,6 +50,22 @@ const Signup = () => {
   //   },
   // };
 
+  const getImage = (type , file) => {
+    //convert to Base64
+    var reader = new FileReader();
+    reader?.readAsDataURL(file)
+    reader.onload = () => {
+      // reader?.result // base64encoded string 
+      setUserData({
+        ...userData,
+        [type]: reader.result,
+      });
+    }
+    reader.onerror = (error) => {
+      console.log("Error : ", error)
+    }
+  }
+
   const onChangeData = (type, value) => {
     if (type === "email") {
       setValidationError({
@@ -57,20 +73,25 @@ const Signup = () => {
         isExistingEmail: false,
       });
     }
-    setUserData({
-      ...userData,
-      [type]: value,
-    });
+    if (type === 'profile' && value!== undefined) {
+      getImage(type , value)
+    } else if(value!== undefined){
+      setUserData({
+        ...userData,
+        [type]: value,
+      });
+    }
+
   };
 
   const submitDetails = () => {
 
-    let file  = userData.profile
-    const formdata = new FormData();
-    formdata.append('image' , file)
-    formdata.append('userData' , JSON.stringify(userData))
+    // let file = userData.profile
+    // const formdata = new FormData();
+    // formdata.append('image', file)
+    // formdata.append('userData', JSON.stringify(userData))
     axios
-      .post("http://localhost:4000/api/sign-up", formdata)
+      .post("http://localhost:4000/api/sign-up", userData)
       .then((response) => {
         dispatch(
           {
@@ -267,13 +288,13 @@ const Signup = () => {
               </Upload>
             </Form.Item> */}
 
-            
+
             <Form.Item
               label="Profile "
               name="profile"
             >
               <input
-              type="file"
+                type="file"
                 className="sign-up-input"
                 onChange={(event) => {
                   onChangeData("profile", event?.target?.files[0]);
