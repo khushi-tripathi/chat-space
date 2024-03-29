@@ -11,6 +11,7 @@ import { updateChatData, addNewChat } from "../Actions/chatManagement";
 import { addUuid } from "../Actions/uuid";
 import { SendOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import Picker, { Emoji } from 'emoji-picker-react';
+import MoreOptions from "./MoreOptions";
 
 export default function Chat({ currentUuid, otherUser }) {
   const inputRef = useRef();
@@ -118,7 +119,8 @@ export default function Chat({ currentUuid, otherUser }) {
     setChatData({ ...chatData, newMessage: (inputRef?.current?.input?.value + data?.emoji) });
   }
   return (
-    <Card title={"Connected"} className="ChatCard">
+    <Card title={otherUser?.first_name + " " + otherUser?.last_name} className="ChatCard" extra={<MoreOptions loginData={loginData?.credentials} />
+    }>
       <div className="chatBox">
         <ScrollToBottom
           className="chatContainer"

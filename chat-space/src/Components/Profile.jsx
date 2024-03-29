@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/profile.scss";
-import { Button , Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import {
   DownloadOutlined,
   RotateLeftOutlined,
@@ -29,42 +29,42 @@ export default function Profile({ user }) {
 
   return (
     <Row className="profile">
-    <Col span={5}>
-   
-    <Button
-        className="photo"
-        onClick={(event) => {
-          //that will stop to switch tab when anyone clicks to profile picture
-          event.stopPropagation();
-        }}
-      >
- <Image
-      src={user?.profile_image}
-      preview={{
-        toolbarRender: (
-          _,
-          {
-            transform: { scale },
-            actions: { onFlipY, onFlipX, onRotateLeft, onRotateRight, onZoomOut, onZoomIn },
-          },
-        ) => (
-          <Space size={12} className="toolbar-wrapper">
-            <DownloadOutlined onClick={onDownload} />
-            <SwapOutlined rotate={90} onClick={onFlipY} />
-            <SwapOutlined onClick={onFlipX} />
-            <RotateLeftOutlined onClick={onRotateLeft} />
-            <RotateRightOutlined onClick={onRotateRight} />
-            <ZoomOutOutlined disabled={scale === 1} onClick={onZoomOut} />
-            <ZoomInOutlined disabled={scale === 50} onClick={onZoomIn} />
-          </Space>
-        ),
-      }}
-    />
+      <Col span={5}>
 
-      </Button>
-    </Col>
-    <Col span={19}><div className="name">{user?.first_name + " " + user?.last_name}</div></Col>
-  </Row>
-    
+        <Button
+          className="photo"
+          onClick={(event) => {
+            //that will stop to switch tab when anyone clicks to profile picture
+            event.stopPropagation();
+          }}
+        >
+          <Image
+            src={user?.profile_image}
+            preview={{
+              toolbarRender: (
+                _,
+                {
+                  transform: { scale },
+                  actions: { onFlipY, onFlipX, onRotateLeft, onRotateRight, onZoomOut, onZoomIn },
+                },
+              ) => (
+                <Space size={12} className="toolbar-wrapper">
+                  <DownloadOutlined onClick={onDownload} />
+                  <SwapOutlined rotate={90} onClick={onFlipY} />
+                  <SwapOutlined onClick={onFlipX} />
+                  <RotateLeftOutlined onClick={onRotateLeft} />
+                  <RotateRightOutlined onClick={onRotateRight} />
+                  <ZoomOutOutlined disabled={scale === 1} onClick={onZoomOut} />
+                  <ZoomInOutlined disabled={scale === 50} onClick={onZoomIn} />
+                </Space>
+              ),
+            }}
+          />
+
+        </Button>
+      </Col>
+      <Col span={19}><div className="name">{user?.first_name + " " + user?.last_name}</div></Col>
+    </Row>
+
   );
 }

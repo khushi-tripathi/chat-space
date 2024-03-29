@@ -2,7 +2,6 @@ import {
   SET_CHAT_MESSAGES,
   ADD_NEW_CHAT,
   REMOVE_CHAT,
-  REMOVE_CHAT_MESSAGES,
   ADD_EXISTING_CHAT,
 } from "../Actions/actionConstant";
 const initialState = {
