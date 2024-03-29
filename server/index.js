@@ -15,6 +15,11 @@ const databaseFunctions = require("./database-connection/database-connectivity.j
 
 app.use(cors());
 
+// Function to serve all static files
+// inside public directory.
+app.use(express.static('public'));
+app.use('/images', express.static('images'));
+
 const storage = multer.diskStorage({
   destination : (req , file ,cb) =>{
     cb(null, 'public/images')

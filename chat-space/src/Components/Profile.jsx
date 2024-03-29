@@ -42,7 +42,7 @@ export default function Profile({ user }) {
       >
  <Image
       // width={200}
-      src={src}
+      src={"http://localhost:4000/Images/"+user?.profile_image}
       preview={{
         // visible : true ,
         toolbarRender: (
