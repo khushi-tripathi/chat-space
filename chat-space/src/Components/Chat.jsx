@@ -59,11 +59,8 @@ export default function Chat({ currentUuid, otherUser }) {
       ]
       const uuid = uuidv4();
       if (!Object.keys(chatArray).filter((item) => item === currentUuid)?.length) {
-        //new message
-
         const data =
         {
-          // ...chatArray,
           [uuid]: chat,
         }
         dispatch(addUuid(uuid, chat[0]?.email, otherUser?.email, false))
@@ -75,8 +72,6 @@ export default function Chat({ currentUuid, otherUser }) {
             chat,
           }
         });
-
-
       }
       else {
         const chatData = {
@@ -95,8 +90,6 @@ export default function Chat({ currentUuid, otherUser }) {
         });
 
       }
-
-
       socketEmit("chat", {
         message: inputRef?.current?.input?.value,
         email: loginData?.credentials?.email,
@@ -104,9 +97,6 @@ export default function Chat({ currentUuid, otherUser }) {
         uuid: currentUuid || uuid,
         otherUser: otherUser?.email || ""
       });
-
-
-
     }
   };
   const compareMessageText = (id) => {
@@ -167,22 +157,6 @@ export default function Chat({ currentUuid, otherUser }) {
               value={chatData?.newMessage}
               onChange={(e) => {
                 setChatData({ ...chatData, newMessage: e.target.value });
-                // () => {
-                //   if (chatData?.newMessage.trim().length > 0) {
-                //     setChatData({
-                //       ...chatData,
-                //       inputClasses: "input onChangeInputBox",
-                //       inputColClasses: "inputBox onChangeInputBox",
-                //     });
-                //   } else {
-                //     setChatData({
-                //       ...chatData,
-                //       inputColClasses: "inputBox",
-                //       inputClasses: "input",
-                //     });
-                //   }
-                // }
-
               }}
             />
             <Button onClick={() => {
@@ -190,27 +164,20 @@ export default function Chat({ currentUuid, otherUser }) {
               setChatData({ ...chatData, inputColClasses: !emojiHandler?.open ? 'inputBox changedPositionInputBox' : 'inputBox' })
             }}>
               <PlusCircleOutlined />
-
             </Button>
-
-
             <Button
               title="Send Message Button"
               onClick={send}
               className="sendBtn"
             >
-
               <SendOutlined />
             </Button>
-
-
           </Col>
           {emojiHandler?.open && <Picker onEmojiClick={onClickEmoji} className="emoji-picker" searchDisabled={true} suggestedEmojisMode={'frequent'} previewConfig={{
             defaultEmoji: "1f60a", // defaults to: "1f60a"
-            defaultCaption: "Khushi", // defaults to: "What's your mood?"
+            defaultCaption: "", // defaults to: "What's your mood?"
             showPreview: false // defaults to: true
           }} />}
-
         </Row>
       </div>
     </Card>

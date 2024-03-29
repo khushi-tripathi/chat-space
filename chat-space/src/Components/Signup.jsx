@@ -25,32 +25,9 @@ const Signup = () => {
     profile: ''
   });
 
-  // const props = {
-  //   name: 'file',
-  //   action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-  //   maxCount : 1,
-  //   beforeUpload: () => {
-  //     return false;
-  //   },
-  //   onChange(info) {
-  //     // if (info.file.status === 'uploading') {
-  //       console.log("Upload on CHange" ,info.file, info.fileList[0]);
-  //     // }
 
-  //     setUserData({
-  //       ...userData,
-  //       ["profile"]: info.fileList[0],
-  //     });
-  //     if (info.file.status === 'done') {
-  //       message.success(`${info.file.name} file uploaded successfully`);
-  //     } 
-  //     // else if (info.file.status === 'error') {
-  //     //   message.error(`${info.file.name} file upload failed.`);
-  //     // }
-  //   },
-  // };
 
-  const getImage = (type , file) => {
+  const getImage = (type, file) => {
     //convert to Base64
     var reader = new FileReader();
     reader?.readAsDataURL(file)
@@ -73,14 +50,15 @@ const Signup = () => {
         isExistingEmail: false,
       });
     }
-    if (type === 'profile' && value!== undefined) {
-      getImage(type , value)
-    } else if(value!== undefined){
-      setUserData({
-        ...userData,
-        [type]: value,
-      });
-    }
+    if (type === 'profile' && value !== undefined) {
+      getImage(type, value)
+    } else
+      if (value !== undefined) {
+        setUserData({
+          ...userData,
+          [type]: value,
+        });
+      }
 
   };
 
@@ -110,22 +88,6 @@ const Signup = () => {
       });
   };
 
-  // const validationCheck = () => {
-  //   const existingEmail = userDetails?.userDetails?.filter(
-  //     (e, i) => e.email === userData?.email
-  //   );
-  //   if (userData?.email.includes("@") && !existingEmail?.length) {
-  //     submitDetails();
-  //   } else if (existingEmail?.length) {
-  //     setValidationError({
-  //       isExistingEmail: true,
-  //     });
-  //   } else {
-  //     setValidationError({
-  //       status: true,
-  //     });
-  //   }
-  // };
   const isInValid = () => {
     setValidationError({
       status: true,
@@ -277,16 +239,6 @@ const Signup = () => {
                 }}
               />
             </Form.Item>
-
-            {/* <Form.Item
-              label="Profile Pickture"
-              name="profile"
-              
-            >
-              <Upload {...props}>
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </Form.Item> */}
 
 
             <Form.Item

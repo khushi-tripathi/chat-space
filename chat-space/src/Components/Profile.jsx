@@ -10,11 +10,10 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import { Image, Space } from 'antd';
-const src = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
 
 export default function Profile({ user }) {
   const onDownload = () => {
-    fetch(src)
+    fetch(user?.profile_image)
       .then((response) => response.blob())
       .then((blob) => {
         const url = URL.createObjectURL(new Blob([blob]));
@@ -35,16 +34,13 @@ export default function Profile({ user }) {
     <Button
         className="photo"
         onClick={(event) => {
-          // alert("HELLO");
-          //agr tab uss me switch nhi krvaani h to
+          //that will stop to switch tab when anyone clicks to profile picture
           event.stopPropagation();
         }}
       >
  <Image
-      // width={200}
       src={user?.profile_image}
       preview={{
-        // visible : true ,
         toolbarRender: (
           _,
           {

@@ -20,7 +20,6 @@ const ChatComponent = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(registeredUserDetails());
-    // dispatch(getUuid(loginData));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [0]);
 
@@ -65,13 +64,6 @@ const ChatComponent = () => {
                 key: id,
                 disabled: i === 28,
                 children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} />,
-                // icon: (
-                //   <AndroidOutlined
-                //     onClick={() => {
-                //       alert("KKK TT");
-                //     }}
-                //   />
-                // ),
               };
             })
             : [

@@ -54,7 +54,6 @@ export default function Login() {
   };
 
   const onFinish = (values) => {
-    // login();
     validationCheck(
       userDetails,
       loginData,

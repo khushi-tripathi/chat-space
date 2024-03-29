@@ -26,7 +26,6 @@ const fetchExistingChat = (data) => {
     axios
       .post("http://localhost:4000/api/existing-chat", data)
       .then((response) => {
-
         // 1. chatArray: {
         //   own: [
         //     {
@@ -34,19 +33,7 @@ const fetchExistingChat = (data) => {
         //       type: "own",
         //     },
         //   ],
-        // },   // is format ka data tiaar krro 
-
-        // data key se uuid ya response se uuid ke saath chat leti jaao 
-
-        // array me krke story krvado 
-        // usse pehle ab ek insert krke dekhlo
-        // dono widow pr display krvaake msg 
-        // fir yha se vaps continue krenge
-
-
-
-
-
+        // },  
 
 
         // response?.data?.data === data[]

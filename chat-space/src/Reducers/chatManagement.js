@@ -19,7 +19,6 @@ function chatManagement(state = initialState, action) {
   switch (action?.type) {
 
     case ADD_EXISTING_CHAT:
-      //payload.newChat [] hoga
       return {
         ...state,
         chatArray: {

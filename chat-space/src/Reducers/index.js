@@ -3,7 +3,6 @@ import registeredUserDetails from "./registeredUserDetails";
 import chatManagement from "./chatManagement";
 import loginDetails from "./loginDetails";
 import uuid from "./uuid";
-// other reducers needs to import here
 const rootReducer = combineReducers({
   registeredUserDetails: registeredUserDetails,
   chatManagement,
