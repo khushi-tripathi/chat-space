@@ -1,19 +1,27 @@
 import { Button, Input, Modal } from 'antd'
 import React, { useState } from 'react'
 import { Select, Space } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { addUuid } from '../Actions/uuid';
+import { addNewChat, addNewGroup, getUuid } from '../Actions/chatManagement';
+import { ADD_NEW_CHAT } from '../Actions/actionConstant';
 
 export default function ModalBox({ setModal, loginData }) {
     const userDetails = useSelector((state) => state.registeredUserDetails);
+    const loginDetails = useSelector((state) => state.loginDetails)
+
+    const dispatch = useDispatch()
     const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '' })
     const handleChange = (value) => {
         debugger
         console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
-            selectedEmailList: [...group?.selectedEmailList, value]
+            selectedEmailList: value
         })
     };
+
 
     const setGroupDetails = (value, type) => {
         setGroupInfo({
@@ -23,7 +31,33 @@ export default function ModalBox({ setModal, loginData }) {
     }
 
     const createGroup = () => {
-
+        const uuid = uuidv4()
+        const chat = [
+            {
+                email: loginData?.email,
+                name: loginData?.first_name + " " + loginData?.last_name,
+                message: group?.firstMsg?.length ? group?.firstMsg : ('Welcome to the ' + group?.groupName),
+                time: new Date().toLocaleTimeString("en-US", { hour12: true }),
+                type: "group",
+            },
+        ]
+        const data =
+        {
+            [uuid]: chat,
+        }
+        debugger
+        dispatch(addUuid(uuid, chat[0]?.email, group?.groupName, true))
+        dispatch(addNewChat(data, uuid, chat[0]?.email))
+        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList))
+        dispatch({
+            type: ADD_NEW_CHAT,
+            payload: {
+                uuid,
+                chat,
+            }
+        });
+        debugger
+        dispatch(getUuid(loginDetails, true))
         console.log(group)
         setModal(false)
         //yha ab same uuid vaala code copy pase ya function call krege 

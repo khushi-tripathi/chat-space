@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Image, Row, Space, Switch } from 'antd';
 import ProfileOptionDropdown from './ProfileOptionDropdown';
-import ModalBox from './ModalBox';
+import CreateGroup from './CreateGroup';
 // Edit Profile  --- own 
 // Create Group
 // Delete Chat History
@@ -11,6 +11,10 @@ import ModalBox from './ModalBox';
 // Select Theme
 // Block this chat 
 // Logout
+
+
+// View Group member list 
+// MAke admin or by default creater is the only admin 
 export default function MoreOptions({ loginData }) {
 
     const [theme, setTheme] = useState('dark');
@@ -68,7 +72,7 @@ export default function MoreOptions({ loginData }) {
                 unCheckedChildren="Light"
             />
             <ProfileOptionDropdown loginData={loginData} />
-            {modal && <ModalBox setModal={setModal} loginData={loginData} />}
+            {modal && <CreateGroup setModal={setModal} loginData={loginData} />}
         </Row >
     )
 }

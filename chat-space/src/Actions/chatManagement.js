@@ -36,6 +36,7 @@ const fetchExistingChat = (data) => {
         // },  
 
 
+
         // response?.data?.data === data[]
         // idx :  [ { id: 1, uuid: '12', primary_user: 'KT@', chat: '"hi"' } ]
 
@@ -89,9 +90,29 @@ const updateChatData = (chat, uuid, primary_user) => {
   };
 }
 
+const addNewGroup = (uuid, primary_user, group_member) => {
+  return function (dispatch) {
+    axios
+      .post("http://localhost:4000/api/add-new-group", {
+        uuid,
+        primary_user,
+        group_member,
+        admin: primary_user,
+        // group_history : ''
+      })
+      .then((response) => {
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+}
+
 export {
   getUuid,
   addNewChat,
-  updateChatData
+  updateChatData,
+  addNewGroup
 }
 

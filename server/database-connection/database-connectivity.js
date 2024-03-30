@@ -74,7 +74,6 @@ const getChatFromUuid = (request, response) => {
       let finalData = result[0]
       finalData['chat'] = JSON.parse(finalData?.chat)
       data[i] = finalData;
-
       if (i === request?.length - 1) {
         response.json({
           data,
@@ -97,6 +96,22 @@ const addNewChat = (request, response) => {
     if (err) throw err;
     response.json({
       data: "Record inserted",
+    });
+  });
+};
+
+const addNewGroup = (request, response) => {
+  console.log("Khushi : ", request)
+  console.log(request.primary_user)
+  const group_member = JSON?.stringify(request?.group_member)
+
+
+  // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
+  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${request.admin}')`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    response.json({
+      data: "Record inserted in group table",
     });
   });
 };
@@ -138,6 +153,7 @@ module.exports.getUuid = getUuid;
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
 module.exports.addNewChat = addNewChat;
+module.exports.addNewGroup = addNewGroup;
 module.exports.addUuid = addUuid;
 
 
