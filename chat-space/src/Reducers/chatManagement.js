@@ -3,6 +3,7 @@ import {
   ADD_NEW_CHAT,
   REMOVE_CHAT,
   ADD_EXISTING_CHAT,
+  SET_DEFAULT_VALUE,
 } from "../Actions/actionConstant";
 const initialState = {
   chatArray: {
@@ -51,6 +52,8 @@ function chatManagement(state = initialState, action) {
         ...state,
         userDetails: action?.payload?.userDetails,
       };
+    case SET_DEFAULT_VALUE:
+      return initialState
     default:
       return state;
   }

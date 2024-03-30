@@ -1,6 +1,7 @@
 import {
   FETCH_USER_DETAILS,
   SET_BY_DEFAULT_USER_DETAILS,
+  SET_DEFAULT_VALUE,
   SET_RADIO_BUTTON_DATA,
 } from "../Actions/actionConstant";
 
@@ -22,6 +23,8 @@ function registeredUserDetails(state = initialState, action) {
         ...state,
         userDetails: action?.payload?.userDetails,
       };
+    case SET_DEFAULT_VALUE:
+      return initialState
     default:
       return state;
   }

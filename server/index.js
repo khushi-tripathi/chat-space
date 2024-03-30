@@ -7,7 +7,7 @@ const PORT = 4000;
 const databaseFunctions = require("./database-connection/database-connectivity.js");
 const http = require("http").Server(app);
 const cors = require("cors");
-app.use(body.json({ limit: '5mb' }));
+app.use(body.json({ limit: '50mb' }));
 
 app.use(cors());
 
@@ -84,7 +84,7 @@ app.post("/api/update-chat", async (req, res) => {
 });
 
 app.post("/api/sign-up", async (req, res) => {
-  console.log("body" , req.body) 
+  console.log("body", req.body)
   // console.log("file" , req.file) 
   // let request = JSON.parse(req.body)
   // request = {

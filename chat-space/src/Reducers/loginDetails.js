@@ -1,6 +1,7 @@
 import {
   SET_LOGIN_CREDENTIALS,
   SET_BY_DEFAULT_LOGIN_DETAILS,
+  SET_DEFAULT_VALUE,
 } from "../Actions/actionConstant";
 
 const initialState = {
@@ -18,6 +19,8 @@ function loginDetails(state = initialState, action) {
         ...state,
         credentials: action.payload,
       };
+    case SET_DEFAULT_VALUE:
+      return initialState
     default:
       return state;
   }

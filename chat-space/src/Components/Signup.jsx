@@ -75,9 +75,13 @@ const Signup = () => {
           {
             type: SET_LOGIN_CREDENTIALS,
             payload: {
+              first_name: userData?.firstName,
+              last_name: userData?.lastName,
               name: userData?.firstName + " " + userData?.lastName,
               email: userData?.email,
               password: userData?.password,
+              mobile: userData?.mobile,
+              profile_image: userData?.profile
             },
           },
           navigate("/register-in-space")
