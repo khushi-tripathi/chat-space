@@ -1,18 +1,23 @@
 import axios from "axios";
-import { ADD_EXISTING_CHAT, FETCH_UUID_DATA } from "./actionConstant";
+import { ADD_EXISTING_CHAT, FETCH_GROUP_INFO, FETCH_UUID_DATA } from "./actionConstant";
 
 const getUuid = (loginData, checkExistingChat) => {
   return function (dispatch) {
     axios
       .get("http://localhost:4000/api/get-all-uuid")
       .then((response) => {
-        const data = response.data.data.filter((item) => { return item?.primary_user === loginData?.credentials?.email || item?.other_user === loginData?.credentials?.email })
+        const data = response.data.data.filter((item) => {
+          return item?.primary_user === loginData?.credentials?.email || item?.other_user === loginData?.credentials?.email
+        })
         dispatch({
           type: FETCH_UUID_DATA,
           payload: data,
         });
-        if (data?.length && checkExistingChat)
+        if (data?.length && checkExistingChat) {
           dispatch(fetchExistingChat(data))
+          dispatch(fetchGroupInfo(loginData?.credentials))
+
+        }
 
       })
       .catch((error) => {
@@ -20,6 +25,44 @@ const getUuid = (loginData, checkExistingChat) => {
       });
   };
 };
+
+
+const fetchGroupInfo = (loginData) => {
+  return function (dispatch) {
+    axios
+      .get("http://localhost:4000/api/get-group-info")
+      .then((response) => {
+
+        const data = response?.data?.data?.filter((item, i) => {
+          const member = JSON.parse(item?.group_member)
+          if (member?.includes(loginData?.email)) {
+            return item;
+          }
+        })
+        const groupData = data.map((item, i) => {
+          const mem = JSON.parse(item?.group_member)
+          return { ...item, group_member: mem }
+        }
+        )
+        if (data?.length) {
+          dispatch({
+            type: FETCH_GROUP_INFO,
+            payload: groupData,
+          });
+        }
+
+
+        // const member = JSON.parse(response.data.data[0].group_member)
+        // if (member?.includes(loginData?.email))
+
+
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+}
 
 const fetchExistingChat = (data) => {
   return function (dispatch) {
@@ -90,7 +133,7 @@ const updateChatData = (chat, uuid, primary_user) => {
   };
 }
 
-const addNewGroup = (uuid, primary_user, group_member) => {
+const addNewGroup = (uuid, primary_user, group_member, group_name) => {
   return function (dispatch) {
     axios
       .post("http://localhost:4000/api/add-new-group", {
@@ -98,6 +141,7 @@ const addNewGroup = (uuid, primary_user, group_member) => {
         primary_user,
         group_member,
         admin: primary_user,
+        group_name,
         // group_history : ''
       })
       .then((response) => {
@@ -113,6 +157,7 @@ export {
   getUuid,
   addNewChat,
   updateChatData,
-  addNewGroup
+  addNewGroup,
+  fetchGroupInfo
 }
 

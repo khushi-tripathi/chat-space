@@ -11,7 +11,8 @@ import {
 } from '@ant-design/icons';
 import { Image, Space } from 'antd';
 
-export default function Profile({ user }) {
+export default function Profile({ user, group }) {
+
   const onDownload = () => {
     fetch(user?.profile_image)
       .then((response) => response.blob())
@@ -63,7 +64,8 @@ export default function Profile({ user }) {
 
         </Button>
       </Col>
-      <Col span={19}><div className="name">{user?.first_name + " " + user?.last_name}</div></Col>
+      {group?.length ? (<Col span={19}><div className="name">{user?.group_name}</div></Col>) :
+        (<Col span={19}><div className="name">{user?.first_name + " " + user?.last_name}</div></Col>)}
     </Row>
 
   );

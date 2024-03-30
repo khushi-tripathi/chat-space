@@ -7,15 +7,19 @@ import { AndroidOutlined } from "@ant-design/icons";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import Chat from "./Chat";
-import { getUuid } from "../Actions/chatManagement";
+import { fetchGroupInfo, getUuid } from "../Actions/chatManagement";
 import registeredUserDetails from "../Actions/registeredUserDetails";
 
 const ChatComponent = () => {
   const userDetails = useSelector((state) => state.registeredUserDetails);
+
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
+  const groupData = useSelector((state) => state?.groupDetails?.groupData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const [flag, setFlag] = useState(true)
+  const [tabData, setTabData] = useState([])
+
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -26,12 +30,22 @@ const ChatComponent = () => {
   useEffect(() => {
     console.log(chatArray)
     dispatch(getUuid(loginData, flag));
+    // dispatch(fetchGroupInfo(loginData?.credentials))
     setFlag(false)
   }, [Object.keys(chatArray)?.length]);
+
+  useEffect(() => {
+    debugger
+    const userTab = userDetails?.userDetails
+    const groupTab = groupData
+    setTabData([...userTab, ...groupTab])
+  }, [userDetails?.userDetails?.length, groupData?.length]);
 
 
 
   const getCurrentUuid = (user) => {
+
+
     const currentUuid = uuidData?.filter((item) => ((item?.other_user === loginData?.credentials?.email ||
       item?.other_user === user?.email) &&
       (item?.primary_user === loginData?.credentials?.email || item?.primary_user === user?.email) &&
@@ -40,10 +54,14 @@ const ChatComponent = () => {
     const ownUuid = uuidData?.filter((item) => (item?.other_user === user?.email) &&
       (user?.email === item?.primary_user))
 
+
+
     if (ownUuid?.length) {
       return ownUuid[0]?.uuid
     } else if (currentUuid?.length) {
       return currentUuid[0]?.uuid
+    } else if (user?.isGroup === 'true') {
+      return user?.uuid
     }
     else {
       return undefined
@@ -57,13 +75,13 @@ const ChatComponent = () => {
         tabPosition="left"
         items={
           userDetails?.isDisplaySelected
-            ? userDetails?.userDetails?.map((user, i) => {
+            ? tabData?.map((user, i) => {
               const id = String(i);
               return {
-                label: <Profile user={user} />,
+                label: <Profile user={user} group={user?.group_name} />,
                 key: id,
                 disabled: i === 28,
-                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} />,
+                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} />,
               };
             })
             : [

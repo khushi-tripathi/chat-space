@@ -14,7 +14,6 @@ export default function ModalBox({ setModal, loginData }) {
     const dispatch = useDispatch()
     const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '' })
     const handleChange = (value) => {
-        debugger
         console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
@@ -45,10 +44,9 @@ export default function ModalBox({ setModal, loginData }) {
         {
             [uuid]: chat,
         }
-        debugger
         dispatch(addUuid(uuid, chat[0]?.email, group?.groupName, true))
         dispatch(addNewChat(data, uuid, chat[0]?.email))
-        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList))
+        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList, group?.groupName))
         dispatch({
             type: ADD_NEW_CHAT,
             payload: {
@@ -56,7 +54,6 @@ export default function ModalBox({ setModal, loginData }) {
                 chat,
             }
         });
-        debugger
         dispatch(getUuid(loginDetails, true))
         console.log(group)
         setModal(false)

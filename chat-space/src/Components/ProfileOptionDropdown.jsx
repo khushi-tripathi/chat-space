@@ -44,7 +44,6 @@ export default function ProfileOptionDropdown({ loginData }) {
                     menu={{
                         items: profileItems,
                         onChange: (event) => {
-                            debugger
                         }
                     }} >
                     <Button

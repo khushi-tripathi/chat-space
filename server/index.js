@@ -64,6 +64,12 @@ app.get("/api/get-all-uuid", async (req, res) => {
   databaseFunctions.getUuid(res);
 })
 
+app.get("/api/get-group-info", async (req, res) => {
+  databaseFunctions.getGroupInfo(res);
+})
+
+
+
 
 
 app.post("/api/existing-chat", async (req, res) => {

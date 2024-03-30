@@ -59,6 +59,22 @@ const getUuid = (response) => {
   });
 };
 
+const getGroupInfo = (response) => {
+  var sql = `SELECT * FROM group_chat`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    let res = JSON.parse(JSON.stringify(result));
+    // let finalData = result[0]
+    // finalData['chat'] = JSON.parse(finalData?.chat)
+    // data[i] = finalData;
+    response.json({
+      data: res,
+    });
+  });
+};
+
+
+
 
 const getChatFromUuid = (request, response) => {
   let data = [];
@@ -107,7 +123,7 @@ const addNewGroup = (request, response) => {
 
 
   // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
-  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${request.admin}')`;
+  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${request.admin}' , '${request.group_name}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({
@@ -150,6 +166,8 @@ module.exports.add = add;
 module.exports.addUserDetails = addUserDetails;
 module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
+module.exports.getGroupInfo = getGroupInfo;
+
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
 module.exports.addNewChat = addNewChat;
