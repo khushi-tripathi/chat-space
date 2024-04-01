@@ -13,12 +13,12 @@ const getUuid = (loginData, checkExistingChat) => {
           type: FETCH_UUID_DATA,
           payload: data,
         });
-        if (data?.length && checkExistingChat) {
-          dispatch(fetchExistingChat(data))
+        if (checkExistingChat) {
+          if (data?.length) {
+            dispatch(fetchExistingChat(data, 'getUuid'))
+          }
           dispatch(fetchGroupInfo(loginData?.credentials))
-
         }
-
       })
       .catch((error) => {
         console.error(error);
@@ -49,6 +49,7 @@ const fetchGroupInfo = (loginData) => {
             type: FETCH_GROUP_INFO,
             payload: groupData,
           });
+          dispatch(fetchExistingChat(groupData, 'fetchGroupInfo'))
         }
 
 
@@ -64,7 +65,8 @@ const fetchGroupInfo = (loginData) => {
   };
 }
 
-const fetchExistingChat = (data) => {
+const fetchExistingChat = (data, functionCall = '') => {
+  debugger
   return function (dispatch) {
     axios
       .post("http://localhost:4000/api/existing-chat", data)

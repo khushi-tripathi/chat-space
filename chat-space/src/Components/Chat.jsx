@@ -13,7 +13,7 @@ import { SendOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import Picker, { Emoji } from 'emoji-picker-react';
 import MoreOptions from "./MoreOptions";
 
-export default function Chat({ currentUuid, otherUser, group }) {
+export default function Chat({ currentUuid, otherUser, group, userDetails }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
 
@@ -130,7 +130,9 @@ export default function Chat({ currentUuid, otherUser, group }) {
           {/* {console.log("Khushi : ", chatArray[currentUuid])} */}
           {currentUuid && chatArray[currentUuid]?.map((item, i) => (
             <ChatMessages
+              item={item}
               key={i}
+              userDetails={userDetails}
               message={item?.message}
               classs={
                 item?.email === loginData?.credentials?.email

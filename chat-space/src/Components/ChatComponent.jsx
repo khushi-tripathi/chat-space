@@ -60,7 +60,7 @@ const ChatComponent = () => {
       return ownUuid[0]?.uuid
     } else if (currentUuid?.length) {
       return currentUuid[0]?.uuid
-    } else if (user?.isGroup === 'true') {
+    } else if (user?.group_name?.length) {
       return user?.uuid
     }
     else {
@@ -81,7 +81,7 @@ const ChatComponent = () => {
                 label: <Profile user={user} group={user?.group_name} />,
                 key: id,
                 disabled: i === 28,
-                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} />,
+                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} />,
               };
             })
             : [
