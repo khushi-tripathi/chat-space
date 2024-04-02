@@ -3,7 +3,6 @@ const express = require("express");
 const multer = require("multer")
 const path = require("path")
 const app = express();
-const PORT = 4000;
 const databaseFunctions = require("./database-connection/database-connectivity.js");
 const http = require("http").Server(app);
 const cors = require("cors");
@@ -118,8 +117,8 @@ app.post("/api/sign-up", async (req, res) => {
 //   res.json(data);
 // });
 
-http.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+http.listen(process.env.PORT, () => {
+  console.log(`Server listening on ${process.env.PORT}`);
 });
 
 // console.log(databaseFunctions.add());
