@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ADD_EXISTING_CHAT, FETCH_GROUP_INFO, FETCH_UUID_DATA } from "./actionConstant";
 
-const getUuid = (loginData, checkExistingChat) => {
+const getUuid = (loginData, checkExistingChat, groupData) => {
   return function (dispatch) {
     axios
       .get("http://localhost:4000/api/get-all-uuid")
@@ -17,7 +17,7 @@ const getUuid = (loginData, checkExistingChat) => {
           if (data?.length) {
             dispatch(fetchExistingChat(data, 'getUuid'))
           }
-          dispatch(fetchGroupInfo(loginData?.credentials))
+          dispatch(fetchGroupInfo(loginData?.credentials, groupData))
         }
       })
       .catch((error) => {
@@ -27,7 +27,7 @@ const getUuid = (loginData, checkExistingChat) => {
 };
 
 
-const fetchGroupInfo = (loginData) => {
+const fetchGroupInfo = (loginData, existingGroupData) => {
   return function (dispatch) {
     axios
       .get("http://localhost:4000/api/get-group-info")
@@ -41,13 +41,17 @@ const fetchGroupInfo = (loginData) => {
         })
         const groupData = data.map((item, i) => {
           const mem = JSON.parse(item?.group_member)
-          return { ...item, group_member: mem }
+          const admin = JSON.parse(item?.admin)
+          return { ...item, group_member: mem, admin }
         }
         )
         if (data?.length) {
           dispatch({
             type: FETCH_GROUP_INFO,
-            payload: groupData,
+            payload: {
+              groupData,
+              isGroupDataUpdated: JSON.stringify(existingGroupData) !== JSON.stringify(groupData) ? true : false
+            },
           });
           dispatch(fetchExistingChat(groupData, 'fetchGroupInfo'))
         }
@@ -135,14 +139,33 @@ const updateChatData = (chat, uuid, primary_user) => {
   };
 }
 
-const addNewGroup = (uuid, primary_user, group_member, group_name) => {
+const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
   return function (dispatch) {
     axios
       .post("http://localhost:4000/api/add-new-group", {
         uuid,
         primary_user,
-        group_member,
-        admin: primary_user,
+        group_member: group_member || [],
+        admin: admin || [],
+        group_name,
+        // group_history : ''
+      })
+      .then((response) => {
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+}
+
+const editGroupInfo = (uuid, group_member, group_name, admin) => {
+  return function (dispatch) {
+    axios
+      .post("http://localhost:4000/api/update-group-info", {
+        uuid,
+        group_member: group_member || [],
+        admin: admin || [],
         group_name,
         // group_history : ''
       })
@@ -160,6 +183,7 @@ export {
   addNewChat,
   updateChatData,
   addNewGroup,
-  fetchGroupInfo
+  fetchGroupInfo,
+  editGroupInfo
 }
 

@@ -120,10 +120,11 @@ const addNewGroup = (request, response) => {
   console.log("Khushi : ", request)
   console.log(request.primary_user)
   const group_member = JSON?.stringify(request?.group_member)
+  const admin = JSON?.stringify(request?.admin)
 
 
   // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
-  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${request.admin}' , '${request.group_name}')`;
+  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({
@@ -137,6 +138,21 @@ const updateChat = (request, response) => {
   console.log(request.primary_user)
   const chat = JSON?.stringify(request?.chat)
   var sql = `UPDATE manage_chat SET chat='${chat}' WHERE uuid='${request?.uuid}'`;
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    response.json({
+      data: "Record Updated",
+    });
+  });
+};
+
+const updateGroupInfo = (request, response) => {
+  console.log(request)
+  console.log(request.primary_user)
+  const group_member = JSON?.stringify(request?.group_member)
+  const admin = JSON?.stringify(request?.admin)
+
+  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}'  WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({
@@ -170,6 +186,7 @@ module.exports.getGroupInfo = getGroupInfo;
 
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
+module.exports.updateGroupInfo = updateGroupInfo;
 module.exports.addNewChat = addNewChat;
 module.exports.addNewGroup = addNewGroup;
 module.exports.addUuid = addUuid;

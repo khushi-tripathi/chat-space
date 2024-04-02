@@ -4,6 +4,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Image, Row, Space, Switch } from 'antd';
 import ProfileOptionDropdown from './ProfileOptionDropdown';
 import CreateGroup from './CreateGroup';
+import EditGroup from './EditGroup';
 // Edit Profile  --- own 
 // Create Group
 // Delete Chat History
@@ -15,26 +16,26 @@ import CreateGroup from './CreateGroup';
 
 // View Group member list 
 // MAke admin or by default creater is the only admin 
-export default function MoreOptions({ loginData }) {
+export default function MoreOptions({ loginData, group, user, groupData }) {
 
-    const [theme, setTheme] = useState('dark');
-    const [modal, setModal] = useState(false);
-    const changeTheme = (value) => {
-        setTheme(value ? 'dark' : 'light');
-    };
+    const [modal, setModal] = useState({ createGroup: false, editGroup: false });
 
     const onClickCreateGroupBtn = () => {
-        setModal(true)
+        setModal({ ...modal, createGroup: true })
     }
-    const items = [
 
+    const editGroupInfo = () => {
+        setModal({ ...modal, editGroup: true })
+    }
+
+    let item = [
         {
             key: '1',
             label: (<div onClick={onClickCreateGroupBtn}>Create Group</div>)
         },
         {
             key: '2',
-            label: 'Block'
+            label: group?.length ? (<div onClick={editGroupInfo}>Edit Group Information</div>) : 'Block'
         },
         {
             key: '3',
@@ -45,6 +46,32 @@ export default function MoreOptions({ loginData }) {
             label: "Select Chat Theme"
         },
     ];
+
+    const [items, setItems] = useState(item);
+
+    const [theme, setTheme] = useState('dark');
+
+
+
+    // useEffect(() => {
+    //   setItems([
+    //     ...item,
+    //     {
+    //         key: item[item?.length +1],
+    //         label: "Edit "
+    //     }
+    //   ])
+
+
+    // }, [group?.length])
+
+    const changeTheme = (value) => {
+        setTheme(value ? 'dark' : 'light');
+    };
+
+
+
+
 
     return (
         <Row>
@@ -72,7 +99,8 @@ export default function MoreOptions({ loginData }) {
                 unCheckedChildren="Light"
             />
             <ProfileOptionDropdown loginData={loginData} />
-            {modal && <CreateGroup setModal={setModal} loginData={loginData} />}
+            {modal?.createGroup && <CreateGroup setModal={setModal} loginData={loginData} modal={modal} />}
+            {modal?.editGroup && <EditGroup user={user} setModal={setModal} loginData={loginData} modal={modal} groupData={groupData} />}
         </Row >
     )
 }

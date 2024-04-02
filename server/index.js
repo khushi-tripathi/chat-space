@@ -40,7 +40,7 @@ socketIO.on("connection", (socket) => {
 
   // socket.emit("chat", { ...data, req: "global" });
   socket.on("chat", (data) => {
-    console.log("chattt", data);
+    console.log("socket chat emit", data);
     // socketIO.emit("chat", { ...data, req: "For Everyone" });
     socket.broadcast.emit("chat", { ...data });
   });
@@ -93,6 +93,15 @@ app.post("/api/add-new-group", async (req, res) => {
 app.post("/api/update-chat", async (req, res) => {
   databaseFunctions.updateChat(req.body, res);
 });
+
+app.post("/api/update-group-info", async (req, res) => {
+  databaseFunctions.updateGroupInfo(req.body, res);
+});
+
+
+
+
+
 
 app.post("/api/sign-up", async (req, res) => {
   console.log("body", req.body)

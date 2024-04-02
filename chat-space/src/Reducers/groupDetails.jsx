@@ -11,7 +11,8 @@ function groupDetails(state = initialState, action) {
         case FETCH_GROUP_INFO:
             return {
                 ...state,
-                groupData: action?.payload,
+                groupData: action?.payload?.groupData,
+                isGroupDataUpdated: action?.payload?.isGroupDataUpdated || false
             };
 
         case SET_DEFAULT_VALUE:

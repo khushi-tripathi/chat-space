@@ -1,13 +1,12 @@
-import { Button, Input, Modal } from 'antd'
+import { Button, Input, Modal, Select, Space } from 'antd';
 import React, { useState } from 'react'
-import { Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { addUuid } from '../Actions/uuid';
-import { addNewChat, addNewGroup, getUuid } from '../Actions/chatManagement';
+import { addNewChat, addNewGroup, editGroupInfo, getUuid } from '../Actions/chatManagement';
 import { ADD_NEW_CHAT } from '../Actions/actionConstant';
 
-export default function ModalBox({ setModal, loginData, modal }) {
+export default function EditGroup({ setModal, loginData, modal, user, groupData }) {
+
     const userDetails = useSelector((state) => state.registeredUserDetails);
     const loginDetails = useSelector((state) => state.loginDetails)
 
@@ -38,47 +37,21 @@ export default function ModalBox({ setModal, loginData, modal }) {
         })
     }
 
-    const createGroup = () => {
-        const uuid = uuidv4()
-        const chat = [
-            {
-                email: loginData?.email,
-                name: loginData?.first_name + " " + loginData?.last_name,
-                message: group?.firstMsg?.length ? group?.firstMsg : ('Welcome to the ' + group?.groupName),
-                time: new Date().toLocaleTimeString("en-US", { hour12: true }),
-                type: "group",
-            },
-        ]
-        const data =
-        {
-            [uuid]: chat,
-        }
-        dispatch(addUuid(uuid, chat[0]?.email, group?.groupName, true))
-        dispatch(addNewChat(data, uuid, chat[0]?.email))
-        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList, group?.groupName, group?.groupAdmin))
-        dispatch({
-            type: ADD_NEW_CHAT,
-            payload: {
-                uuid,
-                chat,
-            }
-        });
-        dispatch(getUuid(loginDetails, true))
-        console.log(group)
-        // setModal(false)
-        setModal({ ...modal, createGroup: false })
-        //yha ab same uuid vaala code copy pase ya function call krege 
+    const updateGroupInfo = () => {
+        dispatch(editGroupInfo(user?.uuid, group?.selectedEmailList, group?.groupName, group?.groupAdmin))
+        dispatch(getUuid(loginDetails, true, groupData))
+        setModal({ ...modal, editGroup: false })
     }
 
     return (
         <Modal
-            title={(<h2>Create Group</h2>)}
+            title={(<h2>Edit Group Information</h2>)}
             centered
             open={true}
-            onCancel={() => setModal({ ...modal, createGroup: false })}
+            onCancel={() => setModal({ ...modal, editGroup: false })}
             footer={(_, { CancelBtn }) => (
                 <>
-                    <Button onClick={createGroup}>Create Group</Button>
+                    <Button onClick={updateGroupInfo}>Update Group</Button>
                     <CancelBtn />
                 </>
             )}
@@ -86,15 +59,15 @@ export default function ModalBox({ setModal, loginData, modal }) {
         >
 
             <h3>Enter Group Name :</h3>
-            <Input placeholder="Enter group name" onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
+            <Input defaultValue={user?.group_name} placeholder="Edit group name here - " onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
             <h3>Select group member :</h3>
             <Select
                 mode="multiple"
                 style={{
                     width: '100%',
                 }}
-                placeholder="select group member"
-                defaultValue={[loginData?.email]}
+                placeholder="select group member -- "
+                defaultValue={user?.group_member}
                 onChange={handleChange}
                 optionLabelProp="label"
                 options={
@@ -132,7 +105,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                     width: '100%',
                 }}
                 placeholder="select group admin"
-                defaultValue={[loginData?.email]}
+                defaultValue={user?.admin}
                 onChange={handleAdminChange}
                 optionLabelProp="label"
                 options={
@@ -162,9 +135,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
                     </Space>
                 )}
             />
-
-            <h3>You can add your first message of the group here :</h3>
-            <Input onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
 
         </Modal>
     )

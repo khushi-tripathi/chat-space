@@ -15,6 +15,8 @@ const ChatComponent = () => {
 
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
+  // isGroupDataUpdated
+  const groupDetails = useSelector((state) => state?.groupDetails);
   const groupData = useSelector((state) => state?.groupDetails?.groupData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const [flag, setFlag] = useState(true)
@@ -29,7 +31,7 @@ const ChatComponent = () => {
 
   useEffect(() => {
     console.log(chatArray)
-    dispatch(getUuid(loginData, flag));
+    dispatch(getUuid(loginData, flag, flag === true ? groupData : ''));
     // dispatch(fetchGroupInfo(loginData?.credentials))
     setFlag(false)
   }, [Object.keys(chatArray)?.length]);
@@ -39,7 +41,7 @@ const ChatComponent = () => {
     const userTab = userDetails?.userDetails
     const groupTab = groupData
     setTabData([...userTab, ...groupTab])
-  }, [userDetails?.userDetails?.length, groupData?.length]);
+  }, [userDetails?.userDetails?.length, groupData?.length, groupDetails]);
 
 
 
@@ -81,7 +83,7 @@ const ChatComponent = () => {
                 label: <Profile user={user} group={user?.group_name} />,
                 key: id,
                 disabled: i === 28,
-                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} />,
+                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} />,
               };
             })
             : [
