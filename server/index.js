@@ -69,9 +69,6 @@ app.get("/api/get-group-info", async (req, res) => {
 })
 
 
-
-
-
 app.post("/api/existing-chat", async (req, res) => {
   databaseFunctions.getChatFromUuid(req.body, res);
 

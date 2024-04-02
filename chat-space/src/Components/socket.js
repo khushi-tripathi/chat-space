@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import store from '../store';
 import { ADD_NEW_CHAT, SET_CHAT_MESSAGES } from "../Actions/actionConstant";
 
-var socket = io("http://localhost:4000");
+var socket = io(process.env.REACT_APP_BASE_URL);
 
 socket.on("connect", () => {
   console.log("Connected to server");

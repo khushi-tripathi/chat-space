@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 import { UploadOutlined } from '@ant-design/icons';
+import { SIGN_UP } from "../Constants/urls";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Signup = () => {
     // formdata.append('image', file)
     // formdata.append('userData', JSON.stringify(userData))
     axios
-      .post("http://localhost:4000/api/sign-up", userData)
+      .post(process.env.REACT_APP_API_URL + SIGN_UP, userData)
       .then((response) => {
         dispatch(
           {

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { ADD_EXISTING_CHAT, FETCH_GROUP_INFO, FETCH_UUID_DATA } from "./actionConstant";
+import { ADD_NEW_GROUP, EXISTING_CHAT, GET_ALL_UUID, GET_GROUP_INFO, UPDATE_CHAT, UPDATE_GROUP_INFO, ADD_NEW_CHAT } from "../Constants/urls";
 
 const getUuid = (loginData, checkExistingChat, groupData) => {
   return function (dispatch) {
     axios
-      .get("http://localhost:4000/api/get-all-uuid")
+      .get(process.env.REACT_APP_API_URL + GET_ALL_UUID)
       .then((response) => {
         const data = response.data.data.filter((item) => {
           return item?.primary_user === loginData?.credentials?.email || item?.other_user === loginData?.credentials?.email
@@ -30,7 +31,7 @@ const getUuid = (loginData, checkExistingChat, groupData) => {
 const fetchGroupInfo = (loginData, existingGroupData) => {
   return function (dispatch) {
     axios
-      .get("http://localhost:4000/api/get-group-info")
+      .get(process.env.REACT_APP_API_URL + GET_GROUP_INFO)
       .then((response) => {
 
         const data = response?.data?.data?.filter((item, i) => {
@@ -73,7 +74,7 @@ const fetchExistingChat = (data, functionCall = '') => {
   debugger
   return function (dispatch) {
     axios
-      .post("http://localhost:4000/api/existing-chat", data)
+      .post(process.env.REACT_APP_API_URL + EXISTING_CHAT, data)
       .then((response) => {
         // 1. chatArray: {
         //   own: [
@@ -108,7 +109,7 @@ const fetchExistingChat = (data, functionCall = '') => {
 const addNewChat = (data, uuid, primary_user) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:4000/api/add-new-chat", {
+      .post(process.env.REACT_APP_API_URL + ADD_NEW_CHAT, {
         uuid,
         chat: data,
         primary_user,
@@ -125,7 +126,7 @@ const addNewChat = (data, uuid, primary_user) => {
 const updateChatData = (chat, uuid, primary_user) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:4000/api/update-chat", {
+      .post(process.env.REACT_APP_API_URL + UPDATE_CHAT, {
         uuid,
         chat,
         primary_user,
@@ -142,7 +143,7 @@ const updateChatData = (chat, uuid, primary_user) => {
 const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:4000/api/add-new-group", {
+      .post(process.env.REACT_APP_API_URL + ADD_NEW_GROUP, {
         uuid,
         primary_user,
         group_member: group_member || [],
@@ -162,7 +163,7 @@ const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
 const editGroupInfo = (uuid, group_member, group_name, admin) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:4000/api/update-group-info", {
+      .post(process.env.REACT_APP_API_URL + UPDATE_GROUP_INFO, {
         uuid,
         group_member: group_member || [],
         admin: admin || [],
