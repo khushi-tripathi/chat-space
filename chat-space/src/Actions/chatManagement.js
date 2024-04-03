@@ -35,14 +35,14 @@ const fetchGroupInfo = (loginData, existingGroupData) => {
       .then((response) => {
 
         const data = response?.data?.data?.filter((item, i) => {
-          const member = JSON.parse(item?.group_member)
+          const member = JSON.parse(item?.group_member || '[]')
           if (member?.includes(loginData?.email)) {
             return item;
           }
         })
         const groupData = data.map((item, i) => {
-          const mem = JSON.parse(item?.group_member)
-          const admin = JSON.parse(item?.admin)
+          const mem = JSON.parse(item?.group_member || '[]')
+          const admin = JSON.parse(item?.admin || '[]')
           return { ...item, group_member: mem, admin }
         }
         )
@@ -51,7 +51,7 @@ const fetchGroupInfo = (loginData, existingGroupData) => {
             type: FETCH_GROUP_INFO,
             payload: {
               groupData,
-              isGroupDataUpdated: JSON.stringify(existingGroupData) !== JSON.stringify(groupData) ? true : false
+              isGroupDataUpdated: JSON.stringify(existingGroupData || {}) !== JSON.stringify(groupData || {}) ? true : false
             },
           });
           dispatch(fetchExistingChat(groupData, 'fetchGroupInfo'))

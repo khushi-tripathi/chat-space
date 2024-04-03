@@ -8,7 +8,7 @@ import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import Chat from "./Chat";
 import { fetchGroupInfo, getUuid } from "../Actions/chatManagement";
-import registeredUserDetails from "../Actions/registeredUserDetails";
+import { registeredUserDetails } from "../Actions/registeredUserDetails";
 
 const ChatComponent = () => {
   const userDetails = useSelector((state) => state.registeredUserDetails);

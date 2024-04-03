@@ -43,7 +43,7 @@ const fetchUserDetails = (response) => {
   var sql = `SELECT * FROM user_details`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    let res = JSON.parse(JSON.stringify(result));
+    let res = JSON.parse(JSON.stringify(result || {}));
     response.json({
       data: res,
     });
@@ -55,7 +55,7 @@ const getUuid = (response) => {
   var sql = `SELECT * FROM uuid`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    let res = JSON.parse(JSON.stringify(result));
+    let res = JSON.parse(JSON.stringify(result || {}));
     response.json({
       data: res,
     });
@@ -66,7 +66,7 @@ const getGroupInfo = (response) => {
   var sql = `SELECT * FROM group_chat`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    let res = JSON.parse(JSON.stringify(result));
+    let res = JSON.parse(JSON.stringify(result || {}));
     // let finalData = result[0]
     // finalData['chat'] = JSON.parse(finalData?.chat)
     // data[i] = finalData;
@@ -91,7 +91,7 @@ const getChatFromUuid = (request, response) => {
       if (err) throw err;
       console.log("chattt ; ", result)
       let finalData = result[0]
-      finalData['chat'] = JSON.parse(finalData?.chat)
+      finalData['chat'] = JSON.parse(finalData?.chat || '[]')
       data[i] = finalData;
       if (i === request?.length - 1) {
         response.json({
@@ -100,8 +100,6 @@ const getChatFromUuid = (request, response) => {
       }
     })
   }
-  console.log("Data", data)
-
 };
 
 
@@ -109,7 +107,7 @@ const getChatFromUuid = (request, response) => {
 const addNewChat = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
-  const chat = JSON?.stringify(request?.chat)
+  const chat = JSON?.stringify(request?.chat || {})
   var sql = `INSERT INTO manage_chat(uuid, primary_user, chat) VALUES('${request.uuid}', '${request.primary_user}', '${chat}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
@@ -119,11 +117,31 @@ const addNewChat = (request, response) => {
   });
 };
 
+const submitAdminInfo = (request, response) => {
+  console.log("request of submit admin info ", request?.tables)
+
+  for (let i = 0; i < request?.tables?.length; i++) {
+    const table = request?.tables[i]
+    var sql = `DELETE FROM ${table}`;
+    con.query(sql, function (err, result, fields) {
+      if (err) throw err;
+      console.log("result :  ; ", result)
+      if (i === request?.tables?.length - 1) {
+        response.json({
+          message: "Selected table data is deleted!! ",
+        });
+      }
+    })
+  }
+  // delete jitne bhi table ke naam select hoke aae h 
+
+}
+
 const addNewGroup = (request, response) => {
   console.log("Khushi : ", request)
   console.log(request.primary_user)
-  const group_member = JSON?.stringify(request?.group_member)
-  const admin = JSON?.stringify(request?.admin)
+  const group_member = JSON?.stringify(request?.group_member || {})
+  const admin = JSON?.stringify(request?.admin || {})
 
 
   // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
@@ -139,7 +157,7 @@ const addNewGroup = (request, response) => {
 const updateChat = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
-  const chat = JSON?.stringify(request?.chat)
+  const chat = JSON?.stringify(request?.chat || {})
   var sql = `UPDATE manage_chat SET chat='${chat}' WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
@@ -152,8 +170,8 @@ const updateChat = (request, response) => {
 const updateGroupInfo = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
-  const group_member = JSON?.stringify(request?.group_member)
-  const admin = JSON?.stringify(request?.admin)
+  const group_member = JSON?.stringify(request?.group_member || {})
+  const admin = JSON?.stringify(request?.admin || {})
 
   var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}'  WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
@@ -192,6 +210,7 @@ module.exports.updateChat = updateChat;
 module.exports.updateGroupInfo = updateGroupInfo;
 module.exports.addNewChat = addNewChat;
 module.exports.addNewGroup = addNewGroup;
+module.exports.submitAdminInfo = submitAdminInfo;
 module.exports.addUuid = addUuid;
 
 

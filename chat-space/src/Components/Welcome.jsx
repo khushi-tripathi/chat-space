@@ -2,7 +2,7 @@ import { Button, Col, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import registeredUserDetails from "../Actions/registeredUserDetails";
+import { registeredUserDetails } from "../Actions/registeredUserDetails";
 
 export default function Welcome() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FETCH_USER_DETAILS } from "./actionConstant";
-import { GET_USER_DETAILS } from "../Constants/urls";
+import { GET_USER_DETAILS, SUBMIT_ADMIN_DATA } from "../Constants/urls";
 
 const registeredUserDetails = () => {
   return function (dispatch) {
@@ -20,4 +20,26 @@ const registeredUserDetails = () => {
   };
 };
 
-export default registeredUserDetails;
+const submitAdminData = (tables) => {
+  debugger
+  return function (dispatch) {
+    axios
+      .post(process.env.REACT_APP_API_URL + SUBMIT_ADMIN_DATA, {
+        tables
+      })
+      .then((response) => {
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+
+
+
+export {
+  registeredUserDetails,
+  submitAdminData
+}
+

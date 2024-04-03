@@ -10,4 +10,8 @@ export const ADD_UUID = "add-uuid"
 export const SIGN_UP = "sign-up"
 
 
+export const SUBMIT_ADMIN_DATA = "submit-admin-data"
+
+
+
 

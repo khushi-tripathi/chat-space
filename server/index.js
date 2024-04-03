@@ -70,8 +70,15 @@ app.get("/api/get-group-info", async (req, res) => {
 
 app.post("/api/existing-chat", async (req, res) => {
   databaseFunctions.getChatFromUuid(req.body, res);
-
 });
+
+app.post("/api/submit-admin-data", async (req, res) => {
+  console.log("ktripathi : ")
+  databaseFunctions.submitAdminInfo(req.body, res);
+});
+
+
+// "submit-admin-data"
 
 app.post("/api/add-uuid", async (req, res) => {
   databaseFunctions.addUuid(req.body, res);
