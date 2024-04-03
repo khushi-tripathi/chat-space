@@ -14,13 +14,13 @@ export default function AppAdminModal({ setModal, modal }) {
     // vha pr table ko env me store krro and then jha jha use horha h table ka naam vha pr variable daal do 
     // uske baad end to end test krlo admin vaali functionality 
 
+    // uske baad create group and edit group me profile picture vaala option dedo 
 
 
     // Above DONE
 
     // *****
 
-    // uske baad create group and edit group me profile picture vaala option dedo 
     //uske baad radio button vaali cheez krdo // radio button inegration  -- sign up 
 
     // then overall conetnt check out krlo sb thik chlrha ya nhi padhne me 

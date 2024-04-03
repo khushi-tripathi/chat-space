@@ -82,23 +82,15 @@ const ChatComponent = () => {
               return {
                 label: <Profile user={user} group={user?.group_name} />,
                 key: id,
-                disabled: i === 28,
                 children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} />,
               };
             })
             : [
               {
-                label: <Profile />,
+                label: <Profile user={loginData?.credentials} />,
                 key: "0",
                 children: (
-                  <Chat data={`No one is there.. you need to search `} />
-                ),
-                icon: (
-                  <AndroidOutlined
-                    onClick={() => {
-                      alert("KKK TT");
-                    }}
-                  />
+                  <Chat data={`No one is there.. you need to search `} otherUser={loginData?.credentials} />
                 ),
               },
             ]
