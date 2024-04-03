@@ -91,7 +91,7 @@ const getChatFromUuid = (request, response) => {
       if (err) throw err;
       console.log("chattt ; ", result)
       let finalData = result[0]
-      finalData['chat'] = JSON.parse(finalData?.chat || '[]')
+      finalData['chat'] = JSON.parse(finalData?.chat || '[]') || []
       data[i] = finalData;
       if (i === request?.length - 1) {
         response.json({
@@ -145,7 +145,7 @@ const addNewGroup = (request, response) => {
 
 
   // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
-  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}')`;
+  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name , group_picture) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}' , '${request?.group_picture}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({
@@ -173,7 +173,7 @@ const updateGroupInfo = (request, response) => {
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
-  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}'  WHERE uuid='${request?.uuid}'`;
+  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}', group_picture='${request?.group_picture}'  WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({

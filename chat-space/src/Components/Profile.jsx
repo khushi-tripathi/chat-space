@@ -40,7 +40,7 @@ export default function Profile({ user, group }) {
           }}
         >
           <Image
-            src={user?.profile_image}
+            src={user?.profile_image || user?.group_picture}
             preview={{
               toolbarRender: (
                 _,

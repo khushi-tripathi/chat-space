@@ -1,6 +1,6 @@
 import { Button, Input, Modal } from 'antd'
 import React, { useState } from 'react'
-import { Select, Space } from 'antd';
+import { Select, Space, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addUuid } from '../Actions/uuid';
@@ -12,7 +12,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
     const loginDetails = useSelector((state) => state.loginDetails)
 
     const dispatch = useDispatch()
-    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [] })
+    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [], groupPic: '' })
     const handleChange = (value) => {
         console.log(`selected ${value}`);
         setGroupInfo({
@@ -38,6 +38,19 @@ export default function ModalBox({ setModal, loginData, modal }) {
         })
     }
 
+    const getImage = (type, file) => {
+        //convert to Base64
+        var reader = new FileReader();
+        reader?.readAsDataURL(file)
+        reader.onload = () => {
+            // reader?.result // base64encoded string 
+            setGroupDetails(reader.result, type)
+        }
+        reader.onerror = (error) => {
+            console.log("Error : ", error)
+        }
+    }
+
     const createGroup = () => {
         const uuid = uuidv4()
         const chat = [
@@ -55,7 +68,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
         }
         dispatch(addUuid(uuid, chat[0]?.email, group?.groupName, true))
         dispatch(addNewChat(data, uuid, chat[0]?.email))
-        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList, group?.groupName, group?.groupAdmin))
+        dispatch(addNewGroup(uuid, chat[0]?.email, group?.selectedEmailList, group?.groupName, group?.groupAdmin, group?.groupPic))
         dispatch({
             type: ADD_NEW_CHAT,
             payload: {
@@ -161,6 +174,14 @@ export default function ModalBox({ setModal, loginData, modal }) {
                         {option.data.label}
                     </Space>
                 )}
+            />
+            <h3>Select group profile picture :</h3>
+            <input
+                type="file"
+                className="sign-up-input"
+                onChange={(event) => {
+                    getImage("groupPic", event?.target?.files[0]);
+                }}
             />
 
             <h3>You can add your first message of the group here :</h3>

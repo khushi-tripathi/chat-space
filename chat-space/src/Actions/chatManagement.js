@@ -140,7 +140,7 @@ const updateChatData = (chat, uuid, primary_user) => {
   };
 }
 
-const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
+const addNewGroup = (uuid, primary_user, group_member, group_name, admin, group_picture) => {
   return function (dispatch) {
     axios
       .post(process.env.REACT_APP_API_URL + ADD_NEW_GROUP, {
@@ -149,6 +149,7 @@ const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
         group_member: group_member || [],
         admin: admin || [],
         group_name,
+        group_picture,
         // group_history : ''
       })
       .then((response) => {
@@ -160,7 +161,7 @@ const addNewGroup = (uuid, primary_user, group_member, group_name, admin) => {
   };
 }
 
-const editGroupInfo = (uuid, group_member, group_name, admin) => {
+const editGroupInfo = (uuid, group_member, group_name, admin, group_picture) => {
   return function (dispatch) {
     axios
       .post(process.env.REACT_APP_API_URL + UPDATE_GROUP_INFO, {
@@ -168,6 +169,7 @@ const editGroupInfo = (uuid, group_member, group_name, admin) => {
         group_member: group_member || [],
         admin: admin || [],
         group_name,
+        group_picture
         // group_history : ''
       })
       .then((response) => {

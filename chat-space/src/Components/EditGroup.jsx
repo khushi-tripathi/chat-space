@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Select, Space } from 'antd';
+import { Button, Image, Input, Modal, Select, Space } from 'antd';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addUuid } from '../Actions/uuid';
@@ -11,7 +11,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
     const loginDetails = useSelector((state) => state.loginDetails)
 
     const dispatch = useDispatch()
-    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [] })
+    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [], groupPic: '' })
     const handleChange = (value) => {
         console.log(`selected ${value}`);
         setGroupInfo({
@@ -37,8 +37,26 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
         })
     }
 
+    const getImage = (type, file) => {
+        //convert to Base64
+        var reader = new FileReader();
+        reader?.readAsDataURL(file)
+        reader.onload = () => {
+            // reader?.result // base64encoded string 
+            setGroupDetails(reader.result, type)
+        }
+        reader.onerror = (error) => {
+            console.log("Error : ", error)
+        }
+    }
+
     const updateGroupInfo = () => {
-        dispatch(editGroupInfo(user?.uuid, group?.selectedEmailList, group?.groupName, group?.groupAdmin))
+        const group_picture = group?.groupPic?.length ? group?.groupPic : user?.group_picture
+        const selectedEmailList = group?.selectedEmailList?.length ? group?.selectedEmailList : user?.group_member
+        const groupName = group?.groupName?.length ? group?.groupName : user?.group_name
+        const groupAdmin = group?.groupAdmin?.length ? group?.groupAdmin : user?.admin
+
+        dispatch(editGroupInfo(user?.uuid, selectedEmailList, groupName, groupAdmin, group_picture))
         dispatch(getUuid(loginDetails, true, groupData))
         setModal({ ...modal, editGroup: false })
     }
@@ -134,6 +152,30 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                         {option.data.label}
                     </Space>
                 )}
+            />
+
+
+            {user?.group_picture?.length && (
+                <h3>Current Group Profile Picture -- :</h3>
+            )}
+
+            {user?.group_picture?.length && (
+                <Image
+                    src={user?.group_picture}
+                    preview={false}
+                    about='Hello'
+
+                />
+            )}
+
+
+            <h3>Edit group picture here :</h3>
+            <input
+                type="file"
+                className="sign-up-input"
+                onChange={(event) => {
+                    getImage("groupPic", event?.target?.files[0]);
+                }}
             />
 
         </Modal>
