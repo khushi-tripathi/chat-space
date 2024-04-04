@@ -209,3 +209,13 @@
 .ant-modal {
     width: 50%;
 }
+
+.member-list {
+    .ant-modal-content {
+        .ant-modal-body {
+            height: 15rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+    }
+}

@@ -21,7 +21,6 @@ const registeredUserDetails = () => {
 };
 
 const submitAdminData = (tables) => {
-  debugger
   return function (dispatch) {
     axios
       .post(process.env.REACT_APP_API_URL + SUBMIT_ADMIN_DATA, {

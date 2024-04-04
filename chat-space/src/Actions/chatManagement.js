@@ -71,7 +71,6 @@ const fetchGroupInfo = (loginData, existingGroupData) => {
 }
 
 const fetchExistingChat = (data, functionCall = '') => {
-  debugger
   return function (dispatch) {
     axios
       .post(process.env.REACT_APP_API_URL + EXISTING_CHAT, data)

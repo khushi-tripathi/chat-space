@@ -74,7 +74,6 @@ const ChatComponent = () => {
         onChange={(key) => {
           // console.log(event)
           setActiveTab(key)
-          debugger
         }}
         activeKey={activeTab}
         // defaultActiveKey="0"

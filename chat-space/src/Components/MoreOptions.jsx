@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Image, Row, Space, Switch } from 'antd';
 import ProfileOptionDropdown from './ProfileOptionDropdown';
 import CreateGroup from './CreateGroup';
 import EditGroup from './EditGroup';
+import DisplayGroupMemberList from './DisplayGroupMemberList';
 // Edit Profile  --- own 
 // Create Group
 // Delete Chat History
@@ -18,7 +19,7 @@ import EditGroup from './EditGroup';
 // MAke admin or by default creater is the only admin 
 export default function MoreOptions({ loginData, group, user, groupData }) {
 
-    const [modal, setModal] = useState({ createGroup: false, editGroup: false });
+    const [modal, setModal] = useState({ createGroup: false, editGroup: false, showGroupMember: false });
 
     const onClickCreateGroupBtn = () => {
         setModal({ ...modal, createGroup: true })
@@ -26,6 +27,10 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
 
     const editGroupInfo = () => {
         setModal({ ...modal, editGroup: true })
+    }
+
+    const showList = () => {
+        setModal({ ...modal, showGroupMember: true })
     }
 
     let item = [
@@ -53,17 +58,21 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
 
 
 
-    // useEffect(() => {
-    //   setItems([
-    //     ...item,
-    //     {
-    //         key: item[item?.length +1],
-    //         label: "Edit "
-    //     }
-    //   ])
+    useEffect(() => {
+
+        if (group?.length) {
+            setItems([
+                ...item,
+                {
+                    key: item[item?.length + 1],
+                    label: (<div onClick={showList}>Show All Group Members</div>)
+                }
+            ])
+        }
 
 
-    // }, [group?.length])
+
+    }, [])
 
     const changeTheme = (value) => {
         setTheme(value ? 'dark' : 'light');
@@ -101,6 +110,8 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
             <ProfileOptionDropdown loginData={loginData} />
             {modal?.createGroup && <CreateGroup setModal={setModal} loginData={loginData} modal={modal} />}
             {modal?.editGroup && <EditGroup user={user} setModal={setModal} loginData={loginData} modal={modal} groupData={groupData} />}
+            {modal?.showGroupMember && <DisplayGroupMemberList user={user} setModal={setModal} loginData={loginData} modal={modal} groupData={groupData} />}
+
         </Row >
     )
 }

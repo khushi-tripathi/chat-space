@@ -12,7 +12,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
     const loginDetails = useSelector((state) => state.loginDetails)
 
     const dispatch = useDispatch()
-    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [], groupPic: '' })
+    const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [loginData?.email], firstMsg: '', groupAdmin: [loginData?.email], groupPic: '' })
     const handleChange = (value) => {
         console.log(`selected ${value}`);
         setGroupInfo({

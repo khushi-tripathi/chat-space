@@ -75,9 +75,7 @@ export default function AppAdminModal({ setModal, modal }) {
     };
 
     const submitAdminRequest = () => {
-
         //api call 
-        debugger
         dispatch(submitAdminData(adminInfo.selectedTable))
         setModal({ ...modal, admin: false })
     }
