@@ -16,17 +16,22 @@ export default function AppAdminModal({ setModal, modal }) {
 
     // uske baad create group and edit group me profile picture vaala option dedo 
 
+    //uske baad radio button vaali cheez krdo // radio button inegration  -- sign up 
+
+    //by default tab should open own chat and that should be placed on first nuber in the chat section. 
+
 
     // Above DONE
 
     // *****
 
-    //uske baad radio button vaali cheez krdo // radio button inegration  -- sign up 
+    // list render krni h -- group me jitne log h unki with admin status 
 
-    // then overall conetnt check out krlo sb thik chlrha ya nhi padhne me 
-    // iske baad dark light theme aaega landing page of chat ka 
-    // overall responsive ness 
     // overall color and theme 
+    // overall responsive ness 
+    // iske baad dark light theme aaega landing page of chat ka 
+    // then overall conetnt check out krlo sb thik chlrha ya nhi padhne me 
+
 
     // then we are good to go for the deployment.... 
 

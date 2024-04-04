@@ -20,6 +20,7 @@ const ChatComponent = () => {
   const groupData = useSelector((state) => state?.groupDetails?.groupData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const [flag, setFlag] = useState(true)
+  const [activeTab, setActiveTab] = useState("own")
   const [tabData, setTabData] = useState([])
 
 
@@ -37,16 +38,15 @@ const ChatComponent = () => {
   }, [Object.keys(chatArray)?.length]);
 
   useEffect(() => {
-    debugger
-    const userTab = userDetails?.userDetails
-    const groupTab = groupData
-    setTabData([...userTab, ...groupTab])
+    const allUserTab = userDetails?.userDetails
+    const ownTab = allUserTab?.filter((item) => item?.email === loginData?.credentials?.email)
+    const otherTab = allUserTab?.filter((item) => item?.email !== loginData?.credentials?.email)
+    setTabData([...ownTab, ...otherTab, ...groupData])
   }, [userDetails?.userDetails?.length, groupData?.length, groupDetails]);
 
 
 
   const getCurrentUuid = (user) => {
-
 
     const currentUuid = uuidData?.filter((item) => ((item?.other_user === loginData?.credentials?.email ||
       item?.other_user === user?.email) &&
@@ -55,8 +55,6 @@ const ChatComponent = () => {
 
     const ownUuid = uuidData?.filter((item) => (item?.other_user === user?.email) &&
       (user?.email === item?.primary_user))
-
-
 
     if (ownUuid?.length) {
       return ownUuid[0]?.uuid
@@ -73,22 +71,28 @@ const ChatComponent = () => {
   return (
     <div className="chat-screen">
       <Tabs
-        defaultActiveKey="1"
+        onChange={(key) => {
+          // console.log(event)
+          setActiveTab(key)
+          debugger
+        }}
+        activeKey={activeTab}
+        // defaultActiveKey="0"
         tabPosition="left"
         items={
           userDetails?.isDisplaySelected
             ? tabData?.map((user, i) => {
-              const id = String(i);
+              const id = String(i + 1);
               return {
                 label: <Profile user={user} group={user?.group_name} />,
-                key: id,
+                key: loginData?.credentials?.email === user?.email ? "own" : id,
                 children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} />,
               };
             })
             : [
               {
                 label: <Profile user={loginData?.credentials} />,
-                key: "0",
+                key: "100",
                 children: (
                   <Chat data={`No one is there.. you need to search `} otherUser={loginData?.credentials} />
                 ),
