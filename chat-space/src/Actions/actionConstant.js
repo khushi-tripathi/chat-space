@@ -22,5 +22,8 @@ export const SET_DEFAULT_VALUE = "SET_DEFAULT_VALUE";
 //GROUP
 export const FETCH_GROUP_INFO = "FETCH_GROUP_INFO";
 
+//MODE
+export const SET_APP_MODE = "FETCH_GROUP_INFO";
+
 
 

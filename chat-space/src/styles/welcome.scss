@@ -1,0 +1,26 @@
+@import "variable.scss";
+
+
+.welcome-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 50%;
+        height: 50vh;
+        border: 2px solid black;
+
+        .button-section {
+            display: flex;
+            width: 50%;
+            margin-top: 5%;
+            justify-content: space-between;
+        }
+    }
+}

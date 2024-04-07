@@ -20,14 +20,14 @@ export default function AppAdminModal({ setModal, modal }) {
 
     //by default tab should open own chat and that should be placed on first nuber in the chat section. 
 
+    // list render krni h -- group me jitne log h unki with admin status 
+
 
     // Above DONE
 
     // *****
 
-    // list render krni h -- group me jitne log h unki with admin status 
-
-    // overall color and theme 
+    // overall color and theme  -- (theme redux ke thorough bhi manage kr skte h baaki subh dekhte h )
     // overall responsive ness 
     // iske baad dark light theme aaega landing page of chat ka 
     // then overall conetnt check out krlo sb thik chlrha ya nhi padhne me 

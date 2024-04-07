@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registeredUserDetails } from "../Actions/registeredUserDetails";
+import "../styles/welcome.scss"
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -13,14 +14,20 @@ export default function Welcome() {
   }, []);
 
   return (
-    <div>
-      WELCOME TO CHAT-SPACE!!
-      <Col>
+    <div className="welcome-page">
+      <Row
+        className="box">
         <Row>
+          WELCOME TO CHAT-SPACE!!
+
+        </Row>
+        <Row className="button-section">
+          {/* <Row> */}
           <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
           <Button onClick={() => navigate("/login")}>Login</Button>
+          {/* </Row> */}
         </Row>
-      </Col>
+      </Row>
     </div>
   );
 }
