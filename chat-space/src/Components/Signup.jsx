@@ -9,6 +9,7 @@ import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 import { UploadOutlined } from '@ant-design/icons';
 import { SIGN_UP } from "../Constants/urls";
+import "../styles/page-layout.scss"
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -124,16 +125,9 @@ const Signup = () => {
   };
   return (
     <>
-      <div className="sign-up">
-        <div className="sign-up-content">
+      <div className="sign-up page-layout">
+        <div className="sign-up-content box-layout">
           <h3>Welcome to the CHAT SPACE</h3>
-          <Col>
-            <Row>
-              <Button onClick={() => onChangePage("sign")}>Sign Up</Button>
-              <Button onClick={() => onChangePage("login")}>Login</Button>
-            </Row>
-          </Col>
-
           <Form
             name="basic"
             labelCol={{

@@ -3,6 +3,8 @@ import "../styles/chat.scss";
 import { socketEmit } from "./socket";
 import { Tabs } from "antd";
 
+import "../styles/page-layout.scss"
+
 import { AndroidOutlined } from "@ant-design/icons";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,7 +71,7 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className="chat-screen">
+    <div className="chat-screen chat-layout-light">
       <Tabs
         onChange={(key) => {
           // console.log(event)

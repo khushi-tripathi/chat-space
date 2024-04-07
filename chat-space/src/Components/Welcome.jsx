@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registeredUserDetails } from "../Actions/registeredUserDetails";
 import "../styles/welcome.scss"
+import "../styles/page-layout.scss"
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -14,9 +15,9 @@ export default function Welcome() {
   }, []);
 
   return (
-    <div className="welcome-page">
+    <div className="welcome page-layout">
       <Row
-        className="box">
+        className="box box-layout">
         <Row>
           WELCOME TO CHAT-SPACE!!
 

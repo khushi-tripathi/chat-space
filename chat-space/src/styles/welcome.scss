@@ -1,20 +1,10 @@
 @import "variable.scss";
 
-
-.welcome-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
+.welcome {
     .box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
-        width: 50%;
-        height: 50vh;
-        border: 2px solid black;
+
+        height: 60vh;
 
         .button-section {
             display: flex;

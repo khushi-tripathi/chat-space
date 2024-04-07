@@ -1,13 +1,17 @@
 @import "variable.scss";
 
 .sign-up {
-  background-image: url("../../src/Media/blue-wall.jpg");
-  background-size: cover;
+  // background-image: url("../../src/Media/blue-wall.jpg");
+  // background-size: cover;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .login {
+    height: 50vh !important;
+  }
 
   .sign-up-content {
     display: flex;
@@ -17,8 +21,8 @@
     background-color: $primary-color;
     border-radius: 0.5em;
     flex-direction: column;
-    width: 40vw;
-    height: 60vh;
+
+    height: 75vh;
 
     .ant-form {
       width: 95%;

@@ -9,6 +9,8 @@ import "../styles/sign-up.scss";
 import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 
+import "../styles/page-layout.scss"
+
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -67,8 +69,8 @@ export default function Login() {
   };
   return (
     <>
-      <div className="sign-up">
-        <div className="sign-up-content">
+      <div className="sign-up page-layout">
+        <div className="login sign-up-content box-layout ">
           <h3>Welcome to the CHAT SPACE</h3>
 
           <Form
