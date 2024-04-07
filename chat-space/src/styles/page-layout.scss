@@ -10,8 +10,8 @@
     align-items: center;
 
     .box-layout {
-        background-color: $primary-dark-5;
-        box-shadow: 50px 20px 20px $primary-dark-2;
+        background-color: $primary-dark-6;
+        box-shadow: 50px 20px 20px $primary-dark-3;
         display: flex;
         padding: 20px;
         border-radius: 40px;
@@ -20,17 +20,6 @@
 }
 
 
-// $primary-dark-1 : #005972;
-// $primary-dark-2 : #00637f;
-// $primary-dark-3 : #03718e;
-// $primary-dark-4 : #047e9f;
-// $primary-dark-5 : #068fb5;
-
-// $primary-light-1 : #08a0cb;
-// $primary-light-2 : #29bbdc;
-// $primary-light-3 : #54d6ee;
-// $primary-light-4 : #81ecfb;
-// $primary-light-5 : #bff9fe;
 
 
 .chat-layout-light {
@@ -38,6 +27,41 @@
     height: 100vh;
     width: 100vw;
     color: white;
+
+    .ant-tabs .ant-tabs-ink-bar {
+        background: $primary-dark-1;
+        width: 2%;
+    }
+
+    .ant-tabs .ant-tabs-content-holder .ant-tabs-content .ant-tabs-tabpane .ChatCard {
+        .ant-card-head {
+            background-color: $primary-light-6;
+        }
+
+        .ant-card-body {
+            background-color: $primary-light-7;
+        }
+    }
 }
 
-.chat-layout-dark {}
+.chat-layout-dark {
+    background-color: $primary-dark-1;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+
+    .ant-tabs .ant-tabs-ink-bar {
+        background: white;
+        width: 2%;
+    }
+
+    .ant-tabs .ant-tabs-content-holder .ant-tabs-content .ant-tabs-tabpane .ChatCard {
+        .ant-card-head {
+            background-color: $primary-dark-1;
+        }
+
+        .ant-card-body {
+            background-color: $primary-dark-2;
+        }
+    }
+}

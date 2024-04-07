@@ -4,6 +4,7 @@
     height: auto;
 
     .ant-tabs {
+
         .ant-tabs-content-holder {
             height: auto;
 
@@ -16,6 +17,12 @@
 
                     .ChatCard {
                         height: 100%;
+                        border: none;
+                        border-radius: 0;
+
+                        .ant-card-head {
+                            border-radius: 0;
+                        }
 
                         .ant-card-body {
                             height: 90.5 !important;

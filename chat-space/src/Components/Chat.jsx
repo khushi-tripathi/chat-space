@@ -13,7 +13,7 @@ import { SendOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import Picker, { Emoji } from 'emoji-picker-react';
 import MoreOptions from "./MoreOptions";
 
-export default function Chat({ currentUuid, otherUser, group, userDetails, groupData }) {
+export default function Chat({ currentUuid, otherUser, group, userDetails, groupData, mode, setMode }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
 
@@ -119,7 +119,7 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
     setChatData({ ...chatData, newMessage: (inputRef?.current?.input?.value + data?.emoji) });
   }
   return (
-    <Card title={group?.length ? otherUser?.group_name : otherUser?.first_name + " " + otherUser?.last_name} className="ChatCard" extra={<MoreOptions user={otherUser} loginData={loginData?.credentials} group={group} groupData={groupData} />
+    <Card title={group?.length ? otherUser?.group_name : otherUser?.first_name + " " + otherUser?.last_name} className="ChatCard" extra={<MoreOptions user={otherUser} loginData={loginData?.credentials} group={group} groupData={groupData} mode={mode} setMode={setMode} />
     }>
       <div className="chatBox">
         <ScrollToBottom

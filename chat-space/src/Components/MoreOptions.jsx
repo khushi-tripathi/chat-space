@@ -17,7 +17,7 @@ import DisplayGroupMemberList from './DisplayGroupMemberList';
 
 // View Group member list 
 // MAke admin or by default creater is the only admin 
-export default function MoreOptions({ loginData, group, user, groupData }) {
+export default function MoreOptions({ loginData, group, user, groupData, mode, setMode }) {
 
     const [modal, setModal] = useState({ createGroup: false, editGroup: false, showGroupMember: false });
 
@@ -54,7 +54,7 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
 
     const [items, setItems] = useState(item);
 
-    const [theme, setTheme] = useState('dark');
+    // const [theme, setTheme] = useState('light');
 
 
 
@@ -74,8 +74,8 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
 
     }, [])
 
-    const changeTheme = (value) => {
-        setTheme(value ? 'dark' : 'light');
+    const changeMode = (value) => {
+        setMode(value ? 'dark' : 'light');
     };
 
 
@@ -102,10 +102,10 @@ export default function MoreOptions({ loginData, group, user, groupData }) {
                 </a>
             </Dropdown>
             <Switch
-                checked={theme === 'dark'}
-                onChange={changeTheme}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
+                checked={mode === 'dark'}
+                onChange={changeMode}
+                checkedChildren="Light"
+                unCheckedChildren="Dark"
             />
             <ProfileOptionDropdown loginData={loginData} />
             {modal?.createGroup && <CreateGroup setModal={setModal} loginData={loginData} modal={modal} />}

@@ -24,6 +24,7 @@ const ChatComponent = () => {
   const [flag, setFlag] = useState(true)
   const [activeTab, setActiveTab] = useState("own")
   const [tabData, setTabData] = useState([])
+  const [mode, setMode] = useState('light')
 
 
   const dispatch = useDispatch()
@@ -71,7 +72,7 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className="chat-screen chat-layout-light">
+    <div className={mode === 'dark' ? "chat-screen chat-layout-dark" : "chat-screen chat-layout-light"}>
       <Tabs
         onChange={(key) => {
           // console.log(event)
@@ -87,7 +88,7 @@ const ChatComponent = () => {
               return {
                 label: <Profile user={user} group={user?.group_name} />,
                 key: loginData?.credentials?.email === user?.email ? "own" : id,
-                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} />,
+                children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} mode={mode} setMode={setMode} />,
               };
             })
             : [
