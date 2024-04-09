@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { SET_DEFAULT_VALUE } from '../Actions/actionConstant';
 import AppAdminModal from './AppAdminModal';
+import "../styles/dropdown.scss"
 
 export default function ProfileOptionDropdown({ loginData }) {
 
@@ -53,10 +54,10 @@ export default function ProfileOptionDropdown({ loginData }) {
 
 
     return (
-        <div>
+        <div >
             <Tooltip title="Profile">
-
                 <Dropdown
+                    overlayClassName='chat-dropdown'
                     trigger={["click"]}
                     menu={{
                         items: profileItems,

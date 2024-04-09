@@ -1,0 +1,9 @@
+@import "variable.scss";
+
+
+.chat-dropdown {
+    .ant-dropdown-menu {
+        top: .6rem;
+        background-color: $primary-light-10-shade;
+    }
+}

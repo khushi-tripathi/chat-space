@@ -6,6 +6,7 @@ import ProfileOptionDropdown from './ProfileOptionDropdown';
 import CreateGroup from './CreateGroup';
 import EditGroup from './EditGroup';
 import DisplayGroupMemberList from './DisplayGroupMemberList';
+import "../styles/dropdown.scss"
 // Edit Profile  --- own 
 // Create Group
 // Delete Chat History
@@ -83,12 +84,14 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
 
 
     return (
-        <Row>
-            <Dropdown
+        <Row >
+            < Dropdown
+                overlayClassName='chat-dropdown'
                 trigger={['click']}
                 menu={{
                     items,
-                }}
+                }
+                }
             >
                 <a onClick={(e) => e.preventDefault()}>
                     <Space>
@@ -100,7 +103,7 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
 
 
                 </a>
-            </Dropdown>
+            </Dropdown >
             <Switch
                 checked={mode === 'dark'}
                 onChange={changeMode}
