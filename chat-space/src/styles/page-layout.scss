@@ -67,6 +67,28 @@
                     border-bottom: 1px solid $grey-color;
                     box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3;
 
+                    .ant-card-head-wrapper {
+                        .ant-card-extra {
+                            width: 17%;
+                            justify-content: space-around;
+                            display: flex;
+
+                            .more-options {
+
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 100%;
+                                flex-direction: row;
+
+                                .ant-dropdown-trigger {
+                                    font-size: large;
+                                    color: black;
+                                }
+                            }
+                        }
+                    }
+
                 }
 
                 .ant-card-body {

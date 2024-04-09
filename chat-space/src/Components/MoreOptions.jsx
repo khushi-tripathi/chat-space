@@ -84,7 +84,13 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
 
 
     return (
-        <Row >
+        <Row className='more-options'>
+            <Switch
+                checked={mode === 'dark'}
+                onChange={changeMode}
+                checkedChildren="Light"
+                unCheckedChildren="Dark"
+            />
             < Dropdown
                 overlayClassName='chat-dropdown'
                 trigger={['click']}
@@ -95,7 +101,7 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
             >
                 <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                        More
+
                         <MenuOutlined />
                     </Space>
 
@@ -104,13 +110,9 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
 
                 </a>
             </Dropdown >
-            <Switch
-                checked={mode === 'dark'}
-                onChange={changeMode}
-                checkedChildren="Light"
-                unCheckedChildren="Dark"
-            />
+
             <ProfileOptionDropdown loginData={loginData} />
+
             {modal?.createGroup && <CreateGroup setModal={setModal} loginData={loginData} modal={modal} />}
             {modal?.editGroup && <EditGroup user={user} setModal={setModal} loginData={loginData} modal={modal} groupData={groupData} />}
             {modal?.showGroupMember && <DisplayGroupMemberList user={user} setModal={setModal} loginData={loginData} modal={modal} groupData={groupData} />}
