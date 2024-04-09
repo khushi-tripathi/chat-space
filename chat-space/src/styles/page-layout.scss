@@ -76,10 +76,22 @@
 
                         background-color: $primary-light-7;
 
-                        .chatContainer .scroll-bar {
-                            scrollbar-color: $primary-light-10 $primary-light-6;
-                            scrollbar-width: thin;
-                            scroll-behavior: smooth;
+                        .chatContainer {
+                            .right {
+                                background-color: $primary-light-11;
+                                color: black;
+                            }
+
+                            .left {
+                                color: black;
+                                background-color: $primary-dark-7;
+                            }
+
+                            .scroll-bar {
+                                scrollbar-color: $primary-light-10 $primary-light-6;
+                                scrollbar-width: thin;
+                                scroll-behavior: smooth;
+                            }
                         }
 
 
