@@ -124,6 +124,7 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
       <div className="chatBox">
         <ScrollToBottom
           className="chatContainer"
+          scrollViewClassName="scroll-bar"
           initialScrollBehavior="smooth"
           mode="bottom"
         >
@@ -163,19 +164,16 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
                 setChatData({ ...chatData, newMessage: e.target.value });
               }}
             />
-            <Button onClick={() => {
+            {/* <Button }> */}
+            <PlusCircleOutlined className="add-emoji" title="Add Emoji" onClick={() => {
               setEmojiHandler({ open: !emojiHandler?.open })
               setChatData({ ...chatData, inputColClasses: !emojiHandler?.open ? 'inputBox changedPositionInputBox' : 'inputBox' })
-            }}>
-              <PlusCircleOutlined />
-            </Button>
-            <Button
-              title="Send Message Button"
+            }} />
+            {/* </Button> */}
+
+            <SendOutlined title="Send Message Button"
               onClick={send}
-              className="sendBtn"
-            >
-              <SendOutlined />
-            </Button>
+              className="sendBtn" />
           </Col>
           {emojiHandler?.open && <Picker onEmojiClick={onClickEmoji} className="emoji-picker" searchDisabled={true} suggestedEmojisMode={'frequent'} previewConfig={{
             defaultEmoji: "1f60a", // defaults to: "1f60a"

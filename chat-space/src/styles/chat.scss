@@ -4,19 +4,14 @@
     height: auto;
 
     .ant-tabs {
-
         .ant-tabs-content-holder {
             height: auto;
 
             .ant-tabs-content {
-                height: 100%;
-
                 .ant-tabs-tabpane {
-                    height: 100%;
                     padding: 0;
 
                     .ChatCard {
-                        height: 100%;
                         border: none;
                         border-radius: 0;
 
@@ -25,7 +20,6 @@
                         }
 
                         .ant-card-body {
-                            height: 90.5 !important;
                             overflow-y: hidden;
                             padding: 0px !important;
                             border-radius: 1px;
@@ -96,17 +90,16 @@
                                 }
 
                                 .ant-row {
-                                    border-top: solid 1px grey;
-                                    background-color: #fff;
-
-                                    .onChangeInputBox {}
-
                                     .inputBox {
                                         display: flex;
                                         flex-direction: row;
+                                        justify-content: center;
+                                        align-items: center;
 
                                         input {
-                                            border: none;
+                                            border-radius: 0%;
+                                            padding-bottom: .7rem;
+                                            margin-right: .5rem;
 
                                             &:focus,
                                             &:active {
@@ -115,7 +108,13 @@
                                             }
                                         }
 
+                                        .add-emoji {
+                                            font-size: large;
+                                            padding-right: 1rem;
+                                        }
+
                                         .sendBtn {
+                                            font-size: large;
                                             background-color: transparent;
                                             border: none;
                                             width: 30px;
@@ -133,13 +132,13 @@
                                             }
                                         }
 
-                                        &.onChangeInputBox {
-                                            .sendBtn {
-                                                span.anticon {
-                                                    background-color: red;
-                                                }
-                                            }
-                                        }
+                                        // &.onChangeInputBox {
+                                        //     .sendBtn {
+                                        //         span.anticon {
+                                        //             background-color: red;
+                                        //         }
+                                        //     }
+                                        // }
                                     }
 
                                     .changedPositionInputBox {
