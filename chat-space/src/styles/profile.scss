@@ -20,10 +20,10 @@
 .photo {
     height: 30px;
     width: 30px;
+    padding: 0;
     color: transparent !important;
     border-color: transparent !important;
     border-radius: 50%;
-    padding: 4%;
     border-radius: 50%;
 
     div {
@@ -37,6 +37,14 @@
 
         .ant-image-mask {
             display: none;
+        }
+    }
+}
+
+.header-profile {
+    div {
+        .ant-image-img {
+            margin-bottom: 20%;
         }
     }
 }

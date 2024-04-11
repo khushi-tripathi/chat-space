@@ -66,7 +66,7 @@ export default function ProfileOptionDropdown({ loginData }) {
                         }
                     }} >
                     <Button
-                        className="photo"
+                        className="photo header-profile"
                         onClick={(event) => {
                             //that will stop to switch tab when anyone clicks to profile picture
                             event.stopPropagation();
