@@ -1,0 +1,11 @@
+@import "./variable.scss";
+
+.ant-btn {
+    background: $primary-light-6 ;
+}
+
+.ant-btn:hover {
+    color: #000000 !important;
+    border-color: $primary-dark-3 !important;
+    box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3 , -3px 0px 5px $primary-dark-3;
+}

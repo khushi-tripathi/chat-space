@@ -10,6 +10,7 @@ import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
 import { UploadOutlined } from '@ant-design/icons';
 import { SIGN_UP } from "../Constants/urls";
 import "../styles/page-layout.scss"
+import "../styles/button.scss"
 
 const Signup = () => {
   const navigate = useNavigate();

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../styles/sign-up.scss";
 import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
-
+import "../styles/button.scss"
 import "../styles/page-layout.scss"
 
 export default function Login() {

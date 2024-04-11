@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { submitAdminData } from '../Actions/registeredUserDetails';
 import { Button, Input, Modal, Row, Select, Space } from 'antd';
 import "../styles/modal.scss"
+import "../styles/button.scss"
 
 export default function AppAdminModal({ setModal, modal }) {
 

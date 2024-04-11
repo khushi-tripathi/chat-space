@@ -5,6 +5,7 @@ import { addUuid } from '../Actions/uuid';
 import { addNewChat, addNewGroup, editGroupInfo, getUuid } from '../Actions/chatManagement';
 import { ADD_NEW_CHAT } from '../Actions/actionConstant';
 import "../styles/modal.scss"
+import "../styles/button.scss"
 
 
 export default function EditGroup({ setModal, loginData, modal, user, groupData }) {

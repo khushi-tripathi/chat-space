@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { registeredUserDetails } from "../Actions/registeredUserDetails";
 import "../styles/welcome.scss"
 import "../styles/page-layout.scss"
+import "../styles/button.scss"
 
 export default function Welcome() {
   const navigate = useNavigate();

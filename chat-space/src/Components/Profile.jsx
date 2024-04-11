@@ -10,6 +10,7 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import { Image, Space } from 'antd';
+import "../styles/button.scss"
 
 export default function Profile({ user, group }) {
 

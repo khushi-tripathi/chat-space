@@ -4,6 +4,7 @@ import About from "./About";
 import TermsAndConditions from "./TermsAndConditions";
 import CompleteSignUp from "./CompleteSignUp";
 import { useNavigate } from "react-router-dom";
+import "../styles/button.scss"
 
 const steps = [
   {
