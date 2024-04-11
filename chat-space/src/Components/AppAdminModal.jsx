@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { submitAdminData } from '../Actions/registeredUserDetails';
-import { Button, Input, Modal, Select, Space } from 'antd';
+import { Button, Input, Modal, Row, Select, Space } from 'antd';
+import "../styles/modal.scss"
 
 export default function AppAdminModal({ setModal, modal }) {
 
@@ -81,6 +82,7 @@ export default function AppAdminModal({ setModal, modal }) {
     }
     return (
         <Modal
+            className='chat-modal'
             title={(<h2>Admin Area -- </h2>)}
             centered
             open={true}
@@ -92,28 +94,30 @@ export default function AppAdminModal({ setModal, modal }) {
                 </>
             )}
         >
-            <h3>Select Table name :</h3>
-            <Select
-                mode="multiple"
-                style={{
-                    width: '100%',
-                }}
-                placeholder="select table name"
+            <Row className='chat-modal-content'>
+                <h3>Select Table name :</h3>
+                <Select
+                    mode="multiple"
+                    style={{
+                        width: '100%',
+                    }}
+                    placeholder="select table name"
 
-                onChange={handleChange}
-                optionLabelProp="label"
-                options={
-                    items
-                }
-                optionRender={(option) => (
-                    <Space>
-                        <span role="img" aria-label={option.data.label}>
-                            {/* {option.data.value} */}
-                        </span>
-                        {option.data.label}
-                    </Space>
-                )}
-            />
+                    onChange={handleChange}
+                    optionLabelProp="label"
+                    options={
+                        items
+                    }
+                    optionRender={(option) => (
+                        <Space>
+                            <span role="img" aria-label={option.data.label}>
+                                {/* {option.data.value} */}
+                            </span>
+                            {option.data.label}
+                        </Space>
+                    )}
+                />
+            </Row>
 
 
         </Modal>

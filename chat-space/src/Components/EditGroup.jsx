@@ -1,9 +1,11 @@
-import { Button, Image, Input, Modal, Select, Space } from 'antd';
+import { Button, Image, Input, Modal, Row, Select, Space } from 'antd';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addUuid } from '../Actions/uuid';
 import { addNewChat, addNewGroup, editGroupInfo, getUuid } from '../Actions/chatManagement';
 import { ADD_NEW_CHAT } from '../Actions/actionConstant';
+import "../styles/modal.scss"
+
 
 export default function EditGroup({ setModal, loginData, modal, user, groupData }) {
 
@@ -63,6 +65,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
 
     return (
         <Modal
+            className='chat-modal'
             title={(<h2>Edit Group Information</h2>)}
             centered
             open={true}
@@ -75,108 +78,113 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
             )}
 
         >
-
-            <h3>Enter Group Name :</h3>
-            <Input defaultValue={user?.group_name} placeholder="Edit group name here - " onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
-            <h3>Select group member :</h3>
-            <Select
-                mode="multiple"
-                style={{
-                    width: '100%',
-                }}
-                placeholder="select group member -- "
-                defaultValue={user?.group_member}
-                onChange={handleChange}
-                optionLabelProp="label"
-                options={
-                    userDetails?.isDisplaySelected
-                        ? userDetails?.userDetails?.map((user, i) => {
-                            const id = String(i);
-                            return {
-                                label: user?.first_name + " " + user?.last_name,
-                                value: user?.email,
-                                key: id,
-                            };
-                        })
-                        : [
-                            {
-                                label: 'No one is there',
-                                value: 'No one is there',
-                                key: "0",
-                            },
-                        ]
-                }
-                optionRender={(option) => (
-                    <Space>
-                        <span role="img" aria-label={option.data.label}>
-                            {/* {option.data.value} */}
-                        </span>
-                        {option.data.label}
-                    </Space>
-                )}
-            />
-
-            <h3>Select group admin :</h3>
-            <Select
-                mode="multiple"
-                style={{
-                    width: '100%',
-                }}
-                placeholder="select group admin"
-                defaultValue={user?.admin}
-                onChange={handleAdminChange}
-                optionLabelProp="label"
-                options={
-                    userDetails?.isDisplaySelected
-                        ? userDetails?.userDetails?.map((user, i) => {
-                            const id = String(i);
-                            return {
-                                label: user?.first_name + " " + user?.last_name,
-                                value: user?.email,
-                                key: id,
-                            };
-                        })
-                        : [
-                            {
-                                label: 'No one is there',
-                                value: 'No one is there',
-                                key: "0",
-                            },
-                        ]
-                }
-                optionRender={(option) => (
-                    <Space>
-                        <span role="img" aria-label={option.data.label}>
-                            {/* {option.data.value} */}
-                        </span>
-                        {option.data.label}
-                    </Space>
-                )}
-            />
+            <Row className='chat-modal-content'>
 
 
-            {user?.group_picture?.length && (
-                <h3>Current Group Profile Picture -- :</h3>
-            )}
-
-            {user?.group_picture?.length && (
-                <Image
-                    src={user?.group_picture}
-                    preview={false}
-                    about='Hello'
-
+                <h3>Enter Group Name :</h3>
+                <Input defaultValue={user?.group_name} placeholder="Edit group name here - " onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
+                <h3>Select group member :</h3>
+                <Select
+                    mode="multiple"
+                    style={{
+                        width: '100%',
+                    }}
+                    placeholder="select group member -- "
+                    defaultValue={user?.group_member}
+                    onChange={handleChange}
+                    optionLabelProp="label"
+                    options={
+                        userDetails?.isDisplaySelected
+                            ? userDetails?.userDetails?.map((user, i) => {
+                                const id = String(i);
+                                return {
+                                    label: user?.first_name + " " + user?.last_name,
+                                    value: user?.email,
+                                    key: id,
+                                };
+                            })
+                            : [
+                                {
+                                    label: 'No one is there',
+                                    value: 'No one is there',
+                                    key: "0",
+                                },
+                            ]
+                    }
+                    optionRender={(option) => (
+                        <Space>
+                            <span role="img" aria-label={option.data.label}>
+                                {/* {option.data.value} */}
+                            </span>
+                            {option.data.label}
+                        </Space>
+                    )}
                 />
-            )}
+
+                <h3>Select group admin :</h3>
+                <Select
+                    mode="multiple"
+                    style={{
+                        width: '100%',
+                    }}
+                    placeholder="select group admin"
+                    defaultValue={user?.admin}
+                    onChange={handleAdminChange}
+                    optionLabelProp="label"
+                    options={
+                        userDetails?.isDisplaySelected
+                            ? userDetails?.userDetails?.map((user, i) => {
+                                const id = String(i);
+                                return {
+                                    label: user?.first_name + " " + user?.last_name,
+                                    value: user?.email,
+                                    key: id,
+                                };
+                            })
+                            : [
+                                {
+                                    label: 'No one is there',
+                                    value: 'No one is there',
+                                    key: "0",
+                                },
+                            ]
+                    }
+                    optionRender={(option) => (
+                        <Space>
+                            <span role="img" aria-label={option.data.label}>
+                                {/* {option.data.value} */}
+                            </span>
+                            {option.data.label}
+                        </Space>
+                    )}
+                />
 
 
-            <h3>Edit group picture here :</h3>
-            <input
-                type="file"
-                className="sign-up-input"
-                onChange={(event) => {
-                    getImage("groupPic", event?.target?.files[0]);
-                }}
-            />
+                {user?.group_picture?.length && (
+                    <h3>Current Group Profile Picture -- :</h3>
+                )}
+
+                {user?.group_picture?.length && (
+                    <Image
+                        src={user?.group_picture}
+                        preview={false}
+                        about='Hello'
+
+                    />
+                )}
+
+
+                <h3>Edit group picture here :</h3>
+                <input
+                    type="file"
+                    className="sign-up-input"
+                    onChange={(event) => {
+                        getImage("groupPic", event?.target?.files[0]);
+                    }}
+                />
+
+            </Row>
+
 
         </Modal>
     )

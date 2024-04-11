@@ -1,0 +1,150 @@
+@import "variable.scss";
+
+
+.chat-modal {
+    border-radius: .5rem;
+    background-color: $primary-light-11;
+
+    .ant-modal-content {
+        background-color: $primary-light-11;
+
+        .ant-modal-close {
+            top: 26px;
+            color: black;
+        }
+
+        .ant-modal-header {
+            // background-color: $primary-light-11;
+            background: none;
+
+            .ant-modal-title {
+                padding-left: 1rem;
+            }
+        }
+
+        .ant-modal-body {
+
+            .member-content {
+                flex-direction: column;
+
+                .member-list-label {
+                    .ant-col {
+                        font-weight: 700;
+                        font-size: medium;
+                        padding-left: 4%;
+                        margin-bottom: -15%;
+                        margin-top: 1%;
+                        font-style: italic;
+                    }
+
+
+                }
+
+                .render-list {
+
+                    border-radius: 3px;
+                    padding: 5%;
+
+                    max-height: 20rem;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                    flex-wrap: nowrap;
+                    background-color: $primary-light-6;
+                    scrollbar-color: $primary-light-10 $primary-light-6;
+                    scrollbar-width: thin;
+                    scroll-behavior: smooth;
+
+                    .list {
+                        .name {
+                            height: 2.5rem;
+                            font-weight: 600;
+                        }
+
+                        .role {
+                            height: 2.5rem;
+                            font-style: italic;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+
+            max-height: 25rem;
+            overflow-y: auto;
+            scrollbar-color: $primary-light-10 $primary-light-6;
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+
+            .chat-modal-content {
+                flex-direction: column;
+                padding: 1rem;
+
+                .member-list-label {
+                    .ant-col {
+                        font-weight: 700;
+                        font-size: medium;
+                    }
+
+
+                }
+
+                .render-list {
+                    background-color: $primary-light-6;
+
+                    .list {
+                        .name {
+                            height: 2.5rem;
+                            font-weight: 600;
+                        }
+
+                        .role {
+                            height: 2.5rem;
+                            font-style: italic;
+                            font-weight: 600;
+                        }
+                    }
+                }
+
+                h3 {
+                    font-weight: 600;
+                    padding-bottom: .2rem;
+                    padding-top: .5rem;
+
+                }
+
+                .ant-input {
+                    background-color: $primary-light-6;
+                }
+
+                .ant-select {
+                    .ant-select-selector {
+                        background-color: $primary-light-6;
+                    }
+                }
+
+                input::file-selector-button {
+                    font-weight: 500;
+                    cursor: pointer;
+                    background-color: $primary-light-6;
+                    padding: 0.4em;
+                    border: none;
+                    border-radius: 4px;
+                }
+
+                .sign-up-input {
+                    font-weight: 600;
+                    font-family: -apple-system, BlinkMacSystemFont, ' Segoe UI', Roboto, ' Helvetica Neue', Arial, ' Noto Sans', sans-serif, ' Apple Color Emoji', ' Segoe UI Emoji', ' Segoe UI Symbol', ' Noto Color Emoji';
+
+                }
+
+                #file-upload-button {
+                    background-color: $primary-light-6;
+                }
+            }
+
+        }
+
+        .ant-modal-footer {}
+    }
+}
