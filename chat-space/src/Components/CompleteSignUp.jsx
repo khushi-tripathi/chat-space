@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Radio, Space } from "antd";
 import { useDispatch } from "react-redux";
 import { SET_RADIO_BUTTON_DATA } from "../Actions/actionConstant";
+import '../styles/about.scss';
 
 export default function CompleteSignUp() {
   const [value, setValue] = useState(1);
@@ -22,8 +23,8 @@ export default function CompleteSignUp() {
     setValue(e.target.value);
   };
   return (
-    <div>
-      <h1>Please select any of the option to proceed...</h1>
+    <div className="about">
+      <h3>Please select any of the option to proceed...</h3>
       <Radio.Group className="sign-up-radio" onChange={onChange} value={value}>
         <Space direction="vertical">
           <Radio value={1}>

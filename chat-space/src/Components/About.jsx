@@ -1,9 +1,10 @@
 import React from "react";
+import "../styles/about.scss"
 
 export default function About() {
   return (
-    <div>
-      <h1>WELCOME TO THE SPACE!!</h1>
+    <div className="about">
+      <h3>WELCOME TO THE SPACE!!</h3>
       <p>Are you ready to experience the space ? Let set go!! </p>
       <p>Lets connect with your person in real life... </p>
       <p>

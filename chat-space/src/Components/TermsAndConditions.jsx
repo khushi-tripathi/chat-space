@@ -1,8 +1,9 @@
 import React from "react";
+import '../styles/about.scss';
 
 export default function TermsAndConditions() {
   return (
-    <div className="term-condition">
+    <div className="about">
       Terms and Conditions ("Terms") Our Terms and Conditions were last updated
       on [DATE]. Please read these terms and conditions carefully before using
       Our Service. Interpretation and Definitions Interpretation The words of

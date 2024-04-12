@@ -41,6 +41,17 @@ export default function AfterSignUp() {
         <Steps className="next-header" current={current} items={items} />
         <div className="next-content">{steps[current].content}</div>
         <div className="next-footer">
+
+          {current > 0 && (
+            <Button
+              style={{
+                margin: "0 8px",
+              }}
+              onClick={() => prev()}
+            >
+              Previous
+            </Button>
+          )}
           {current < steps.length - 1 && (
             <Button type="primary" onClick={() => next()}>
               Next
@@ -57,16 +68,7 @@ export default function AfterSignUp() {
               Done
             </Button>
           )}
-          {current > 0 && (
-            <Button
-              style={{
-                margin: "0 8px",
-              }}
-              onClick={() => prev()}
-            >
-              Previous
-            </Button>
-          )}
+
         </div>
       </div>
     </div>
