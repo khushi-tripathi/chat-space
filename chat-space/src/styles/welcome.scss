@@ -13,23 +13,9 @@
             font-weight: 800;
         }
 
-        .tagline {
-            font-style: italic;
-            font-weight: 400;
-            padding-bottom: 4%;
-            padding-top: 2%;
 
-        }
 
-        .brief {
-            font-size: small;
-            font-weight: 300;
 
-            p strong {
-                font-style: italic;
-            }
-
-        }
 
         .button-section {
             display: flex;
@@ -47,4 +33,22 @@
             }
         }
     }
+}
+
+.tagline {
+    font-style: italic;
+    font-weight: 400;
+    padding-bottom: 4%;
+    padding-top: 2%;
+
+}
+
+.brief {
+    font-size: small;
+    font-weight: 300;
+
+    p strong {
+        font-style: italic;
+    }
+
 }

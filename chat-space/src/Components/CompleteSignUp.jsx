@@ -24,7 +24,7 @@ export default function CompleteSignUp() {
   };
   return (
     <div className="about">
-      <h3>Please select any of the option to proceed...</h3>
+      <h3>Please select one of the option to proceed further...</h3>
       <Radio.Group className="sign-up-radio" onChange={onChange} value={value}>
         <Space direction="vertical">
           <Radio value={1}>
