@@ -3,14 +3,48 @@
 .welcome {
     .box {
         flex-direction: column;
-
+        justify-content: center;
         height: 60vh;
+
+        .app-name {
+            font-style: oblique;
+            font-family: sans-serif;
+            font-size: xxx-large;
+            font-weight: 800;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-weight: 400;
+            padding-bottom: 4%;
+            padding-top: 2%;
+
+        }
+
+        .brief {
+            font-size: small;
+            font-weight: 300;
+
+            p strong {
+                font-style: italic;
+            }
+
+        }
 
         .button-section {
             display: flex;
             width: 50%;
-            margin-top: 5%;
+
             justify-content: space-between;
+
+            .sign {
+                margin-top: 5%;
+            }
+
+            .login {
+                margin-top: 5%;
+                margin-right: 3rem;
+            }
         }
     }
 }

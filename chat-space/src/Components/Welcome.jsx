@@ -19,14 +19,21 @@ export default function Welcome() {
     <div className="welcome page-layout">
       <Row
         className="box box-layout">
-        <Row>
-          WELCOME TO CHAT-SPACE!!
-
+        <Row className="app-name">
+          Chat Space
+        </Row>
+        <Row className="tagline">
+          Stay Connected, Anywhere, Anytime: Your Ultimate Chat Companion
+        </Row>
+        <Row className="brief">
+          <p>
+            Welcome to <strong>Chat Space</strong>, your go-to destination for seamless communication. Whether you're connecting with friends, family, or colleagues, our intuitive platform ensures smooth conversations anytime, anywhere. With robust features, including secure messaging, customizable group chats, and effortless file sharing, staying in touch has never been easier. Join our vibrant community and experience the future of communication today.
+          </p>
         </Row>
         <Row className="button-section">
           {/* <Row> */}
-          <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
-          <Button onClick={() => navigate("/login")}>Login</Button>
+          <Button className="sign" onClick={() => navigate("/sign-up")}>Sign Up</Button>
+          <Button className="login" onClick={() => navigate("/login")}>Login</Button>
           {/* </Row> */}
         </Row>
       </Row>
