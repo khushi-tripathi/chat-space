@@ -84,7 +84,7 @@ export default function AppAdminModal({ setModal, modal }) {
     return (
         <Modal
             className='chat-modal'
-            title={(<h2>Admin Area -- </h2>)}
+            title={(<h2>Admin Access</h2>)}
             centered
             open={true}
             onCancel={() => setModal({ ...modal, admin: false })}
@@ -96,7 +96,7 @@ export default function AppAdminModal({ setModal, modal }) {
             )}
         >
             <Row className='chat-modal-content'>
-                <h3>Select Table name :</h3>
+                <h3>Select Database Tables To Delete Corresponding Records :</h3>
                 <Select
                     mode="multiple"
                     style={{

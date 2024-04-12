@@ -82,9 +82,9 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
             <Row className='chat-modal-content'>
 
 
-                <h3>Enter Group Name :</h3>
+                <h3>Edit Group Name :</h3>
                 <Input defaultValue={user?.group_name} placeholder="Edit group name here - " onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
-                <h3>Select group member :</h3>
+                <h3>Edit Group Member :</h3>
                 <Select
                     mode="multiple"
                     style={{
@@ -122,7 +122,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                     )}
                 />
 
-                <h3>Select group admin :</h3>
+                <h3>Select Group Admin :</h3>
                 <Select
                     mode="multiple"
                     style={{
@@ -162,7 +162,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
 
 
                 {user?.group_picture?.length && (
-                    <h3>Current Group Profile Picture -- :</h3>
+                    <h3>Current Group Profile Picture :</h3>
                 )}
 
                 {user?.group_picture?.length && (
@@ -175,7 +175,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                 )}
 
 
-                <h3>Edit group picture here :</h3>
+                <h3>Edit Group Profile Picture Here :</h3>
                 <input
                     type="file"
                     className="sign-up-input"

@@ -105,7 +105,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
             <Row className='chat-modal-content'>
                 <h3>Enter Group Name :</h3>
                 <Input placeholder="Enter group name" onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
-                <h3>Select group member :</h3>
+                <h3>Select Group Member :</h3>
                 <Select
                     mode="multiple"
                     style={{
@@ -143,7 +143,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                     )}
                 />
 
-                <h3>Select group admin :</h3>
+                <h3>Select Group Admin :</h3>
                 <Select
                     mode="multiple"
                     style={{
@@ -180,7 +180,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                         </Space>
                     )}
                 />
-                <h3>Select group profile picture :</h3>
+                <h3>Select Group Profile Picture :</h3>
                 <input
                     type="file"
                     className="sign-up-input"
@@ -188,7 +188,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                         getImage("groupPic", event?.target?.files[0]);
                     }}
                 />
-                <h3>You can add your first message of the group here :</h3>
+                <h3>Add Your Group's First Message Here :</h3>
                 <Input onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
 
             </Row>
