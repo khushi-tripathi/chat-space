@@ -5,6 +5,7 @@ import TermsAndConditions from "./TermsAndConditions";
 import CompleteSignUp from "./CompleteSignUp";
 import { useNavigate } from "react-router-dom";
 import "../styles/button.scss"
+import "../styles/page-layout.scss"
 
 const steps = [
   {
@@ -35,8 +36,8 @@ export default function AfterSignUp() {
     title: item.title,
   }));
   return (
-    <div className="sign-up">
-      <div className="next-page">
+    <div className="sign-up page-layout">
+      <div className="next-page box-layout">
         <Steps className="next-header" current={current} items={items} />
         <div className="next-content">{steps[current].content}</div>
         <div className="next-footer">

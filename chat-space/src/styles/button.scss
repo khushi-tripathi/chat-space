@@ -1,7 +1,8 @@
 @import "./variable.scss";
 
 .ant-btn {
-    background: $primary-light-6 ;
+    background: $primary-light-6 !important;
+    color: black !important;
 }
 
 .ant-btn:hover {
