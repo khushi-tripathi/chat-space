@@ -128,7 +128,7 @@ const Signup = () => {
     <>
       <div className="sign-up page-layout">
         <div className="sign-up-content box-layout">
-          <h3>Welcome to the CHAT SPACE</h3>
+          <h3>Welcome to the Chat Space</h3>
           <Form
             name="basic"
             labelCol={{
@@ -234,6 +234,7 @@ const Signup = () => {
             >
               <Input.Password
                 className="sign-up-input"
+                placeholder="Enter Password"
                 onChange={(event) => {
                   onChangeData("password", event?.target?.value);
                 }}
@@ -244,6 +245,12 @@ const Signup = () => {
             <Form.Item
               label="Profile "
               name="profile"
+              rules={[
+                {
+                  required: true,
+                  message: "Please insert your profile",
+                },
+              ]}
             >
               <input
                 type="file"

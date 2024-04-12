@@ -14,8 +14,13 @@
         box-shadow: 50px 20px 20px $primary-dark-3;
         display: flex;
         padding: 20px;
-        border-radius: 40px;
+        border-radius: .5rem;
         width: 38%;
+
+        h3 {
+            color: black;
+            padding-bottom: 1.5rem;
+        }
     }
 }
 
