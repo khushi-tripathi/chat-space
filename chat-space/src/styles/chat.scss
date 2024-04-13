@@ -1,7 +1,8 @@
 @import "./variable.scss";
 
 .chat-screen {
-    height: auto;
+    height: 100vh;
+    width: 100vw;
 
     .ant-tabs {
         .ant-tabs-content-holder {
@@ -16,7 +17,30 @@
                         border-radius: 0;
 
                         .ant-card-head {
+                            box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3;
+
                             border-radius: 0;
+
+                            .ant-card-head-wrapper {
+                                .ant-card-extra {
+                                    width: 17%;
+                                    justify-content: space-around;
+                                    display: flex;
+
+                                    .more-options {
+
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        width: 100%;
+                                        flex-direction: row;
+
+                                        .ant-dropdown-trigger {
+                                            font-size: large;
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         .ant-card-body {
@@ -156,17 +180,33 @@
             }
         }
 
+        .ant-tabs-ink-bar {
+            width: 2%;
+        }
+
         .ant-tabs-nav {
             width: 20%;
 
             .ant-tabs-nav-wrap {
                 height: 100vh;
 
-                .ant-tabs-nav-list .ant-tabs-tab {
-                    padding: 5% 5%;
+                .ant-tabs-nav-list {
+                    .ant-tabs-tab-active {
+                        box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3;
+                    }
 
-                    .ant-tabs-tab-btn {
-                        width: 100%;
+                    .ant-tabs-tab {
+                        margin: 0;
+                        padding: 5% 5% !important;
+                        padding-top: 8% !important;
+                    }
+
+                    .ant-tabs-tab {
+                        padding: 5% 5%;
+
+                        .ant-tabs-tab-btn {
+                            width: 100%;
+                        }
                     }
                 }
             }

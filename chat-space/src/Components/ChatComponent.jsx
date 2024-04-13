@@ -91,7 +91,7 @@ const ChatComponent = () => {
             ? tabData?.map((user, i) => {
               const id = String(i + 1);
               return {
-                label: <Profile user={user} group={user?.group_name} />,
+                label: <Profile user={user} group={user?.group_name} modeClass={mode === 'dark' ? "chat-dark-profile" : "chat-light-profile"} />,
                 key: loginData?.credentials?.email === user?.email ? "own" : id,
                 children: <Chat data={`Content of tab ${user?.email} \n `} currentUuid={getCurrentUuid(user)} otherUser={user} group={user?.group_name} userDetails={userDetails?.userDetails} groupData={groupData} mode={mode} setMode={setMode} />,
               };

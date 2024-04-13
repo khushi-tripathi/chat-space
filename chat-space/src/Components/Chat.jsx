@@ -98,6 +98,7 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
         uuid: currentUuid || uuid,
         otherUser: otherUser?.email || ""
       });
+      setChatData({ ...chatData, newMessage: '' })
     }
   };
   const compareMessageText = (id) => {

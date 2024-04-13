@@ -131,7 +131,7 @@ export default function Login() {
                   },
                 ]}
               >
-                <Input.Password className="sign-up-input" />
+                <Input.Password className="sign-up-input" placeholder="Enter Password" />
               </Form.Item>
 
               <Form.Item

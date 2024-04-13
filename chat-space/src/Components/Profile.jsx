@@ -12,7 +12,7 @@ import {
 import { Image, Space } from 'antd';
 import "../styles/button.scss"
 
-export default function Profile({ user, group }) {
+export default function Profile({ user, group, modeClass }) {
 
   const onDownload = () => {
     fetch(user?.profile_image)
@@ -30,7 +30,7 @@ export default function Profile({ user, group }) {
   }
 
   return (
-    <Row className="profile">
+    <Row className={"profile " + modeClass}>
       <Col span={5}>
 
         <Button

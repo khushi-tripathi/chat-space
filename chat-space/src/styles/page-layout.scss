@@ -30,8 +30,6 @@
 
 .chat-layout-light {
     background-color: $primary-light-6;
-    height: 100vh;
-    width: 100vw;
     color: $text-light-color;
 
     .ant-tabs {
@@ -42,69 +40,51 @@
                 .ant-tabs-tab-active {
                     background-color: unset;
                     background-color: $primary-light-10;
-                    // border: none;
-                    box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3;
-                    // box-shadow: 1px 2px 10px $primary-dark-3;
-
                 }
 
                 .ant-tabs-tab {
-                    margin: 0;
-                    padding: 5% 5% !important;
-                    padding-top: 8% !important;
                     border-bottom: 1px solid $grey-color;
-
                 }
             }
         }
 
         .ant-tabs-ink-bar {
             background: $primary-dark-1;
-            // border-radius: 8%;
-            width: 2%;
         }
 
         .ant-tabs-content-holder {
-            // border-left: 1px solid $grey-color;
 
+            // border-left: 1px solid $grey-color;
             .ant-tabs-content .ant-tabs-tabpane .ChatCard {
                 .ant-card-head {
                     background-color: $primary-light-11;
                     border-bottom: 1px solid $grey-color;
-                    box-shadow: 2px 2px 5px $primary-dark-3, 2px -2px 5px $primary-dark-3;
 
-                    .ant-card-head-wrapper {
-                        .ant-card-extra {
-                            width: 17%;
-                            justify-content: space-around;
-                            display: flex;
+                    .ant-card-head-wrapper .ant-card-extra .more-options {
 
-                            .more-options {
+                        .ant-switch {
+                            background: $primary-dark-1;
 
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                width: 100%;
-                                flex-direction: row;
-
-                                .ant-dropdown-trigger {
-                                    font-size: large;
-                                    color: black;
-                                }
+                            .ant-switch-inner .ant-switch-inner-unchecked {
+                                color: white;
+                                font-weight: bold;
                             }
+                        }
+
+                        .ant-dropdown-trigger {
+                            color: black;
                         }
                     }
 
                 }
 
                 .ant-card-body {
-
-
                     .chatBox {
-
                         background-color: $primary-light-7;
 
                         .chatContainer {
+                            border-left: 1px solid $grey-color;
+
                             .right {
                                 background-color: $primary-light-11;
                                 color: black;
@@ -122,8 +102,6 @@
                             }
                         }
 
-
-
                         .ant-row {
                             border-top: solid 1px $grey-color;
                             background-color: $primary-light-6;
@@ -137,6 +115,7 @@
                                     border: none;
                                     background-color: $primary-light-6;
                                     border-right: 1px solid $grey-color;
+                                    border-left: 1px solid $grey-color;
                                 }
                             }
                         }
@@ -148,24 +127,139 @@
     }
 }
 
+// .chat-dark-profile {
+//     .name {
+
+//         color: black;
+//     }
+// }
+
+
+
 .chat-layout-dark {
     background-color: $primary-dark-1;
-    height: 100vh;
-    width: 100vw;
     color: white;
 
-    .ant-tabs .ant-tabs-ink-bar {
-        background: white;
-        width: 2%;
+    .ant-tabs {
+        .ant-tabs-nav {
+            border-right: 1px solid $grey-color;
+
+            .ant-tabs-nav-wrap .ant-tabs-nav-list {
+                .ant-tabs-tab-active {
+                    background-color: unset;
+                    background-color: $primary-light-6;
+
+                    .ant-tabs-tab-btn .chat-dark-profile .name {
+
+                        color: black !important;
+                    }
+                }
+
+                .ant-tabs-tab {
+                    border-bottom: 1px solid $grey-color;
+                }
+            }
+        }
+
+        .ant-tabs-ink-bar {
+            background: black
+        }
+
+        .ant-tabs-content-holder {
+
+            // border-left: 1px solid $grey-color;
+            .ant-tabs-content .ant-tabs-tabpane .ChatCard {
+                .ant-card-head {
+                    background-color: $primary-dark-1;
+                    color: white;
+                    border-bottom: 1px solid $grey-color;
+
+                    .ant-card-head-wrapper .ant-card-extra .more-options {
+                        .ant-switch-checked {
+                            background: $primary-light-6;
+
+                            .ant-switch-inner .ant-switch-inner-checked {
+                                color: black;
+                                font-weight: bold;
+                            }
+                        }
+
+                        .ant-dropdown-trigger {
+                            color: white;
+                        }
+                    }
+
+                }
+
+                .ant-card-body {
+                    .chatBox {
+                        background-color: $primary-dark-2;
+
+                        .chatContainer {
+                            border-left: 1px solid $grey-color;
+
+                            .right {
+
+                                color: $white-grey;
+                                background-color: $primary-dark-1;
+
+
+                                // background-color: $primary-light-6;
+                                // color: black;
+                            }
+
+                            .left {
+                                // color: $white-grey;
+                                // background-color: $primary-dark-1;
+
+                                background-color: $primary-light-6;
+                                color: black;
+                            }
+
+                            .scroll-bar {
+                                scrollbar-color: $primary-dark-1 $primary-light-6;
+                                scrollbar-width: thin;
+                                scroll-behavior: smooth;
+                            }
+                        }
+
+                        .ant-row {
+                            border-top: solid 1px $grey-color;
+                            background-color: $primary-dark-1;
+
+                            .inputBox {
+                                background-color: $primary-dark-1;
+                                border-right: 1px solid $grey-color;
+                                // border-left: 1px solid $grey-color;
+
+                                input {
+                                    color: $white-grey;
+                                    border: none;
+                                    background-color: $primary-dark-1;
+                                    border-right: 1px solid $grey-color;
+                                    border-left: 1px solid $grey-color;
+                                }
+
+                                .add-emoji,
+                                .sendBtn {
+                                    color: $white-grey;
+                                    ;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
+}
 
-    .ant-tabs .ant-tabs-content-holder .ant-tabs-content .ant-tabs-tabpane .ChatCard {
-        .ant-card-head {
-            background-color: $primary-dark-1;
-        }
 
-        .ant-card-body {
-            background-color: $primary-dark-2;
-        }
+
+.chat-dark-profile {
+    .name {
+
+        color: $white-grey !important;
     }
 }
