@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, message, Steps } from "antd";
+import { Button, message, Spin, Steps } from "antd";
 import About from "./About";
 import TermsAndConditions from "./TermsAndConditions";
 import CompleteSignUp from "./CompleteSignUp";
@@ -25,6 +25,7 @@ const steps = [
 export default function AfterSignUp() {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [loading, setLoading] = useState(false);
   const next = () => {
     setCurrent(current + 1);
   };
@@ -36,41 +37,46 @@ export default function AfterSignUp() {
     title: item.title,
   }));
   return (
-    <div className="sign-up page-layout">
-      <div className="next-page box-layout">
-        <Steps className="next-header" current={current} items={items} />
-        <div className="next-content">{steps[current].content}</div>
-        <div className="next-footer">
+    <Spin spinning={loading}>
+      <div className="sign-up page-layout">
+        <div className="next-page box-layout">
+          <Steps className="next-header" current={current} items={items} />
+          <div className="next-content">{steps[current].content}</div>
+          <div className="next-footer">
 
-          {current > 0 && (
-            <Button
-              style={{
-                margin: "0 8px",
-              }}
-              onClick={() => prev()}
-            >
-              Previous
-            </Button>
-          )}
-          {current < steps.length - 1 && (
-            <Button type="primary" onClick={() => next()}>
-              Next
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button
-              type="primary"
-              onClick={() => {
-                message.success("Processing complete!");
-                navigate("/chat");
-              }}
-            >
-              Done
-            </Button>
-          )}
+            {current > 0 && (
+              <Button
+                style={{
+                  margin: "0 8px",
+                }}
+                onClick={() => prev()}
+              >
+                Previous
+              </Button>
+            )}
+            {current < steps.length - 1 && (
+              <Button type="primary" onClick={() => next()}>
+                Next
+              </Button>
+            )}
+            {current === steps.length - 1 && (
+              <Button
+                type="primary"
+                onClick={() => {
+                  setLoading(true)
+                  setTimeout(() => {
+                    message.success("Welcome to Chat Space!");
+                    navigate("/chat");
+                  }, 500);
+                }}
+              >
+                Done
+              </Button>
+            )}
 
+          </div>
         </div>
       </div>
-    </div>
+    </Spin>
   );
 }

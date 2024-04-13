@@ -25,5 +25,9 @@ export const FETCH_GROUP_INFO = "FETCH_GROUP_INFO";
 //MODE
 export const SET_APP_MODE = "FETCH_GROUP_INFO";
 
+//CHAT TAB
+export const SET_TAB_DATA = "SET_TAB_DATA";
+
+
 
 

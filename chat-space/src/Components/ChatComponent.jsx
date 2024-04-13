@@ -11,19 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Chat from "./Chat";
 import { fetchGroupInfo, getUuid } from "../Actions/chatManagement";
 import { registeredUserDetails } from "../Actions/registeredUserDetails";
+import { SET_TAB_DATA } from "../Actions/actionConstant";
 
 const ChatComponent = () => {
   const userDetails = useSelector((state) => state.registeredUserDetails);
-
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
   // isGroupDataUpdated
   const groupDetails = useSelector((state) => state?.groupDetails);
+  const tabData = useSelector((state) => state?.userTab?.tabData);
   const groupData = useSelector((state) => state?.groupDetails?.groupData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const [flag, setFlag] = useState(true)
   const [activeTab, setActiveTab] = useState("own")
-  const [tabData, setTabData] = useState([])
   const [mode, setMode] = useState('light')
 
 
@@ -31,7 +31,7 @@ const ChatComponent = () => {
   useEffect(() => {
     dispatch(registeredUserDetails());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [0]);
+  }, []);
 
   useEffect(() => {
     console.log(chatArray)
@@ -44,7 +44,12 @@ const ChatComponent = () => {
     const allUserTab = userDetails?.userDetails
     const ownTab = allUserTab?.filter((item) => item?.email === loginData?.credentials?.email)
     const otherTab = allUserTab?.filter((item) => item?.email !== loginData?.credentials?.email)
-    setTabData([...ownTab, ...otherTab, ...groupData])
+    dispatch({
+      type: SET_TAB_DATA,
+      payload: {
+        tabData: [...ownTab, ...otherTab, ...groupData],
+      },
+    })
   }, [userDetails?.userDetails?.length, groupData?.length, groupDetails]);
 
 
