@@ -9,7 +9,6 @@ var con = mysql.createConnection({
   database: process.env?.DATABASE,
 });
 
-
 con.connect(function (err) {
   if (err) throw err;
   console.log("Database Connected!");
@@ -50,7 +49,6 @@ const fetchUserDetails = (response) => {
   });
 };
 
-
 const getUuid = (response) => {
   var sql = `SELECT * FROM uuid`;
   con.query(sql, function (err, result, fields) {
@@ -73,9 +71,6 @@ const getGroupInfo = (response) => {
   });
 };
 
-
-
-
 const getChatFromUuid = (request, response) => {
   let data = [];
   for (let i = 0; i < request?.length; i++) {
@@ -96,8 +91,6 @@ const getChatFromUuid = (request, response) => {
     })
   }
 };
-
-
 
 const addNewChat = (request, response) => {
   console.log(request)
@@ -135,7 +128,6 @@ const addNewGroup = (request, response) => {
   console.log(request.primary_user)
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
-
 
   var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name , group_picture) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}' , '${request?.group_picture}')`;
   con.query(sql, function (err, result, fields) {
@@ -186,7 +178,6 @@ const addUuid = (request, response) => {
   });
 };
 
-
 const add = () => {
   return "KKK";
 };
@@ -195,7 +186,6 @@ module.exports.addUserDetails = addUserDetails;
 module.exports.fetchUserDetails = fetchUserDetails;
 module.exports.getUuid = getUuid;
 module.exports.getGroupInfo = getGroupInfo;
-
 module.exports.getChatFromUuid = getChatFromUuid;
 module.exports.updateChat = updateChat;
 module.exports.updateGroupInfo = updateGroupInfo;
@@ -203,6 +193,3 @@ module.exports.addNewChat = addNewChat;
 module.exports.addNewGroup = addNewGroup;
 module.exports.submitAdminInfo = submitAdminInfo;
 module.exports.addUuid = addUuid;
-
-
-

@@ -1,7 +1,7 @@
 const body = require("body-parser");
 const express = require("express");
-const multer = require("multer")
-const path = require("path")
+// const multer = require("multer")
+// const path = require("path")
 const app = express();
 const databaseFunctions = require("./database-connection/database-connectivity.js");
 const http = require("http").Server(app);
