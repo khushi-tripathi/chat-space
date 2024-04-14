@@ -17,8 +17,6 @@ const addUuid = (uuid, primary_user, other_user, isGroup) => {
             });
     };
 }
-
 export {
     addUuid,
-
 }

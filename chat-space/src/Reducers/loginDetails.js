@@ -10,6 +10,7 @@ const initialState = {
     password: "",
   },
 };
+
 function loginDetails(state = initialState, action) {
   switch (action?.type) {
     case SET_BY_DEFAULT_LOGIN_DETAILS:
@@ -25,4 +26,5 @@ function loginDetails(state = initialState, action) {
       return state;
   }
 }
+
 export default loginDetails;

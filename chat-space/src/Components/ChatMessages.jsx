@@ -16,7 +16,6 @@ const ChatMessages = ({ key, message, classs, time, lastMessage, item, userDetai
       )}
       <div className={`messageBox ${classs}`}>
         <div className={'name'}>{getName(item?.email)}</div>
-        {/* {classs === "left" ? (<br />) : null} */}
         {`${message}`}
       </div>
       <div className={`${classs}-time`}>{time}</div>

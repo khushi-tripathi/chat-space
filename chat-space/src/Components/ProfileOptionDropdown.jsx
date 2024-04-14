@@ -9,7 +9,6 @@ import "../styles/button.scss"
 
 export default function ProfileOptionDropdown({ loginData }) {
 
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [modal, setModal] = useState({ admin: false })
@@ -52,8 +51,6 @@ export default function ProfileOptionDropdown({ loginData }) {
         }
     }, [])
 
-
-
     return (
         <div >
             <Tooltip title="Profile">
@@ -81,7 +78,6 @@ export default function ProfileOptionDropdown({ loginData }) {
                     </Button>
                 </Dropdown>
             </Tooltip>
-
             {modal?.admin && <AppAdminModal modal={modal} setModal={setModal} />}
         </div>
     )

@@ -14,7 +14,6 @@ export default function Welcome() {
     dispatch(registeredUserDetails());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="welcome page-layout">
       <Row
@@ -31,10 +30,8 @@ export default function Welcome() {
           </p>
         </Row>
         <Row className="button-section">
-          {/* <Row> */}
           <Button className="sign" onClick={() => navigate("/sign-up")}>Sign Up</Button>
           <Button className="login" onClick={() => navigate("/login")}>Login</Button>
-          {/* </Row> */}
         </Row>
       </Row>
     </div>

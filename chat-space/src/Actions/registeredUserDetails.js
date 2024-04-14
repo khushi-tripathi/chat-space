@@ -34,11 +34,7 @@ const submitAdminData = (tables) => {
   };
 };
 
-
-
-
 export {
   registeredUserDetails,
   submitAdminData
 }
-

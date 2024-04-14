@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../styles/chat.scss";
 import { socketEmit } from "./socket";
-import { Card, Input, Button, Row, Col } from "antd";
+import { Card, Input, Row, Col } from "antd";
 import ChatMessages from "./ChatMessages";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,22 +10,15 @@ import { ADD_NEW_CHAT, SET_CHAT_MESSAGES } from "../Actions/actionConstant";
 import { updateChatData, addNewChat } from "../Actions/chatManagement";
 import { addUuid } from "../Actions/uuid";
 import { SendOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import Picker, { Emoji } from 'emoji-picker-react';
+import Picker from 'emoji-picker-react';
 import MoreOptions from "./MoreOptions";
 
 export default function Chat({ currentUuid, otherUser, group, userDetails, groupData, mode, setMode }) {
   const inputRef = useRef();
   const loginData = useSelector((state) => state.loginDetails);
-
-  const uuidData = useSelector((state) => state.uuid?.uuidData);
   const chatArray = useSelector((state) => state.chatManagement?.chatArray);
   const dispatch = useDispatch()
-
   const [emojiHandler, setEmojiHandler] = useState({ open: false });
-
-
-
-
   const [chatData, setChatData] = useState({
     agentID: "",
     extensionNo: "",
@@ -36,9 +29,7 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
     read: 0,
   });
   const [chatMessage, setChatMessage] = useState({});
-
   const send = () => {
-
     if (chatData?.newMessage.length > 0) {
       const payload = {};
       const id = new Date().toISOString();
@@ -155,13 +146,10 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
                 setChatData({ ...chatData, newMessage: e.target.value });
               }}
             />
-            {/* <Button }> */}
             <PlusCircleOutlined className="add-emoji" title="Add Emoji" onClick={() => {
               setEmojiHandler({ open: !emojiHandler?.open })
               setChatData({ ...chatData, inputColClasses: !emojiHandler?.open ? 'inputBox changedPositionInputBox' : 'inputBox' })
             }} />
-            {/* </Button> */}
-
             <SendOutlined title="Send Message Button"
               onClick={send}
               className="sendBtn" />

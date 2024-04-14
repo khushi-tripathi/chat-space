@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { submitAdminData } from '../Actions/registeredUserDetails';
-import { Button, Input, Modal, Row, Select, Space } from 'antd';
+import { Button, Modal, Row, Select, Space } from 'antd';
 import "../styles/modal.scss"
 import "../styles/button.scss"
 
 export default function AppAdminModal({ setModal, modal }) {
-
     const [adminInfo, setAdminInfo] = useState({ selectedTable: [] })
     const dispatch = useDispatch()
     const items = [
@@ -31,7 +30,6 @@ export default function AppAdminModal({ setModal, modal }) {
             value: "group_chat"
         },
     ]
-
 
     const handleChange = (value) => {
         setAdminInfo({
@@ -82,8 +80,6 @@ export default function AppAdminModal({ setModal, modal }) {
                     )}
                 />
             </Row>
-
-
         </Modal>
     )
 }

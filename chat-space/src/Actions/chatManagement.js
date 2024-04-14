@@ -27,7 +27,6 @@ const getUuid = (loginData, checkExistingChat, groupData) => {
   };
 };
 
-
 const fetchGroupInfo = (loginData, existingGroupData) => {
   return function (dispatch) {
     axios
@@ -182,4 +181,3 @@ export {
   fetchGroupInfo,
   editGroupInfo
 }
-

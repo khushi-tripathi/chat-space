@@ -9,7 +9,6 @@ import { ADD_NEW_CHAT } from '../Actions/actionConstant';
 import "../styles/modal.scss"
 import "../styles/button.scss"
 
-
 export default function ModalBox({ setModal, loginData, modal }) {
     const userDetails = useSelector((state) => state.registeredUserDetails);
     const loginDetails = useSelector((state) => state.loginDetails)
@@ -29,8 +28,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
             groupAdmin: value
         })
     };
-
-
 
     const setGroupDetails = (value, type) => {
         setGroupInfo({
@@ -93,9 +90,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                     <CancelBtn />
                 </>
             )}
-
         >
-
             <Row className='chat-modal-content'>
                 <h3>Enter Group Name :</h3>
                 <Input placeholder="Enter group name" onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
@@ -136,7 +131,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
                         </Space>
                     )}
                 />
-
                 <h3>Select Group Admin :</h3>
                 <Select
                     mode="multiple"
@@ -184,7 +178,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
                 />
                 <h3>Add Your Group's First Message Here :</h3>
                 <Input placeholder='Enter first message of your group' onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
-
             </Row>
         </Modal>
     )

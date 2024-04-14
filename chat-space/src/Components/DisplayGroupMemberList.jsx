@@ -1,17 +1,9 @@
 
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { submitAdminData } from '../Actions/registeredUserDetails';
-import { Button, Col, Input, Modal, Row, Select, Space } from 'antd';
+import React from 'react'
+import { Col, Modal, Row } from 'antd';
 import "../styles/modal.scss"
 
-
 export default function DisplayGroupMemberList({ setModal, loginData, modal, user, groupData }) {
-
-
-    const [adminInfo, setAdminInfo] = useState({ selectedTable: [] })
-    const dispatch = useDispatch()
-
     return (
         <Modal
             className='member-list chat-modal'
@@ -26,7 +18,6 @@ export default function DisplayGroupMemberList({ setModal, loginData, modal, use
             )}
         >
             <Row className='member-content'>
-
                 <Row className='member-list-label'>
                     <Col span={12}>
                         Name
@@ -35,7 +26,6 @@ export default function DisplayGroupMemberList({ setModal, loginData, modal, use
                         Role
                     </Col>
                 </Row>
-
                 <Row className='render-list'>
                     {
                         // user?.group_member
@@ -54,10 +44,6 @@ export default function DisplayGroupMemberList({ setModal, loginData, modal, use
                     }
                 </Row>
             </Row>
-
-
-
-
         </Modal>
     )
 }

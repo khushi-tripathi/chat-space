@@ -1,15 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/chat.scss";
-import { socketEmit } from "./socket";
 import { Tabs } from "antd";
-
 import "../styles/page-layout.scss"
-
-import { AndroidOutlined } from "@ant-design/icons";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import Chat from "./Chat";
-import { fetchGroupInfo, getUuid } from "../Actions/chatManagement";
+import { getUuid } from "../Actions/chatManagement";
 import { registeredUserDetails } from "../Actions/registeredUserDetails";
 import { SET_TAB_DATA } from "../Actions/actionConstant";
 
@@ -24,7 +20,6 @@ const ChatComponent = () => {
   const [flag, setFlag] = useState(true)
   const [activeTab, setActiveTab] = useState("own")
   const [mode, setMode] = useState('light')
-
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -48,8 +43,6 @@ const ChatComponent = () => {
       },
     })
   }, [userDetails?.userDetails?.length, groupData?.length, groupDetails]);
-
-
 
   const getCurrentUuid = (user) => {
 

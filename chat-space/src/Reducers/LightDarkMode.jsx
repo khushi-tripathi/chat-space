@@ -13,10 +13,8 @@ function LightDarkMode(state = initialState, action) {
                 ...state,
                 mode: action.payload.mode
             };
-
         case SET_DEFAULT_VALUE:
             return initialState
-
         default:
             return state;
     }

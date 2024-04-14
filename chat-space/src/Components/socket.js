@@ -14,7 +14,6 @@ socket.on("disconnect", () => {
 
 socket.on("chat", (data) => {
   const isValidUuid = store?.getState()?.uuid?.uuidData?.filter((item) => item?.uuid === data?.uuid)
-
   if (isValidUuid?.length) {
     store?.dispatch({
       type: SET_CHAT_MESSAGES,
@@ -33,10 +32,7 @@ socket.on("chat", (data) => {
     });
   }
 
-
-
 });
-
 
 // export const disconnectSocket = () => {
 //   socket.disconnect();

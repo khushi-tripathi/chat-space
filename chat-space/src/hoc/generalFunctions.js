@@ -8,7 +8,6 @@ export const validationCheck = (
   const existingEmail = userDetails?.userDetails?.filter(
     (e, i) => e.email === userData?.email
   );
-
   const isPasswordCorrect = existingEmail?.[0]?.password === userData?.password
   if (userData?.email.includes("@") && !existingEmail?.length) {
     submit();

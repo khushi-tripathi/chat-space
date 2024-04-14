@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/sign-up.scss";
-import { Button, Col, Form, Input, Row, Spin } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/sign-up.scss";

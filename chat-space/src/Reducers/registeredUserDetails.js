@@ -9,6 +9,7 @@ const initialState = {
   userDetails: [],
   isDisplaySelected: true,
 };
+
 function registeredUserDetails(state = initialState, action) {
   switch (action?.type) {
     case SET_BY_DEFAULT_USER_DETAILS:

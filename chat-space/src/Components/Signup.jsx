@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/sign-up.scss";
-import { Button, Col, Form, Input, Row, message, Upload } from "antd";
+import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validationCheck } from "../hoc/generalFunctions";
 import { SET_LOGIN_CREDENTIALS } from "../Actions/actionConstant";
-import { UploadOutlined } from '@ant-design/icons';
 import { SIGN_UP } from "../Constants/urls";
 import "../styles/page-layout.scss"
 import "../styles/button.scss"
@@ -15,10 +14,8 @@ import "../styles/button.scss"
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const redux = useSelector((state) => state);
   const userDetails = useSelector((state) => state.registeredUserDetails);
   const [validationError, setValidationError] = useState({ status: false });
-  const [pageType, setPageType] = useState({ page: "signUp" });
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -27,8 +24,6 @@ const Signup = () => {
     password: "",
     profile: ''
   });
-
-
 
   const getImage = (type, file) => {
     var reader = new FileReader();
@@ -63,7 +58,6 @@ const Signup = () => {
   };
 
   const submitDetails = () => {
-
     // let file = userData.profile
     // const formdata = new FormData();
     // formdata.append('image', file)
@@ -114,11 +108,6 @@ const Signup = () => {
   const onFinishFailed = (errorInfo) => {
   };
 
-  const onChangePage = (type) => {
-    setPageType({
-      page: type === "sign" ? "signUp" : "login",
-    });
-  };
   return (
     <>
       <div className="sign-up page-layout">
@@ -196,26 +185,25 @@ const Signup = () => {
               <p>Already occupied email. Please enter another!</p>
             )}
             {validationError?.status && <p>Please provide valid email!</p>}
-            {pageType?.page === "signUp" && (
-              <Form.Item
-                label="Mobile"
-                name="mobile"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your mobile number",
-                  },
-                ]}
-              >
-                <Input
-                  className="sign-up-input"
-                  placeholder="Mobile Number"
-                  onChange={(event) => {
-                    onChangeData("mobile", event?.target?.value);
-                  }}
-                />
-              </Form.Item>
-            )}
+
+            <Form.Item
+              label="Mobile"
+              name="mobile"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your mobile number",
+                },
+              ]}
+            >
+              <Input
+                className="sign-up-input"
+                placeholder="Mobile Number"
+                onChange={(event) => {
+                  onChangeData("mobile", event?.target?.value);
+                }}
+              />
+            </Form.Item>
 
             <Form.Item
               label="Password"
@@ -236,7 +224,6 @@ const Signup = () => {
               />
             </Form.Item>
 
-
             <Form.Item
               label="Profile "
               name="profile"
@@ -255,7 +242,6 @@ const Signup = () => {
                 }}
               />
             </Form.Item>
-
 
             <Form.Item
               wrapperCol={{

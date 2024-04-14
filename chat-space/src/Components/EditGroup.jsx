@@ -1,12 +1,9 @@
 import { Button, Image, Input, Modal, Row, Select, Space } from 'antd';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addUuid } from '../Actions/uuid';
-import { addNewChat, addNewGroup, editGroupInfo, getUuid } from '../Actions/chatManagement';
-import { ADD_NEW_CHAT } from '../Actions/actionConstant';
+import { editGroupInfo, getUuid } from '../Actions/chatManagement';
 import "../styles/modal.scss"
 import "../styles/button.scss"
-
 
 export default function EditGroup({ setModal, loginData, modal, user, groupData }) {
 
@@ -28,8 +25,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
             groupAdmin: value
         })
     };
-
-
 
     const setGroupDetails = (value, type) => {
         setGroupInfo({
@@ -55,7 +50,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
         const selectedEmailList = group?.selectedEmailList?.length ? group?.selectedEmailList : user?.group_member
         const groupName = group?.groupName?.length ? group?.groupName : user?.group_name
         const groupAdmin = group?.groupAdmin?.length ? group?.groupAdmin : user?.admin
-
         dispatch(editGroupInfo(user?.uuid, selectedEmailList, groupName, groupAdmin, group_picture))
         dispatch(getUuid(loginDetails, true, groupData))
         setModal({ ...modal, editGroup: false })
@@ -74,11 +68,8 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                     <CancelBtn />
                 </>
             )}
-
         >
             <Row className='chat-modal-content'>
-
-
                 <h3>Edit Group Name :</h3>
                 <Input defaultValue={user?.group_name} placeholder="Edit group name here - " onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
                 <h3>Edit Group Member :</h3>
@@ -157,7 +148,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                     )}
                 />
 
-
                 {user?.group_picture?.length ? (
                     <h3>Current Group Profile Picture :</h3>
                 ) : null}
@@ -171,7 +161,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                     />
                 ) : null}
 
-
                 <h3>Edit Group Profile Picture Here :</h3>
                 <input
                     type="file"
@@ -180,10 +169,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                         getImage("groupPic", event?.target?.files[0]);
                     }}
                 />
-
             </Row>
-
-
         </Modal>
     )
 }
