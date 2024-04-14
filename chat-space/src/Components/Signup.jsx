@@ -31,11 +31,9 @@ const Signup = () => {
 
 
   const getImage = (type, file) => {
-    //convert to Base64
     var reader = new FileReader();
     reader?.readAsDataURL(file)
     reader.onload = () => {
-      // reader?.result // base64encoded string 
       setUserData({
         ...userData,
         [type]: reader.result,

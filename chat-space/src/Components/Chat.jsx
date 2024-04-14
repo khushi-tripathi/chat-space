@@ -101,17 +101,11 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
       setChatData({ ...chatData, newMessage: '' })
     }
   };
-  const compareMessageText = (id) => {
-    if (id === loginData?.credentials?.email) {
-      // setChatData({
-      //   ...chatData,
-      //   read: Object.values({
-      //     //jitne mesage ho uska cout aaega yha pr
-      //   }).length,
-      // });
-    }
-    return true;
-  };
+  // const compareMessageText = (id) => {
+  //   if (id === loginData?.credentials?.email) {
+  //   }
+  //   return true;
+  // };
 
   const onClickEmoji = (data) => {
     console.log(data)
@@ -143,7 +137,7 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
               }
               time={item?.time}
               lastMessage={
-                i === chatData?.read && compareMessageText(item?.sender)
+                i === chatData?.read
                   ? true
                   : false
               }

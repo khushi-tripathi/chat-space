@@ -17,7 +17,6 @@ const ChatComponent = () => {
   const userDetails = useSelector((state) => state.registeredUserDetails);
   const loginData = useSelector((state) => state.loginDetails)
   const uuidData = useSelector((state) => state.uuid?.uuidData);
-  // isGroupDataUpdated
   const groupDetails = useSelector((state) => state?.groupDetails);
   const tabData = useSelector((state) => state?.userTab?.tabData);
   const groupData = useSelector((state) => state?.groupDetails?.groupData);
@@ -36,7 +35,6 @@ const ChatComponent = () => {
   useEffect(() => {
     console.log(chatArray)
     dispatch(getUuid(loginData, flag, flag === true ? groupData : ''));
-    // dispatch(fetchGroupInfo(loginData?.credentials))
     setFlag(false)
   }, [Object.keys(chatArray)?.length]);
 
@@ -80,11 +78,9 @@ const ChatComponent = () => {
     <div className={mode === 'dark' ? "chat-screen chat-layout-dark" : "chat-screen chat-layout-light"}>
       <Tabs
         onChange={(key) => {
-          // console.log(event)
           setActiveTab(key)
         }}
         activeKey={activeTab}
-        // defaultActiveKey="0"
         tabPosition="left"
         items={
           userDetails?.isDisplaySelected

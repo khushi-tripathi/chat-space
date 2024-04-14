@@ -7,17 +7,7 @@ import CreateGroup from './CreateGroup';
 import EditGroup from './EditGroup';
 import DisplayGroupMemberList from './DisplayGroupMemberList';
 import "../styles/dropdown.scss"
-// Edit Profile  --- own 
-// Create Group
-// Delete Chat History
-// Set Status  --own 
-// Select Theme
-// Block this chat 
-// Logout
 
-
-// View Group member list 
-// MAke admin or by default creater is the only admin 
 export default function MoreOptions({ loginData, group, user, groupData, mode, setMode }) {
 
     const [modal, setModal] = useState({ createGroup: false, editGroup: false, showGroupMember: false });
@@ -54,10 +44,6 @@ export default function MoreOptions({ loginData, group, user, groupData, mode, s
     ];
 
     const [items, setItems] = useState(item);
-
-    // const [theme, setTheme] = useState('light');
-
-
 
     useEffect(() => {
 

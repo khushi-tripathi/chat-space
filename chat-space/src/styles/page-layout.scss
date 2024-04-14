@@ -53,8 +53,6 @@
         }
 
         .ant-tabs-content-holder {
-
-            // border-left: 1px solid $grey-color;
             .ant-tabs-content .ant-tabs-tabpane .ChatCard {
                 .ant-card-head {
                     background-color: $primary-light-11;
@@ -95,14 +93,7 @@
 
                             .left {
                                 color: black;
-                                // background-color: $primary-dark-7;
                                 background-color: #9abac6d4;
-
-
-
-
-
-
                             }
 
                             .right-time,
@@ -133,7 +124,6 @@
                             .inputBox {
                                 background-color: $primary-light-6;
                                 border-right: 1px solid $grey-color;
-                                // border-left: 1px solid $grey-color;
 
                                 input {
                                     border: none;
@@ -150,15 +140,6 @@
 
     }
 }
-
-// .chat-dark-profile {
-//     .name {
-
-//         color: black;
-//     }
-// }
-
-
 
 .chat-layout-dark {
     background-color: $primary-dark-1;
@@ -191,7 +172,6 @@
 
         .ant-tabs-content-holder {
 
-            // border-left: 1px solid $grey-color;
             .ant-tabs-content .ant-tabs-tabpane .ChatCard {
                 .ant-card-head {
                     background-color: $primary-dark-1;
@@ -226,17 +206,9 @@
 
                                 color: $white-grey;
                                 background-color: $primary-dark-1;
-
-
-                                // background-color: $primary-light-6;
-                                // color: black;
                             }
 
                             .left {
-
-                                // color: $white-grey;
-                                // background-color: $primary-dark-1;
-
                                 background-color: $primary-light-6;
                                 color: black;
 
@@ -244,7 +216,6 @@
                                     color: white !important;
                                 }
                             }
-
 
                             .right-time,
                             .left-time {
@@ -276,7 +247,6 @@
                             .inputBox {
                                 background-color: $primary-dark-1;
                                 border-right: 1px solid $grey-color;
-                                // border-left: 1px solid $grey-color;
 
                                 input {
                                     color: $white-grey;

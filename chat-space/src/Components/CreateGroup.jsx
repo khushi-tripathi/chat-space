@@ -46,7 +46,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
         var reader = new FileReader();
         reader?.readAsDataURL(file)
         reader.onload = () => {
-            // reader?.result // base64encoded string 
+            // reader?.result -- base64encoded string 
             setGroupDetails(reader.result, type)
         }
         reader.onerror = (error) => {
@@ -81,9 +81,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
         });
         dispatch(getUuid(loginDetails, true))
         console.log(group)
-        // setModal(false)
         setModal({ ...modal, createGroup: false })
-        //yha ab same uuid vaala code copy pase ya function call krege 
     }
 
     return (

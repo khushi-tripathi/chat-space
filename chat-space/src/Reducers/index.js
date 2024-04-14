@@ -15,6 +15,5 @@ const rootReducer = combineReducers({
   groupDetails,
   LightDarkMode,
   userTab,
-  // if there are other reducers , we can add here one by one
 });
 export default rootReducer;

@@ -56,13 +56,6 @@ const fetchGroupInfo = (loginData, existingGroupData) => {
           });
           dispatch(fetchExistingChat(groupData, 'fetchGroupInfo'))
         }
-
-
-        // const member = JSON.parse(response.data.data[0].group_member)
-        // if (member?.includes(loginData?.email))
-
-
-
       })
       .catch((error) => {
         console.error(error);
@@ -75,6 +68,9 @@ const fetchExistingChat = (data, functionCall = '') => {
     axios
       .post(process.env.REACT_APP_API_URL + EXISTING_CHAT, data)
       .then((response) => {
+
+        // Data format below : 
+
         // 1. chatArray: {
         //   own: [
         //     {
@@ -83,8 +79,6 @@ const fetchExistingChat = (data, functionCall = '') => {
         //     },
         //   ],
         // },  
-
-
 
         // response?.data?.data === data[]
         // idx :  [ { id: 1, uuid: '12', primary_user: 'KT@', chat: '"hi"' } ]
@@ -169,7 +163,7 @@ const editGroupInfo = (uuid, group_member, group_name, admin, group_picture) => 
         admin: admin || [],
         group_name,
         group_picture
-        // group_history : ''
+        // group_history : ''  --- will add in next version 
       })
       .then((response) => {
 

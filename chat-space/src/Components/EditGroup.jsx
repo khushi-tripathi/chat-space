@@ -45,7 +45,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
         var reader = new FileReader();
         reader?.readAsDataURL(file)
         reader.onload = () => {
-            // reader?.result // base64encoded string 
+            // reader?.result -- base64encoded string 
             setGroupDetails(reader.result, type)
         }
         reader.onerror = (error) => {
