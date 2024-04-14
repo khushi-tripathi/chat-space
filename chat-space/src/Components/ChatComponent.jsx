@@ -33,7 +33,6 @@ const ChatComponent = () => {
   }, []);
 
   useEffect(() => {
-    console.log(chatArray)
     dispatch(getUuid(loginData, flag, flag === true ? groupData : ''));
     setFlag(false)
   }, [Object.keys(chatArray)?.length]);

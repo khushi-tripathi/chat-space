@@ -34,7 +34,6 @@ export default function AppAdminModal({ setModal, modal }) {
 
 
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
         setAdminInfo({
             ...adminInfo,
             selectedTable: value

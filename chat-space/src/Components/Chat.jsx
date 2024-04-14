@@ -108,9 +108,6 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
   // };
 
   const onClickEmoji = (data) => {
-    console.log(data)
-    console.log(chatData)
-    console.log(inputRef?.current?.input?.value)
     setChatData({ ...chatData, newMessage: (inputRef?.current?.input?.value + data?.emoji) });
   }
   return (
@@ -123,7 +120,6 @@ export default function Chat({ currentUuid, otherUser, group, userDetails, group
           initialScrollBehavior="smooth"
           mode="bottom"
         >
-          {/* {console.log("Khushi : ", chatArray[currentUuid])} */}
           {currentUuid && chatArray[currentUuid]?.map((item, i) => (
             <ChatMessages
               item={item}

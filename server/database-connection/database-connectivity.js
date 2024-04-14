@@ -34,7 +34,6 @@ const addUserDetails = (data) => {
 
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("1 record inserted");
   });
 };
 
@@ -74,12 +73,10 @@ const getGroupInfo = (response) => {
 const getChatFromUuid = (request, response) => {
   let data = [];
   for (let i = 0; i < request?.length; i++) {
-    console.log("request : ", request[i])
     const uuid = request[i]?.uuid
     var sql = `SELECT * FROM  manage_chat WHERE uuid='${uuid}'`;
     con.query(sql, function (err, result, fields) {
       if (err) throw err;
-      console.log("chattt ; ", result)
       let finalData = result[0]
       finalData['chat'] = JSON.parse(finalData?.chat || '[]') || []
       data[i] = finalData;
@@ -93,8 +90,6 @@ const getChatFromUuid = (request, response) => {
 };
 
 const addNewChat = (request, response) => {
-  console.log(request)
-  console.log(request.primary_user)
   const chat = JSON?.stringify(request?.chat || {})
   var sql = `INSERT INTO manage_chat(uuid, primary_user, chat) VALUES('${request.uuid}', '${request.primary_user}', '${chat}')`;
   con.query(sql, function (err, result, fields) {
@@ -106,14 +101,12 @@ const addNewChat = (request, response) => {
 };
 
 const submitAdminInfo = (request, response) => {
-  console.log("request of submit admin info ", request?.tables)
 
   for (let i = 0; i < request?.tables?.length; i++) {
     const table = request?.tables[i]
     var sql = `DELETE FROM ${table}`;
     con.query(sql, function (err, result, fields) {
       if (err) throw err;
-      console.log("result :  ; ", result)
       if (i === request?.tables?.length - 1) {
         response.json({
           message: "Selected table data is deleted!! ",
@@ -124,8 +117,6 @@ const submitAdminInfo = (request, response) => {
 }
 
 const addNewGroup = (request, response) => {
-  console.log("Khushi : ", request)
-  console.log(request.primary_user)
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
@@ -139,8 +130,6 @@ const addNewGroup = (request, response) => {
 };
 
 const updateChat = (request, response) => {
-  console.log(request)
-  console.log(request.primary_user)
   const chat = JSON?.stringify(request?.chat || {})
   var sql = `UPDATE manage_chat SET chat='${chat}' WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
@@ -152,8 +141,6 @@ const updateChat = (request, response) => {
 };
 
 const updateGroupInfo = (request, response) => {
-  console.log(request)
-  console.log(request.primary_user)
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
@@ -167,8 +154,6 @@ const updateGroupInfo = (request, response) => {
 };
 
 const addUuid = (request, response) => {
-  console.log(request)
-  console.log(request.primary_user)
   var sql = `INSERT INTO uuid(uuid, primary_user, other_user , isGroup) VALUES('${request.uuid}', '${request.primary_user}', '${request.other_user}'  , '${request.isGroup}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;

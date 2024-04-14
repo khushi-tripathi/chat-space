@@ -71,7 +71,6 @@ export default function Login() {
     );
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   return (
     <>

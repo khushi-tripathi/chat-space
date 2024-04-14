@@ -17,7 +17,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
     const dispatch = useDispatch()
     const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [loginData?.email], firstMsg: '', groupAdmin: [loginData?.email], groupPic: '' })
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
             selectedEmailList: value
@@ -25,7 +24,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
     };
 
     const handleAdminChange = (value) => {
-        console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
             groupAdmin: value
@@ -50,7 +48,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
             setGroupDetails(reader.result, type)
         }
         reader.onerror = (error) => {
-            console.log("Error : ", error)
         }
     }
 
@@ -80,7 +77,6 @@ export default function ModalBox({ setModal, loginData, modal }) {
             }
         });
         dispatch(getUuid(loginDetails, true))
-        console.log(group)
         setModal({ ...modal, createGroup: false })
     }
 

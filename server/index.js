@@ -68,7 +68,6 @@ app.post("/api/existing-chat", async (req, res) => {
 });
 
 app.post("/api/submit-admin-data", async (req, res) => {
-  console.log("ktripathi : ")
   databaseFunctions.submitAdminInfo(req.body, res);
 });
 
@@ -93,7 +92,6 @@ app.post("/api/update-group-info", async (req, res) => {
 });
 
 app.post("/api/sign-up", async (req, res) => {
-  console.log("body", req.body)
   databaseFunctions.addUserDetails(req.body);
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);

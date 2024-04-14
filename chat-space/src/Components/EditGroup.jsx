@@ -16,7 +16,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
     const dispatch = useDispatch()
     const [group, setGroupInfo] = useState({ groupName: '', selectedEmailList: [], firstMsg: '', groupAdmin: [], groupPic: '' })
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
             selectedEmailList: value
@@ -24,7 +23,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
     };
 
     const handleAdminChange = (value) => {
-        console.log(`selected ${value}`);
         setGroupInfo({
             ...group,
             groupAdmin: value
@@ -49,7 +47,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
             setGroupDetails(reader.result, type)
         }
         reader.onerror = (error) => {
-            console.log("Error : ", error)
         }
     }
 

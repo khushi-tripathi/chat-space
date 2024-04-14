@@ -40,7 +40,6 @@ const Signup = () => {
       });
     }
     reader.onerror = (error) => {
-      console.log("Error : ", error)
     }
   }
 
@@ -104,7 +103,6 @@ const Signup = () => {
     });
   };
   const onFinish = (values) => {
-    console.log(redux);
     validationCheck(
       userDetails,
       userData,
@@ -114,7 +112,6 @@ const Signup = () => {
     );
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   const onChangePage = (type) => {

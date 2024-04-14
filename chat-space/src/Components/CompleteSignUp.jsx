@@ -19,7 +19,6 @@ export default function CompleteSignUp() {
         payload: { isDisplaySelected: false },
       });
     }
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   return (
