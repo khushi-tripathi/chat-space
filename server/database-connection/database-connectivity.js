@@ -67,9 +67,6 @@ const getGroupInfo = (response) => {
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     let res = JSON.parse(JSON.stringify(result || {}));
-    // let finalData = result[0]
-    // finalData['chat'] = JSON.parse(finalData?.chat)
-    // data[i] = finalData;
     response.json({
       data: res,
     });
@@ -81,8 +78,6 @@ const getGroupInfo = (response) => {
 
 const getChatFromUuid = (request, response) => {
   let data = [];
-  // console.log("uuuuuu", request?.length)
-
   for (let i = 0; i < request?.length; i++) {
     console.log("request : ", request[i])
     const uuid = request[i]?.uuid
@@ -133,8 +128,6 @@ const submitAdminInfo = (request, response) => {
       }
     })
   }
-  // delete jitne bhi table ke naam select hoke aae h 
-
 }
 
 const addNewGroup = (request, response) => {
@@ -144,7 +137,6 @@ const addNewGroup = (request, response) => {
   const admin = JSON?.stringify(request?.admin || {})
 
 
-  // var sql = "INSERT INTO group_chat (uuid, primary_user, group_member, admin) VALUES ('Company Inc', 'Highway 37', 'Khsuhi', 'yes' )"
   var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name , group_picture) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}' , '${request?.group_picture}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
@@ -185,7 +177,6 @@ const updateGroupInfo = (request, response) => {
 const addUuid = (request, response) => {
   console.log(request)
   console.log(request.primary_user)
-  // const chat = JSON?.stringify(request?.chat)
   var sql = `INSERT INTO uuid(uuid, primary_user, other_user , isGroup) VALUES('${request.uuid}', '${request.primary_user}', '${request.other_user}'  , '${request.isGroup}')`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;

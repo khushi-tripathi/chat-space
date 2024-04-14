@@ -36,11 +36,7 @@ const socketIO = require("socket.io")(http, {
 socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   console.log("Socket Connected");
-
-  // socket.emit("chat", { ...data, req: "global" });
   socket.on("chat", (data) => {
-    console.log("socket chat emit", data);
-    // socketIO.emit("chat", { ...data, req: "For Everyone" });
     socket.broadcast.emit("chat", { ...data });
   });
 
@@ -67,7 +63,6 @@ app.get("/api/get-group-info", async (req, res) => {
   databaseFunctions.getGroupInfo(res);
 })
 
-
 app.post("/api/existing-chat", async (req, res) => {
   databaseFunctions.getChatFromUuid(req.body, res);
 });
@@ -76,9 +71,6 @@ app.post("/api/submit-admin-data", async (req, res) => {
   console.log("ktripathi : ")
   databaseFunctions.submitAdminInfo(req.body, res);
 });
-
-
-// "submit-admin-data"
 
 app.post("/api/add-uuid", async (req, res) => {
   databaseFunctions.addUuid(req.body, res);
@@ -92,7 +84,6 @@ app.post("/api/add-new-group", async (req, res) => {
   databaseFunctions.addNewGroup(req.body, res);
 });
 
-
 app.post("/api/update-chat", async (req, res) => {
   databaseFunctions.updateChat(req.body, res);
 });
@@ -101,31 +92,13 @@ app.post("/api/update-group-info", async (req, res) => {
   databaseFunctions.updateGroupInfo(req.body, res);
 });
 
-
-
-
-
-
 app.post("/api/sign-up", async (req, res) => {
   console.log("body", req.body)
-  // console.log("file" , req.file) 
-  // let request = JSON.parse(req.body)
-  // request = {
-  //   ...request , 
-  //   profile : req.file?.filename
-  // }
   databaseFunctions.addUserDetails(req.body);
   const data = { message: "Data Saved Successfully!!" };
   res.json(data);
 });
-// app.post("/api/login", async (req, res) => {
-//   databaseFunctions.addUserDetails(req.body);
-//   const data = { message: "Data Saved Successfully!!" };
-//   res.json(data);
-// });
 
 http.listen(process.env.PORT, () => {
   console.log(`Server listening on ${process.env.PORT}`);
 });
-
-// console.log(databaseFunctions.add());
