@@ -92,7 +92,19 @@
                                         text-align: left;
                                     }
 
-                                    .time {
+                                    .left,
+                                    .right {
+                                        .name {
+                                            font-weight: 600 !important;
+                                            font-size: .8rem;
+                                            padding: 2px;
+                                            border-radius: 4px;
+                                            margin-bottom: 2%;
+                                        }
+                                    }
+
+                                    .left-time,
+                                    .right-time {
                                         padding-left: 0.5vmax;
                                         padding-right: 0.5vmax;
                                         margin-left: 0.5vmax;
@@ -104,6 +116,7 @@
                                         clear: both;
                                         background-color: transparent;
                                     }
+
                                 }
 
                                 .ant-row {

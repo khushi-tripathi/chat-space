@@ -161,18 +161,18 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                 />
 
 
-                {user?.group_picture?.length && (
+                {user?.group_picture?.length ? (
                     <h3>Current Group Profile Picture :</h3>
-                )}
+                ) : null}
 
-                {user?.group_picture?.length && (
+                {user?.group_picture?.length ? (
                     <Image
                         src={user?.group_picture}
                         preview={false}
                         about='Hello'
 
                     />
-                )}
+                ) : null}
 
 
                 <h3>Edit Group Profile Picture Here :</h3>

@@ -88,11 +88,35 @@
                             .right {
                                 background-color: $primary-light-11;
                                 color: black;
+
+
+
                             }
 
                             .left {
                                 color: black;
-                                background-color: $primary-dark-7;
+                                // background-color: $primary-dark-7;
+                                background-color: #9abac6d4;
+
+
+
+
+
+
+                            }
+
+                            .right-time,
+                            .left-time {
+                                color: black;
+                            }
+
+                            .right,
+                            .left {
+                                .name {
+
+                                    color: black;
+                                    background-color: #a2d5e9d1;
+                                }
                             }
 
                             .scroll-bar {
@@ -209,11 +233,33 @@
                             }
 
                             .left {
+
                                 // color: $white-grey;
                                 // background-color: $primary-dark-1;
 
                                 background-color: $primary-light-6;
                                 color: black;
+
+                                .time {
+                                    color: white !important;
+                                }
+                            }
+
+
+                            .right-time,
+                            .left-time {
+                                color: white;
+                            }
+
+                            .right,
+                            .left {
+                                .name {
+
+                                    color: white;
+
+                                    background-color: $primary-dark-5;
+
+                                }
                             }
 
                             .scroll-bar {

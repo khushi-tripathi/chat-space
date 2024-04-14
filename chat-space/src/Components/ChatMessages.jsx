@@ -1,3 +1,6 @@
+import "../styles/page-layout.scss"
+
+
 const ChatMessages = ({ key, message, classs, time, lastMessage, item, userDetails }) => {
   const getName = (email) => {
     const user = userDetails?.filter((item) => item.email === email)
@@ -12,11 +15,11 @@ const ChatMessages = ({ key, message, classs, time, lastMessage, item, userDetai
         <div className="newMessage">---------- new message ----------</div>
       )}
       <div className={`messageBox ${classs}`}>
-        <div className={''}>{getName(item?.email)}</div>
-        {classs === "left" ? (<br />) : null}
+        <div className={'name'}>{getName(item?.email)}</div>
+        {/* {classs === "left" ? (<br />) : null} */}
         {`${message}`}
       </div>
-      <div className={`${classs} time`}>{time}</div>
+      <div className={`${classs}-time`}>{time}</div>
     </div>
   );
 };

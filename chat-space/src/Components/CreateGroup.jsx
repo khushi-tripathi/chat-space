@@ -189,7 +189,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
                     }}
                 />
                 <h3>Add Your Group's First Message Here :</h3>
-                <Input onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
+                <Input placeholder='Enter first message of your group' onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
 
             </Row>
         </Modal>
