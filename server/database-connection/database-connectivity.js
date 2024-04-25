@@ -15,7 +15,7 @@ con.connect(function (err) {
 });
 
 const addUserDetails = (data) => {
-  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile , password , profile_image) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}'  , '${data.password}' , '${data.profile}')`;
+  var sql = `INSERT INTO user_details(first_name, last_name, email, mobile , password , profile_image , image_public_id) VALUES('${data.firstName}', '${data.lastName}', '${data.email}' , '${data.mobile}'  , '${data.password}' , '${data.profile}' , '${data.image_public_id}')`;
 
   //BOTH ARE CORRECT. WE CAN USE ANY OF THEM.
 
@@ -120,7 +120,7 @@ const addNewGroup = (request, response) => {
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
-  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name , group_picture) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}' , '${request?.group_picture}')`;
+  var sql = `INSERT INTO group_chat(uuid, primary_user, group_member, admin , group_name , group_picture , image_public_id) VALUES('${request.uuid}', '${request.primary_user}', '${group_member}', '${admin}' , '${request.group_name}' , '${request?.group_picture}' , '${request?.image_public_id}' )`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({
@@ -144,7 +144,7 @@ const updateGroupInfo = (request, response) => {
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
-  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}', group_picture='${request?.group_picture}'  WHERE uuid='${request?.uuid}'`;
+  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}', group_picture='${request?.group_picture} , image_public_id='${request?.image_public_id} '  WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({

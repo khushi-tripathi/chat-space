@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/sign-up.scss";
-import { Button, Form, Input, Spin } from "antd";
+import { Button, Form, Input, Spin, message, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
@@ -27,18 +27,14 @@ const Signup = () => {
     profile: ''
   });
 
-  const getImage = (type, file) => {
-    var reader = new FileReader();
-    reader?.readAsDataURL(file)
-    reader.onload = () => {
-      setUserData({
-        ...userData,
-        [type]: reader.result,
-      });
-    }
-    reader.onerror = (error) => {
-    }
-  }
+  const [api, contextHolder] = notification.useNotification();
+  const openNotificationWithIcon = (type) => {
+    api[type]({
+      message: 'Unable to upload data to server',
+      description:
+        'Profile photo is not uploaded to server. Kindly try again!',
+    });
+  };
 
   const onChangeData = (type, value) => {
     if (type === "email") {
@@ -76,21 +72,28 @@ const Signup = () => {
     axios
       .post(process.env.REACT_APP_API_URL + SIGN_UP, formdata)
       .then((response) => {
-        dispatch(
-          {
-            type: SET_LOGIN_CREDENTIALS,
-            payload: {
-              first_name: userData?.firstName,
-              last_name: userData?.lastName,
-              name: userData?.firstName + " " + userData?.lastName,
-              email: userData?.email,
-              password: userData?.password,
-              mobile: userData?.mobile,
-              profile_image: userData?.profile
+        if (!response?.data?.error) {
+          message.success("Welcome " + userData?.firstName + "!! ");
+          dispatch(
+            {
+              type: SET_LOGIN_CREDENTIALS,
+              payload: {
+                first_name: userData?.firstName,
+                last_name: userData?.lastName,
+                name: userData?.firstName + " " + userData?.lastName,
+                email: userData?.email,
+                password: userData?.password,
+                mobile: userData?.mobile,
+                profile_image: response?.data?.image || undefined
+              },
             },
-          },
-          // navigate("/register-in-space")
-        );
+            navigate("/register-in-space")
+          );
+        } else {
+          setLoading(false)
+          openNotificationWithIcon('error')
+        }
+
       })
       .catch((error) => {
         console.error(error);
@@ -110,7 +113,7 @@ const Signup = () => {
     });
   };
   const onFinish = (values) => {
-    // setLoading(true)
+    setLoading(true)
     validationCheck(
       userDetails,
       userData,
@@ -124,6 +127,7 @@ const Signup = () => {
 
   return (
     <>
+      {contextHolder}
       <Spin spinning={loading}>
         <div className="sign-up page-layout">
           <div className="sign-up-content box-layout">

@@ -33,18 +33,6 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
         })
     }
 
-    const getImage = (type, file) => {
-        //convert to Base64
-        var reader = new FileReader();
-        reader?.readAsDataURL(file)
-        reader.onload = () => {
-            // reader?.result -- base64encoded string 
-            setGroupDetails(reader.result, type)
-        }
-        reader.onerror = (error) => {
-        }
-    }
-
     const updateGroupInfo = () => {
         const group_picture = group?.groupPic?.length ? group?.groupPic : user?.group_picture
         const selectedEmailList = group?.selectedEmailList?.length ? group?.selectedEmailList : user?.group_member
@@ -166,7 +154,7 @@ export default function EditGroup({ setModal, loginData, modal, user, groupData 
                     type="file"
                     className="sign-up-input"
                     onChange={(event) => {
-                        getImage("groupPic", event?.target?.files[0]);
+                        setGroupDetails(event?.target?.files[0], "groupPic");
                     }}
                 />
             </Row>

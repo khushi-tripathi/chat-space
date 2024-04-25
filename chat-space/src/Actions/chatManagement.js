@@ -132,19 +132,26 @@ const updateChatData = (chat, uuid, primary_user) => {
   };
 }
 
-const addNewGroup = (uuid, primary_user, group_member, group_name, admin, group_picture) => {
+const addNewGroup = (uuid, primary_user, group_member, group_name, admin, group_picture, setLoading) => {
   return function (dispatch) {
+    const formdata = new FormData();
+    formdata.append('image', group_picture)
+    formdata.append('userData', JSON.stringify({
+      uuid,
+      primary_user,
+      group_member: group_member || [],
+      admin: admin || [],
+      group_name,
+      // group_history : ''
+    }))
     axios
-      .post(process.env.REACT_APP_API_URL + ADD_NEW_GROUP, {
-        uuid,
-        primary_user,
-        group_member: group_member || [],
-        admin: admin || [],
-        group_name,
-        group_picture,
-        // group_history : ''
-      })
+      .post(process.env.REACT_APP_API_URL + ADD_NEW_GROUP, formdata)
       .then((response) => {
+        if (!response.data.error) {
+          setLoading(true)
+        } else {
+          setLoading(false)
+        }
 
       })
       .catch((error) => {

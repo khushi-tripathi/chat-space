@@ -19,6 +19,24 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const deleteFromCloudinary = async (id) => {
+    try {
+
+        console.log("DElete process start : ")
+        const response = await cloudinary.uploader.destroy(id, {
+            resource_type: "auto",
+            timeout: 120000,
+        })
+
+        // result :  { result: 'ok' }
+        // result :  { result: 'not found' }
+        console.log("Deleted")
+        console.log("result : ", response)
+    } catch (error) {
+
+    }
+}
+
 const uploadOnCloudinary = async (localFilePath) => {
     try {
         let returnResult;
@@ -40,10 +58,18 @@ const uploadOnCloudinary = async (localFilePath) => {
             resource_type: "auto",
             timeout: 120000,
         })
-        console.log("result : ", response?.url)
+        console.log("result : ", response)
+
+        // setTimeout(() => {
+        //     console.log("timeout ::: ")
+        //     deleteFromCloudinary()
+        // }, 5000);
 
         if (response?.url?.length) {
-            returnResult = response.url
+            returnResult = {
+                url: response.url,
+                public_id: response.public_id
+            }
         }
         fs.unlinkSync(localFilePath)
         return returnResult;
@@ -51,7 +77,7 @@ const uploadOnCloudinary = async (localFilePath) => {
     } catch (error) {
         fs.unlinkSync(localFilePath) // remove the locally saved temporary file as the upload operation got failed
         console.log("catch : ", error)
-        return null;
+        return undefined;
     }
 }
 module.exports.uploadOnCloudinary = uploadOnCloudinary;

@@ -8,8 +8,18 @@ const http = require("http").Server(app);
 const cors = require("cors");
 const { cloudinary, uploadOnCloudinary } = require("./utils/cloudinary.js");
 const fs = require("fs");
-// const cloudinary = require("./utils/cloudinary");
 app.use(body.json({ limit: '50mb' }));
+
+//jha sign upp ke baad photos dikharhe h vha direct url daalna h photo ka 
+//group create krte time bhi same cheez keni h 
+//group edit ke time bhi same cheez krnge 
+//delete krna seekhenge cloudinary me 
+// jb table se data htega tb delete hogi and jb edit krenge tb bhi delete krke new vaali  lenge agr update hui hoto 
+
+// then overall check krna h flow backend and frontnend ka 
+// then deploy properly 
+
+// today chat-space should be completed with correct deployment 
 
 app.use(cors());
 
@@ -35,6 +45,27 @@ const socketIO = require("socket.io")(http, {
     origin: process.env.CORE_ORIGIN,
   },
 });
+
+const fetchImageUrl = async (imageLocalPath, res) => {
+  if (!imageLocalPath) {
+    throw new Error(400, "image file is required")
+  } else {
+    try {
+      console.log("ELsee")
+      const imgData = await uploadOnCloudinary(imageLocalPath)
+      if (imgData === undefined) {
+        res.json({ error: true });
+      } else {
+        console.log("return")
+        return imgData
+      }
+    } catch (error) {
+      console.log("Catch : ", error)
+      res.json({ error: true, serverError: error });
+    }
+
+  }
+}
 
 socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
@@ -82,8 +113,20 @@ app.post("/api/add-new-chat", async (req, res) => {
   databaseFunctions.addNewChat(req.body, res);
 });
 
-app.post("/api/add-new-group", async (req, res) => {
-  databaseFunctions.addNewGroup(req.body, res);
+app.post("/api/add-new-group", upload.single("image"), async (req, res) => {
+  const img = await fetchImageUrl(req.file?.path, res)
+  if (img?.url?.length) {
+    let request = JSON.parse(req.body?.userData)
+    request = {
+      ...request,
+      group_picture: img?.url,
+      image_public_id: img?.public_id
+    }
+    console.log("Request ::: ", request)
+    databaseFunctions.addNewGroup(request, res);
+    // const data = { message: "Group Created Successfully!!", image: img?.url };
+    // res.json(data);
+  }
 });
 
 app.post("/api/update-chat", async (req, res) => {
@@ -95,71 +138,23 @@ app.post("/api/update-group-info", async (req, res) => {
 });
 
 app.post("/api/sign-up", upload.single("image"), async (req, res) => {
-  const imageLocalPath = req.file?.path;
-  console.log(req.file)
-  if (!imageLocalPath) {
-    throw new Error(400, "image file is required")
-  } else {
-    const url = await uploadOnCloudinary(imageLocalPath)
-    if (url === undefined) {
-      res.json({ error: true });
-    } else {
-
-      let request = JSON.parse(req.body?.userData)
-      request = {
-        ...request,
-        profile: url
-      }
-      databaseFunctions.addUserDetails(request);
-      const data = { message: "Data Saved Successfully!!" };
-      res.json(data);
+  const img = await fetchImageUrl(req.file?.path, res)
+  if (img?.url?.length) {
+    let request = JSON.parse(req.body?.userData)
+    console.log("Request below")
+    request = {
+      ...request,
+      profile: img?.url,
+      image_public_id: img?.public_id
     }
-    console.log("URLLL : ", url)
+    console.log("Above below")
 
+    databaseFunctions.addUserDetails(request);
+    const data = { message: "Data Saved Successfully!!", image: img?.url };
+    console.log("LAST")
+    res.json(data);
   }
-
-  // console.log("uploaded : ", response)
-
-  //   // const image =
-  //   //     await cloudinary?.uploadOnCloudinary(imageLocalPath)
-
-  //     let request = JSON.parse(req.body?.userData)
-  //     request = {
-  //       ...request,
-  //       profile: image?.url
-  //     }
-  // res.json(data);
-
 });
-
-// app.post("/api/sign-up", upload?.single("image"), async (req, res) => {
-//   const imageLocalPath = req.file?.path;
-//   console.log("file", req.file)
-//   console.log("imageLocalPath", imageLocalPath)
-
-//   if (!imageLocalPath) {
-//     throw new Error(400, "image file is required")
-//   }
-
-//   // if (!imageLocalPath) return null
-
-//   let image;
-
-//   // setTimeout(async () => {
-//     image =
-//       await cloudinary?.uploadOnCloudinary(imageLocalPath)
-
-//     let request = JSON.parse(req.body?.userData)
-//     request = {
-//       ...request,
-//       profile: image?.url
-//     }
-//     // databaseFunctions.addUserDetails(request);
-//     const data = { message: "Data Saved Successfully!!" };
-//     res.json(data);
-//   // }, 500);
-
-// });
 
 http.listen(process.env.PORT, () => {
   console.log(`Server listening on ${process.env.PORT}`);
