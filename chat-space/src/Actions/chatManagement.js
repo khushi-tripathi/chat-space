@@ -160,19 +160,27 @@ const addNewGroup = (uuid, primary_user, group_member, group_name, admin, group_
   };
 }
 
-const editGroupInfo = (uuid, group_member, group_name, admin, group_picture) => {
+const editGroupInfo = (uuid, group_member, group_name, admin, group_picture, setLoading) => {
   return function (dispatch) {
-    axios
-      .post(process.env.REACT_APP_API_URL + UPDATE_GROUP_INFO, {
-        uuid,
-        group_member: group_member || [],
-        admin: admin || [],
-        group_name,
-        group_picture
-        // group_history : ''  --- will add in next version 
-      })
-      .then((response) => {
+    const formdata = new FormData();
+    formdata.append('image', group_picture)
+    formdata.append('userData', JSON.stringify({
+      uuid,
+      group_member: group_member || [],
+      admin: admin || [],
+      group_name,
+      group_picture
+      // group_history : ''  --- will add in next version 
+    }))
 
+    axios
+      .post(process.env.REACT_APP_API_URL + UPDATE_GROUP_INFO, formdata)
+      .then((response) => {
+        if (!response.data.error) {
+          setLoading(true)
+        } else {
+          setLoading(false)
+        }
       })
       .catch((error) => {
         console.error(error);

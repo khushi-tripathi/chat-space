@@ -1,5 +1,5 @@
 var mysql = require("mysql2");
-
+const { deleteFromCloudinary } = require("../utils/cloudinary.js");
 require('dotenv').config()
 
 var con = mysql.createConnection({
@@ -37,15 +37,28 @@ const addUserDetails = (data) => {
   });
 };
 
-const fetchUserDetails = (response) => {
+const fetchUserDetails = async (response = '') => {
   var sql = `SELECT * FROM user_details`;
-  con.query(sql, function (err, result, fields) {
+  console.log("1")
+  //yha pr issue h
+  con.query(sql, async function (err, result, fields) {
     if (err) throw err;
-    let res = JSON.parse(JSON.stringify(result || {}));
-    response.json({
-      data: res,
-    });
+    console.log("2")
+    let res = await JSON.parse(JSON.stringify(result || {}));
+    console.log("3")
+    if (typeof (response) !== 'string') {
+      console.log("4")
+      response.json({
+        data: res,
+      });
+    } else {
+
+      console.log("else part 5")
+      return res;
+    }
   });
+  console.log("6")
+
 };
 
 const getUuid = (response) => {
@@ -59,14 +72,19 @@ const getUuid = (response) => {
   });
 };
 
-const getGroupInfo = (response) => {
+const getGroupInfo = async (response = '') => {
   var sql = `SELECT * FROM group_chat`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     let res = JSON.parse(JSON.stringify(result || {}));
-    response.json({
-      data: res,
-    });
+    if (typeof (response) !== 'string') {
+
+      response.json({
+        data: res,
+      });
+    } else {
+      return res;
+    }
   });
 };
 
@@ -100,20 +118,53 @@ const addNewChat = (request, response) => {
   });
 };
 
-const submitAdminInfo = (request, response) => {
+const removeImagesFromCloudinary = async (table) => {
+
+  let data;
+  if (table === 'user_details') {
+    data = await fetchUserDetails()
+    console.log("KTKTKT : ", data)
+    return data
+  } else {
+    data = await getGroupInfo()
+    console.log("KTKTKT : ", data)
+    return data
+  }
+
+  // deleteFromCloudinary
+}
+
+const submitAdminInfo = async (request, response) => {
 
   for (let i = 0; i < request?.tables?.length; i++) {
     const table = request?.tables[i]
-    var sql = `DELETE FROM ${table}`;
-    con.query(sql, function (err, result, fields) {
-      if (err) throw err;
-      if (i === request?.tables?.length - 1) {
-        response.json({
-          message: "Selected table data is deleted!! ",
-        });
-      }
-    })
+    // var sql = `DELETE FROM ${table}`;
+
+    // do {
+    console.log(table)
+    const a = await removeImagesFromCloudinary(table)
+    console.log("after await")
+    if (table === 'user_details' || table === 'group_chat') {
+      await removeImagesFromCloudinary(table)
+      console.log("inside if")
+    }
+
+    // } while (condition);
+    // con.query(sql, function (err, result, fields) {
+    //   if (err) throw err;
+    if (i === request?.tables?.length - 1) {
+      console.log("Giving response")
+
+      response.json({
+        message: "Selected table data is deleted!! ",
+      });
+    }
+    // })
   }
+  // response.json({
+  //   message: "Selected table data is deleted!! ",
+  // });
+
 }
 
 const addNewGroup = (request, response) => {
@@ -144,7 +195,7 @@ const updateGroupInfo = (request, response) => {
   const group_member = JSON?.stringify(request?.group_member || {})
   const admin = JSON?.stringify(request?.admin || {})
 
-  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}', group_picture='${request?.group_picture} , image_public_id='${request?.image_public_id} '  WHERE uuid='${request?.uuid}'`;
+  var sql = `UPDATE group_chat SET group_member='${group_member}', admin='${admin}', group_name='${request?.group_name}', group_picture='${request?.group_picture}', image_public_id='${request?.image_public_id}'  WHERE uuid='${request?.uuid}'`;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     response.json({

@@ -124,8 +124,6 @@ app.post("/api/add-new-group", upload.single("image"), async (req, res) => {
     }
     console.log("Request ::: ", request)
     databaseFunctions.addNewGroup(request, res);
-    // const data = { message: "Group Created Successfully!!", image: img?.url };
-    // res.json(data);
   }
 });
 
@@ -133,8 +131,19 @@ app.post("/api/update-chat", async (req, res) => {
   databaseFunctions.updateChat(req.body, res);
 });
 
-app.post("/api/update-group-info", async (req, res) => {
-  databaseFunctions.updateGroupInfo(req.body, res);
+app.post("/api/update-group-info", upload.single("image"), async (req, res) => {
+
+  const img = await fetchImageUrl(req.file?.path, res)
+  if (img?.url?.length) {
+    let request = JSON.parse(req.body?.userData)
+    request = {
+      ...request,
+      group_picture: img?.url,
+      image_public_id: img?.public_id
+    }
+    console.log("Request ::: ", request)
+    databaseFunctions.updateGroupInfo(request, res);
+  }
 });
 
 app.post("/api/sign-up", upload.single("image"), async (req, res) => {

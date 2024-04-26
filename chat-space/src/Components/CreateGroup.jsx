@@ -1,6 +1,6 @@
 import { Button, Input, Modal, Row, Spin, notification } from 'antd'
 import React, { useState } from 'react'
-import { Select, Space, Image } from 'antd';
+import { Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addUuid } from '../Actions/uuid';
@@ -41,7 +41,7 @@ export default function ModalBox({ setModal, loginData, modal }) {
     const setLoadingStatus = (value) => {
         setLoading(value)
         if (value === false) {
-            notification.error("Error in uploading error")
+            notification.error({ message: "Error in uploading error" })
         } else {
             dispatch(getUuid(loginDetails, true))
             setModal({ ...modal, createGroup: false })
@@ -79,110 +79,113 @@ export default function ModalBox({ setModal, loginData, modal }) {
 
     return (
 
-        <Modal
-            className='chat-modal'
-            title={(<h2>Create Group</h2>)}
-            centered
-            open={true}
-            onCancel={() => setModal({ ...modal, createGroup: false })}
-            footer={(_, { CancelBtn }) => (
-                <>
-                    <Button onClick={createGroup}>Create Group</Button>
-                    <CancelBtn />
-                </>
-            )}
-        >
-            <Spin spinning={loading}>
-                <Row className='chat-modal-content'>
-                    <h3>Enter Group Name :</h3>
-                    <Input placeholder="Enter group name" onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
-                    <h3>Select Group Member :</h3>
-                    <Select
-                        mode="multiple"
-                        style={{
-                            width: '100%',
-                        }}
-                        placeholder="select group member"
-                        defaultValue={[loginData?.email]}
-                        onChange={handleChange}
-                        optionLabelProp="label"
-                        options={
-                            userDetails?.isDisplaySelected
-                                ? userDetails?.userDetails?.map((user, i) => {
-                                    const id = String(i);
-                                    return {
-                                        label: user?.first_name + " " + user?.last_name,
-                                        value: user?.email,
-                                        key: id,
-                                    };
-                                })
-                                : [
-                                    {
-                                        label: 'No one is there',
-                                        value: 'No one is there',
-                                        key: "0",
-                                    },
-                                ]
-                        }
-                        optionRender={(option) => (
-                            <Space>
-                                <span role="img" aria-label={option.data.label}>
-                                    {/* {option.data.value} */}
-                                </span>
-                                {option.data.label}
-                            </Space>
-                        )}
-                    />
-                    <h3>Select Group Admin :</h3>
-                    <Select
-                        mode="multiple"
-                        style={{
-                            width: '100%',
-                        }}
-                        placeholder="select group admin"
-                        defaultValue={[loginData?.email]}
-                        onChange={handleAdminChange}
-                        optionLabelProp="label"
-                        options={
-                            userDetails?.isDisplaySelected
-                                ? userDetails?.userDetails?.map((user, i) => {
-                                    const id = String(i);
-                                    return {
-                                        label: user?.first_name + " " + user?.last_name,
-                                        value: user?.email,
-                                        key: id,
-                                    };
-                                })
-                                : [
-                                    {
-                                        label: 'No one is there',
-                                        value: 'No one is there',
-                                        key: "0",
-                                    },
-                                ]
-                        }
-                        optionRender={(option) => (
-                            <Space>
-                                <span role="img" aria-label={option.data.label}>
-                                    {/* {option.data.value} */}
-                                </span>
-                                {option.data.label}
-                            </Space>
-                        )}
-                    />
-                    <h3>Select Group Profile Picture :</h3>
-                    <input
-                        type="file"
-                        className="sign-up-input"
-                        onChange={(event) => {
-                            setGroupDetails(event?.target?.files[0], "groupPic");
-                        }}
-                    />
-                    <h3>Add Your Group's First Message Here :</h3>
-                    <Input placeholder='Enter first message of your group' onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
-                </Row>
-            </Spin>
-        </Modal>
+        <div disa className='khuhsi'>
+            <Modal
+                cancelButtonProps={{ disabled: loading }}
+                className='chat-modal'
+                title={(<h2>Create Group</h2>)}
+                centered
+                open={true}
+                onCancel={() => setModal({ ...modal, createGroup: false })}
+                footer={(_, { CancelBtn }) => (
+                    <>
+                        <Button disabled={loading} onClick={createGroup}>Create Group</Button>
+                        <CancelBtn disabled={loading} />
+                    </>
+                )}
+            >
+                <Spin spinning={loading}>
+                    <Row className='chat-modal-content'>
+                        <h3>Enter Group Name :</h3>
+                        <Input placeholder="Enter group name" onChange={(event) => { setGroupDetails(event.target.value, 'groupName') }} />
+                        <h3>Select Group Member :</h3>
+                        <Select
+                            mode="multiple"
+                            style={{
+                                width: '100%',
+                            }}
+                            placeholder="select group member"
+                            defaultValue={[loginData?.email]}
+                            onChange={handleChange}
+                            optionLabelProp="label"
+                            options={
+                                userDetails?.isDisplaySelected
+                                    ? userDetails?.userDetails?.map((user, i) => {
+                                        const id = String(i);
+                                        return {
+                                            label: user?.first_name + " " + user?.last_name,
+                                            value: user?.email,
+                                            key: id,
+                                        };
+                                    })
+                                    : [
+                                        {
+                                            label: 'No one is there',
+                                            value: 'No one is there',
+                                            key: "0",
+                                        },
+                                    ]
+                            }
+                            optionRender={(option) => (
+                                <Space>
+                                    <span role="img" aria-label={option.data.label}>
+                                        {/* {option.data.value} */}
+                                    </span>
+                                    {option.data.label}
+                                </Space>
+                            )}
+                        />
+                        <h3>Select Group Admin :</h3>
+                        <Select
+                            mode="multiple"
+                            style={{
+                                width: '100%',
+                            }}
+                            placeholder="select group admin"
+                            defaultValue={[loginData?.email]}
+                            onChange={handleAdminChange}
+                            optionLabelProp="label"
+                            options={
+                                userDetails?.isDisplaySelected
+                                    ? userDetails?.userDetails?.map((user, i) => {
+                                        const id = String(i);
+                                        return {
+                                            label: user?.first_name + " " + user?.last_name,
+                                            value: user?.email,
+                                            key: id,
+                                        };
+                                    })
+                                    : [
+                                        {
+                                            label: 'No one is there',
+                                            value: 'No one is there',
+                                            key: "0",
+                                        },
+                                    ]
+                            }
+                            optionRender={(option) => (
+                                <Space>
+                                    <span role="img" aria-label={option.data.label}>
+                                        {/* {option.data.value} */}
+                                    </span>
+                                    {option.data.label}
+                                </Space>
+                            )}
+                        />
+                        <h3>Select Group Profile Picture :</h3>
+                        <input
+                            type="file"
+                            className="sign-up-input"
+                            onChange={(event) => {
+                                setGroupDetails(event?.target?.files[0], "groupPic");
+                            }}
+                        />
+                        <h3>Add Your Group's First Message Here :</h3>
+                        <Input placeholder='Enter first message of your group' onChange={(event) => { setGroupDetails(event.target.value, 'firstMsg') }} />
+                    </Row>
+                </Spin>
+            </Modal>
+        </div>
 
     )
 }

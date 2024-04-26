@@ -82,3 +82,5 @@ const uploadOnCloudinary = async (localFilePath) => {
 }
 module.exports.uploadOnCloudinary = uploadOnCloudinary;
 module.exports.cloudinary = cloudinary;
+module.exports.deleteFromCloudinary = deleteFromCloudinary;
+
