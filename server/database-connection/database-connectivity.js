@@ -37,27 +37,31 @@ const addUserDetails = (data) => {
   });
 };
 
-const fetchUserDetails = async (response = '') => {
-  var sql = `SELECT * FROM user_details`;
-  console.log("1")
-  //yha pr issue h
-  con.query(sql, async function (err, result, fields) {
-    if (err) throw err;
-    console.log("2")
-    let res = await JSON.parse(JSON.stringify(result || {}));
-    console.log("3")
-    if (typeof (response) !== 'string') {
-      console.log("4")
-      response.json({
-        data: res,
-      });
-    } else {
+const fetchUserDetails = (response = '') => {
+  return new Promise((resolve, reject) => {
+    var sql = `SELECT * FROM user_details`;
+    console.log("1")
+    //yha pr issue h
+    con.query(sql, async function (err, result, fields) {
+      if (err) throw err;
+      console.log("2")
+      let res = await JSON.parse(JSON.stringify(result || {}));
+      console.log("3")
+      if (typeof (response) !== 'string') {
+        console.log("4")
+        response.json({
+          data: res,
+        });
+        resolve()
+      } else {
 
-      console.log("else part 5")
-      return res;
-    }
-  });
-  console.log("6")
+        console.log("else part 5")
+        // return res;
+        resolve(res)
+      }
+      console.log("6")
+    });
+  })
 
 };
 
@@ -73,19 +77,22 @@ const getUuid = (response) => {
 };
 
 const getGroupInfo = async (response = '') => {
-  var sql = `SELECT * FROM group_chat`;
-  con.query(sql, function (err, result, fields) {
-    if (err) throw err;
-    let res = JSON.parse(JSON.stringify(result || {}));
-    if (typeof (response) !== 'string') {
+  return new Promise((resolve, reject) => {
+    var sql = `SELECT * FROM group_chat`;
+    con.query(sql, function (err, result, fields) {
+      if (err) throw err;
+      let res = JSON.parse(JSON.stringify(result || {}));
+      if (typeof (response) !== 'string') {
 
-      response.json({
-        data: res,
-      });
-    } else {
-      return res;
-    }
-  });
+        response.json({
+          data: res,
+        });
+        resolve()
+      } else {
+        resolve(res);
+      }
+    });
+  })
 };
 
 const getChatFromUuid = (request, response) => {
@@ -119,30 +126,32 @@ const addNewChat = (request, response) => {
 };
 
 const removeImagesFromCloudinary = async (table) => {
-
-  let data;
+  let data = [];
   if (table === 'user_details') {
     data = await fetchUserDetails()
-    console.log("KTKTKT : ", data)
-    return data
-  } else {
+  } else if (table === 'group_chat') {
     data = await getGroupInfo()
-    console.log("KTKTKT : ", data)
-    return data
   }
-
-  // deleteFromCloudinary
+  data?.map(async (item, idx) => {
+    console.log(item?.image_public_id)
+    const res = await deleteFromCloudinary(item?.image_public_id)
+    // if res is false that means after five attempt, profile still not get deleted. so handling that we can make one of the table and move image id there so that we have record that how many files are not in use and still belongs to cloudinary.
+    console.log("resss : ", res)
+    if (idx === data.length - 1) {
+      console.log("this is last index", item, data?.length)
+      return true
+    }
+  })
 }
 
 const submitAdminInfo = async (request, response) => {
 
   for (let i = 0; i < request?.tables?.length; i++) {
     const table = request?.tables[i]
-    // var sql = `DELETE FROM ${table}`;
+    var sql = `DELETE FROM ${table}`;
 
     // do {
     console.log(table)
-    const a = await removeImagesFromCloudinary(table)
     console.log("after await")
     if (table === 'user_details' || table === 'group_chat') {
       await removeImagesFromCloudinary(table)
@@ -150,16 +159,15 @@ const submitAdminInfo = async (request, response) => {
     }
 
     // } while (condition);
-    // con.query(sql, function (err, result, fields) {
-    //   if (err) throw err;
-    if (i === request?.tables?.length - 1) {
-      console.log("Giving response")
-
-      response.json({
-        message: "Selected table data is deleted!! ",
-      });
-    }
-    // })
+    con.query(sql, function (err, result, fields) {
+      if (err) throw err;
+      if (i === request?.tables?.length - 1) {
+        console.log("Giving response")
+        response.json({
+          message: "Selected table data is deleted!! ",
+        });
+      }
+    })
   }
   // response.json({
   //   message: "Selected table data is deleted!! ",

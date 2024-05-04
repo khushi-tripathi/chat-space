@@ -19,22 +19,34 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const deleteFromCloudinary = async (id) => {
-    try {
+const deleteFromCloudinary = async (id, num = 1) => {
+    return new Promise(async (resolve, reject) => {
+        try {
 
-        console.log("DElete process start : ")
-        const response = await cloudinary.uploader.destroy(id, {
-            resource_type: "auto",
-            timeout: 120000,
-        })
+            let res = true;
+            console.log("DElete process start : ")
+            const response = await cloudinary.uploader.destroy(id, {
+                resource_type: "auto",
+                timeout: 120000,
+            })
+            // const response = { result: 'ok' }
 
-        // result :  { result: 'ok' }
-        // result :  { result: 'not found' }
-        console.log("Deleted")
-        console.log("result : ", response)
-    } catch (error) {
+            // result :  { result: 'ok' }
+            // result :  { result: 'not found' }
+            console.log("Deleted")
+            console.log("result : ", response)
+            if (response?.result !== 'ok' && num <= 5) {
+                res = deleteFromCloudinary(id, num + 1)
+            } else if (num > 5) {
+                resolve(false);
+            } else resolve(true)
 
-    }
+            console.log("Checking  : ", num)
+            resolve(res)
+        } catch (error) {
+            reject(error)
+        }
+    })
 }
 
 const uploadOnCloudinary = async (localFilePath) => {
@@ -83,4 +95,3 @@ const uploadOnCloudinary = async (localFilePath) => {
 module.exports.uploadOnCloudinary = uploadOnCloudinary;
 module.exports.cloudinary = cloudinary;
 module.exports.deleteFromCloudinary = deleteFromCloudinary;
-

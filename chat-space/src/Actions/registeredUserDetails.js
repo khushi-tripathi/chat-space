@@ -20,13 +20,18 @@ const registeredUserDetails = () => {
   };
 };
 
-const submitAdminData = (tables) => {
+const submitAdminData = (tables, setLoading) => {
   return function (dispatch) {
     axios
       .post(process.env.REACT_APP_API_URL + SUBMIT_ADMIN_DATA, {
         tables
       })
       .then((response) => {
+        if (!response?.data?.error) {
+          setLoading(true)
+        } else {
+          setLoading(false)
+        }
       })
       .catch((error) => {
         console.error(error);
