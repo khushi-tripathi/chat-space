@@ -8,7 +8,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //react strick mode fire twice every event for debugging purpose in dev but not in prod
   // <React.StrictMode>
-  <App />
+  <div id='root-div'>
+    <App />
+  </div>
   // </React.StrictMode>
 );
 
